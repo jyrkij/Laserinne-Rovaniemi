@@ -42,7 +42,7 @@ public class SnakeRun extends PApplet {
         hint(ENABLE_OPENGL_4X_SMOOTH);
         hint(ENABLE_NATIVE_FONTS);
         hint(ENABLE_DEPTH_SORT);
-        frameRate(-1);
+        frameRate(-1); // Use maximum frame rate.
         laser = new Laserschein(this);//, Laserschein.EASYLASEUSB2);
         
         smooth();
@@ -53,13 +53,18 @@ public class SnakeRun extends PApplet {
         colorMode(RGB);
         stroke(255, 255, 255);
         
+        // Create the snakes
         leftSnake = new Mover(width / 4, 0, this);
         leftSnake.addFollowers(10);
         rightSnake = new Mover(width * 3 / 4, 0, this);
         rightSnake.addFollowers(20);
+        
+        // Create paths
         leftPoints = new ArrayList<PVector>();
         rightPoints = new ArrayList<PVector>();
         generatePaths();
+        
+        // Assign paths to snakes
         leftSnake.targets(leftPoints);
         rightSnake.targets(rightPoints);
     }
@@ -95,6 +100,7 @@ public class SnakeRun extends PApplet {
             
             endRaw();
         } else {
+            // Draw the paths & points to screen when Laser is off.
             noFill();
             stroke(0, 0, 255);
             drawPath(leftPoints);
@@ -162,6 +168,7 @@ public class SnakeRun extends PApplet {
             
             walkValue += nextStep;
             
+            // Calculate points for left and right snakes.
             float x, y = yStep * (step + 1);
             x = width / 4 + walkValue * xStepFactor + sin(y * y * y * xSineFactor) * y / xSineFactor;
             if (x < width / 20) {
@@ -184,6 +191,7 @@ public class SnakeRun extends PApplet {
     
     public void keyPressed() {
         if (key == CODED) {
+            // Snake speed control for test purposes
             if (keyCode == UP) { // add speed for *Left snake*
                 leftSnake.changeTopSpeed(0.25f);
             } else if (keyCode == DOWN) { // slow down *Left snake*
@@ -194,6 +202,7 @@ public class SnakeRun extends PApplet {
                 rightSnake.changeTopSpeed(-0.25f);
             }
         } else if (key == 'n') {
+            // Generate new paths & reset positions
             leftSnake.reset(width / 4, 0);
             rightSnake.reset(width * 3 / 4, 0);
             generatePaths();
@@ -202,9 +211,11 @@ public class SnakeRun extends PApplet {
             snakeOnLeftIsRunning = false;
             snakeOnRightIsRunning = false;
         } else if (key == 's') {
+            // Start/stop
             snakeOnLeftIsRunning = !snakeOnLeftIsRunning;
             snakeOnRightIsRunning = !snakeOnRightIsRunning;
         } else if (key == 'r') {
+            // Reset positions
             leftSnake.reset(width / 4, 0);
             leftSnake.targets(leftPoints);
             rightSnake.reset(width * 3 / 4, 0);
@@ -212,6 +223,7 @@ public class SnakeRun extends PApplet {
             snakeOnLeftIsRunning = false;
             snakeOnRightIsRunning = false;
         } else if (key == 'l') {
+            // Switch laser on/off
             laserOn = !laserOn;
         }
     }
