@@ -1,0 +1,6 @@
+.DS_Store
+applet
+application.linux
+application.macosx
+application.windows
+*.zip
