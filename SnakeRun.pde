@@ -119,20 +119,22 @@ public class SnakeRun extends PApplet {
     private void handleSkier(FakeSkier skier, Mover snakeHead) {
         skier.update();
         int followerCount = snakeHead.followerCount(),
-            lastAllowedIndex = followerCount * 5 / 6,
-            firstAllowedIndex = followerCount * 3 / 6;
+            lastAllowedIndex = followerCount * 2 / 3,
+            firstAllowedIndex = followerCount * 1 / 2;
+        // System.out.printf("%d < m < %d\n", firstAllowedIndex, lastAllowedIndex);
         Mover m = snakeHead;
         boolean skierInSnake = false;
         while (m.follower() != null) {
             if (m.closeTo(new PVector(skier.getX(), skier.getY()), 10)) {
                 if (m.index() > lastAllowedIndex) {
-                    snakeHead.changeTopSpeed(-0.25);
+                    snakeHead.changeTopSpeed(-0.02);
                 }
                 if (m.index() < firstAllowedIndex) {
-                    snakeHead.changeTopSpeed(0.025);
+                    snakeHead.changeTopSpeed(0.01);
                 }
                 stroke(0, 255, 0);
                 skierInSnake = true;
+                break;
             }
             m = m.follower();
         }
