@@ -16,12 +16,22 @@ class Mover {
     private PVector location;
     private PVector velocity;
     private PVector acceleration;
-    public float topspeed;
+    public float topSpeed;
     private Mover follower;
     private PVector target;
     private boolean running;
     private ArrayList<PVector> targets;
     private static final float FOLLOWER_MIN_DISTANCE = 10.0f;
+    /**
+     * @field index current index in head followers. -1 if head.
+     * @access private
+     */
+    private int index;
+    /**
+     * @field followerCount count of followers to come.
+     * @access private
+     */
+    private int followerCount;
     
     /**
      * Constructor.
@@ -35,11 +45,13 @@ class Mover {
         this.location = new PVector(x, y);
         this.velocity = new PVector(0.0f, 0.0f);
         this.acceleration = new PVector(0.0f, 0.0f);
-        this.topspeed = 0.25f;
+        this.topSpeed = 0.25f;
         this.follower = null;
         this.target = null;
         this.running = false;
         this.targets = new ArrayList<PVector>();
+        this.index = -1;
+        this.followerCount = 0;
     }
     
     /**
@@ -55,6 +67,16 @@ class Mover {
         if (this.follower != null) {
             this.follower.targets(targets);
         }
+    }
+    
+    /**
+     * @return the next follower.
+     */
+    public Mover follower() {
+        if (this.follower != null) {
+            return this.follower;
+        }
+        return null;
     }
     
     /**
@@ -81,7 +103,7 @@ class Mover {
             this.acceleration.normalize();
             this.acceleration.mult(1);
             this.velocity.add(this.acceleration);
-            this.velocity.limit(this.topspeed);
+            this.velocity.limit(this.topSpeed);
             if (this.follower != null) {
                 if (this.followerDistance() >= Mover.FOLLOWER_MIN_DISTANCE) {
                     this.follower.run();
@@ -103,8 +125,9 @@ class Mover {
      * Draws the Mover.
      */
     public void draw() {
-        processing.stroke(255, 0, 0);
-        processing.ellipse(location.x, location.y, 20, 20);
+        this.processing.stroke(255, 0, 0);
+        this.processing.ellipseMode(this.processing.CENTER);
+        this.processing.ellipse(this.location.x, this.location.y, 20, 20);
         if (this.follower != null) {
             this.follower.draw();
         }
@@ -138,10 +161,39 @@ class Mover {
      * @param count Amount of followers to be added.
      */
     public void addFollowers(int count) {
+        this.addFollowers(count, 0);
+        this.followerCount = count;
+    }
+    
+    /**
+     * addFollowers
+     * 
+     * Adds ``count'' - ``index'' followers.
+     * 
+     * @param count Amount of followers to be added.
+     * @param index index of the follower. First follower has index 0.
+     */
+    private void addFollowers(int count, int index) {
         this.follower = new Mover(this.location.x, this.location.y, this.processing);
-        if (count > 1) {
-            this.follower.addFollowers(count - 1);
+        this.index = index;
+        index++;
+        if (count - index > 0) {
+            this.follower.addFollowers(count, index);
         }
+    }
+    
+    /**
+     * @return current follower index.
+     */
+    public int index() {
+        return this.index;
+    }
+    
+    /**
+     * @return follower count
+     */
+    public int followerCount() {
+        return this.followerCount;
     }
     
     /**
@@ -152,9 +204,25 @@ class Mover {
      * @param amount Speed change.
      */
     public void changeTopSpeed(float amount) {
-        this.topspeed += amount;
+        if (this.topSpeed + amount >= 0) {
+            this.topSpeed += amount;
+        }
         if (this.follower != null) {
             this.follower.changeTopSpeed(amount);
+        }
+    }
+    
+    /**
+     * topSpeed
+     *
+     * Sets topSpeed to ``speed''.
+     *
+     * @param speed
+     */
+    public void topSpeed(float speed) {
+        this.topSpeed = speed;
+        if (this.follower != null) {
+            this.follower.topSpeed(speed);
         }
     }
     

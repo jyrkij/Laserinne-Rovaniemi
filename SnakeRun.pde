@@ -28,6 +28,8 @@ public class SnakeRun extends PApplet {
     
     private ArrayList<PVector> leftPoints,
                                rightPoints;
+    private FakeSkier leftSkier,
+                      rightSkier;
     
     public static void main(String args[]) {
         PApplet.main(new String[] {"--present", "SnakeRun"});
@@ -63,6 +65,10 @@ public class SnakeRun extends PApplet {
         // Assign paths to snakes
         leftSnake.targets(leftPoints);
         rightSnake.targets(rightPoints);
+        
+        // Initialize fake skiers
+        leftSkier = new FakeSkier(width / 4, 0, this);
+        rightSkier = new FakeSkier(width * 3 / 4, 0, this);
     }
     
     public void draw() {
@@ -94,6 +100,12 @@ public class SnakeRun extends PApplet {
             leftSnake.draw();
             rightSnake.draw();
             
+            handleSkier(leftSkier, leftSnake);
+            // handleSkier(rightSkier, rightSnake);
+            
+            drawPath(leftPoints);
+            drawPath(rightPoints);
+            
             endRaw();
         } else {
             // Draw the paths & points to screen when Laser is off.
@@ -102,6 +114,34 @@ public class SnakeRun extends PApplet {
             drawPath(leftPoints);
             drawPath(rightPoints);
         }
+    }
+    
+    private void handleSkier(FakeSkier skier, Mover snakeHead) {
+        skier.update();
+        int followerCount = snakeHead.followerCount(),
+            lastAllowedIndex = followerCount * 5 / 6,
+            firstAllowedIndex = followerCount * 3 / 6;
+        Mover m = snakeHead;
+        boolean skierInSnake = false;
+        while (m.follower() != null) {
+            if (m.closeTo(new PVector(skier.getX(), skier.getY()), 10)) {
+                if (m.index() > lastAllowedIndex) {
+                    snakeHead.changeTopSpeed(-0.25);
+                }
+                if (m.index() < firstAllowedIndex) {
+                    snakeHead.changeTopSpeed(0.025);
+                }
+                stroke(0, 255, 0);
+                skierInSnake = true;
+            }
+            m = m.follower();
+        }
+        if (!skierInSnake) {
+            snakeHead.topSpeed(0);
+        }
+        ellipseMode(CENTER);
+        ellipse(skier.getX(), skier.getY(), 10, 10);
+        stroke (255, 0, 0);
     }
     
     private void drawPath(ArrayList<PVector> points) {
@@ -214,9 +254,12 @@ public class SnakeRun extends PApplet {
             // Reset positions
             leftSnake.reset(width / 4, 0);
             leftSnake.targets(leftPoints);
+            leftSnake.topSpeed(0.25f);
+            snakeOnLeftIsRunning = false;
+            
             rightSnake.reset(width * 3 / 4, 0);
             rightSnake.targets(rightPoints);
-            snakeOnLeftIsRunning = false;
+            rightSnake.topSpeed(0.25f);
             snakeOnRightIsRunning = false;
         } else if (key == 'l') {
             // Switch laser on/off
