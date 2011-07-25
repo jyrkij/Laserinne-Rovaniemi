@@ -15,10 +15,6 @@ import processing.core.PVector;
 import processing.opengl.PGraphicsOpenGL;
 
 public class SnakeRun extends PApplet {
-    /**
-     * Generated serialVersionUID
-     */
-    private static final long serialVersionUID = 271041992974403855L;
 //    private float leftSpeed,
 //                  rightSpeed;
     private boolean snakeOnLeftIsRunning = false,
@@ -113,12 +109,12 @@ public class SnakeRun extends PApplet {
         for (PVector p : points) {
             // First point is the first control point as well.
             if (points.get(0) == p) {
-                curveVertex((float) p.x, (float) p.y);
+                curveVertex(p.x, p.y);
             }
-            curveVertex((float) p.x, (float) p.y);
+            curveVertex(p.x, p.y);
             // Last point is the last control point as well.
             if (points.get(points.size() - 1) == p) {
-                curveVertex((float) p.x, (float) p.y);
+                curveVertex(p.x, p.y);
             }
         }
         endShape();
@@ -126,7 +122,7 @@ public class SnakeRun extends PApplet {
         // Show the points
         beginShape();
         for (PVector p : points) {
-            ellipse((float) p.x - 5, (float) p.y - 5, (float) 10, (float) 10);
+            ellipse(p.x - 5.0f, p.y - 5.0f, 10.0f, 10.0f);
         }
         endShape();
     }
