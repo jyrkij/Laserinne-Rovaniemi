@@ -16,9 +16,9 @@ import processing.opengl.PGraphicsOpenGL;
 
 public class SnakeRun extends PApplet {
     /**
-	 * Generated serialVersionUID
-	 */
-	private static final long serialVersionUID = 271041992974403855L;
+     * Generated serialVersionUID
+     */
+    private static final long serialVersionUID = 271041992974403855L;
 //    private float leftSpeed,
 //                  rightSpeed;
     private boolean snakeOnLeftIsRunning = false,
