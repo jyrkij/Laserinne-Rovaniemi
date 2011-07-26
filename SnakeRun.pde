@@ -8,6 +8,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import geomerative.RFont;
+import geomerative.RG;
 import laserschein.Laser3D;
 import laserschein.Laserschein;
 import processing.core.PApplet;
@@ -28,13 +30,14 @@ public class SnakeRun extends PApplet {
                                rightPoints;
     private FakeSkier leftSkier,
                       rightSkier;
+    private RFont font;
     
     public static final color LASER_COLOR = #FF0000;
     public static final color SCREEN_COLOR = #0000FF;
     
-    public static void main(String args[]) {
-        PApplet.main(new String[] {"--present", "SnakeRun"});
-    }
+    // public static void main(String args[]) {
+    //     PApplet.main(new String[] {"--present", "SnakeRun"});
+    // }
     
     public void setup() {
         size(640, 480, PGraphicsOpenGL.OPENGL);
@@ -67,11 +70,20 @@ public class SnakeRun extends PApplet {
         // Initialize fake skiers
         leftSkier = new FakeSkier(width / 4, 0, this);
         rightSkier = new FakeSkier(width * 3 / 4, 0, this);
+        
+        RG.init(this);
+        font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
     }
     
     public void draw() {
         background(0);
         stroke(SnakeRun.SCREEN_COLOR);
+        
+        // Draw FPS on screen
+        translate(30, 80);
+        font.setAlign(RFont.LEFT);
+        font.draw(new Integer(int(frameRate)).toString());
+        translate(-30, -80);
         
         if (laserOn) {
             if (snakeOnLeftIsRunning) {
