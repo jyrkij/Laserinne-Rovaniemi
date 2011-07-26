@@ -6,7 +6,6 @@
  */
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import geomerative.RFont;
 import geomerative.RG;
@@ -192,37 +191,15 @@ public class SnakeRun extends PApplet {
             xStepFactor = 50,
             yStep = 25;
         
-        int numberOfWalkStepsAwayFromZero = 1;
-        float walkValue = 0.0f;
-        
         leftPoints.clear();
         leftPoints.add(new PVector(width * 1 / 4, 0));
         rightPoints.clear();
         rightPoints.add(new PVector(width * 3 / 4, 0));
         
+        RandomWalkOscillator rwo = new RandomWalkOscillator();
+        
         for (int step = 0; step <= (height / yStep); step++) {
-            /**
-             * Random walk oscillator for x coordinate from
-             * http://arcadiaresearch.com/blog/random-walk-oscillator.html
-             * This isn't proper/full implementation.
-             */
-            Random generator = new Random();
-            float p = generator.nextFloat();
-            float g = 1;
-            float a_ = (float) - (Math.log(p * (Math.pow(Math.E, - numberOfWalkStepsAwayFromZero * g) - 1) + 1)) / (numberOfWalkStepsAwayFromZero * g);
-            float u_ = 1 * (float) Math.sqrt(3) * (2 * a_ - 1) + 0;
-            if (u_ + walkValue > walkValue) {
-                numberOfWalkStepsAwayFromZero++;
-            } else if (u_ + walkValue < walkValue) {
-                numberOfWalkStepsAwayFromZero--;
-            }
-            float nextStep = u_;
-            if (numberOfWalkStepsAwayFromZero == 0) {
-                nextStep = p;
-                numberOfWalkStepsAwayFromZero = (int) Math.signum(p);
-            }
-            
-            walkValue += nextStep;
+            float walkValue = (float) rwo.nextStep();
             
             // Calculate points for left and right snakes.
             float x, y = yStep * (step + 1);
