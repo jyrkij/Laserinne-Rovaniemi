@@ -67,11 +67,9 @@ public class SnakeRun extends PApplet {
     
     public void draw() {
         background(0);
+        noFill();
+        stroke(255, 0, 0);
         if (laserOn) {
-            beginRaw(renderer);
-            noFill();
-            stroke(255, 0, 0);
-            
             if (snakeOnLeftIsRunning) {
                 leftSnake.run();
                 leftSnake.update();
@@ -90,19 +88,18 @@ public class SnakeRun extends PApplet {
                 }
             }
             
+            beginRaw(renderer);
             leftSnake.draw();
             rightSnake.draw();
+            endRaw();
             
             handleSkier(leftSkier, leftSnake);
             // handleSkier(rightSkier, rightSnake);
             
             drawPath(leftPoints);
             drawPath(rightPoints);
-            
-            endRaw();
         } else {
             // Draw the paths & points to screen when Laser is off.
-            noFill();
             stroke(0, 0, 255);
             drawPath(leftPoints);
             drawPath(rightPoints);
@@ -135,7 +132,7 @@ public class SnakeRun extends PApplet {
             m = m.follower();
         }
         if (!skierInSnake) {
-            snakeHead.topSpeed(0);
+            snakeHead.changeTopSpeed(-0.02);
         }
         ellipseMode(CENTER);
         ellipse(skier.getX(), skier.getY(), 10, 10);
