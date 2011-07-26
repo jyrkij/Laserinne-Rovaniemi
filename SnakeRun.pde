@@ -29,6 +29,9 @@ public class SnakeRun extends PApplet {
     private FakeSkier leftSkier,
                       rightSkier;
     
+    public static final color LASER_COLOR = #FF0000;
+    public static final color SCREEN_COLOR = #0000FF;
+    
     public static void main(String args[]) {
         PApplet.main(new String[] {"--present", "SnakeRun"});
     }
@@ -45,7 +48,8 @@ public class SnakeRun extends PApplet {
         smooth();
         
         colorMode(RGB);
-        stroke(255, 255, 255);
+        stroke(SnakeRun.SCREEN_COLOR);
+        noFill();
         
         // Create the snakes
         leftSnake = new Mover(width / 4, 0, this);
@@ -67,8 +71,8 @@ public class SnakeRun extends PApplet {
     
     public void draw() {
         background(0);
-        noFill();
-        stroke(255, 0, 0);
+        stroke(SnakeRun.SCREEN_COLOR);
+        
         if (laserOn) {
             if (snakeOnLeftIsRunning) {
                 leftSnake.run();
@@ -89,9 +93,11 @@ public class SnakeRun extends PApplet {
             }
             
             beginRaw(renderer);
+            stroke(SnakeRun.LASER_COLOR);
             leftSnake.draw();
             rightSnake.draw();
             endRaw();
+            stroke(SnakeRun.SCREEN_COLOR);
             
             handleSkier(leftSkier, leftSnake);
             // handleSkier(rightSkier, rightSnake);
@@ -100,7 +106,7 @@ public class SnakeRun extends PApplet {
             drawPath(rightPoints);
         } else {
             // Draw the paths & points to screen when Laser is off.
-            stroke(0, 0, 255);
+            stroke(SnakeRun.SCREEN_COLOR);
             drawPath(leftPoints);
             drawPath(rightPoints);
         }
@@ -117,6 +123,7 @@ public class SnakeRun extends PApplet {
             firstAllowedIndex = followerCount * 1 / 2;
         Mover m = snakeHead;
         boolean skierInSnake = false;
+        stroke(SnakeRun.SCREEN_COLOR);
         while (m.follower() != null) {
             if (m.closeTo(new PVector(skier.getX(), skier.getY()), 10)) {
                 if (m.index() > lastAllowedIndex) {
@@ -136,7 +143,7 @@ public class SnakeRun extends PApplet {
         }
         ellipseMode(CENTER);
         ellipse(skier.getX(), skier.getY(), 10, 10);
-        stroke (255, 0, 0);
+        stroke(SnakeRun.SCREEN_COLOR);
     }
     
     private void drawPath(ArrayList<PVector> points) {

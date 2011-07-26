@@ -125,7 +125,7 @@ class Mover {
      * Draws the Mover.
      */
     public void draw() {
-        this.processing.stroke(255, 0, 0);
+        this.processing.stroke(SnakeRun.LASER_COLOR);
         this.processing.ellipseMode(this.processing.CENTER);
         this.processing.ellipse(this.location.x, this.location.y, 20, 20);
         if (this.follower != null) {
