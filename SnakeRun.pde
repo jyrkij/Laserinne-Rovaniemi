@@ -35,6 +35,12 @@ public class SnakeRun extends PApplet {
     public static final color LASER_COLOR = #FF0000;
     public static final color SCREEN_COLOR = #0000FF;
     
+    /**
+     * main
+     * 
+     * This has to be commented out in testing to allow font loading, but
+     * available when exporting to application
+     */
     // public static void main(String args[]) {
     //     PApplet.main(new String[] {"--present", "SnakeRun"});
     // }
