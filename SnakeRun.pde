@@ -15,17 +15,15 @@ import processing.core.PVector;
 import processing.opengl.PGraphicsOpenGL;
 
 public class SnakeRun extends PApplet {
-//    private float leftSpeed,
-//                  rightSpeed;
     private boolean snakeOnLeftIsRunning = false,
                     snakeOnRightIsRunning = false,
                     laserOn = false;
     
+    private Laserschein laser;
+    private Laser3D renderer;
+    
     private Mover leftSnake,
                   rightSnake;
-    
-    private Laserschein laser;
-    
     private ArrayList<PVector> leftPoints,
                                rightPoints;
     private FakeSkier leftSkier,
@@ -42,11 +40,9 @@ public class SnakeRun extends PApplet {
         hint(ENABLE_DEPTH_SORT);
         frameRate(-1); // Use maximum frame rate.
         laser = new Laserschein(this);//, Laserschein.EASYLASEUSB2);
+        renderer = laser.renderer();
         
         smooth();
-        
-//        leftSpeed = frameRate;
-//        rightSpeed = frameRate;
         
         colorMode(RGB);
         stroke(255, 255, 255);
@@ -56,12 +52,10 @@ public class SnakeRun extends PApplet {
         leftSnake.addFollowers(10);
         rightSnake = new Mover(width * 3 / 4, 0, this);
         rightSnake.addFollowers(20);
-        
         // Create paths
         leftPoints = new ArrayList<PVector>();
         rightPoints = new ArrayList<PVector>();
         generatePaths();
-        
         // Assign paths to snakes
         leftSnake.targets(leftPoints);
         rightSnake.targets(rightPoints);
@@ -74,7 +68,6 @@ public class SnakeRun extends PApplet {
     public void draw() {
         background(0);
         if (laserOn) {
-            Laser3D renderer = laser.renderer();
             beginRaw(renderer);
             noFill();
             stroke(255, 0, 0);
