@@ -187,9 +187,7 @@ public class SnakeRun extends PApplet {
     }
     
     private void generatePaths() {
-        int xSineFactor = 25,
-            xStepFactor = 50,
-            yStep = 25;
+        int steps = 25;
         
         leftPoints.clear();
         leftPoints.add(new PVector(width * 1 / 4, 0));
@@ -198,12 +196,12 @@ public class SnakeRun extends PApplet {
         
         RandomWalkOscillator rwo = new RandomWalkOscillator();
         
-        for (int step = 0; step <= (height / yStep); step++) {
+        for (int step = 0; step <= steps; step++) {
             float walkValue = (float) rwo.nextStep();
             
             // Calculate points for left and right snakes.
-            float x, y = yStep * (step + 1);
-            x = width / 4 + walkValue * xStepFactor + sin(y * y * y * xSineFactor) * y / xSineFactor;
+            float x, y = (height / steps) * (step + 1);
+            x = width / 4 + walkValue;
             if (x < width / 20) {
                 x = width / 20;
             } else if (x > width * 9 / 20) {
@@ -211,7 +209,7 @@ public class SnakeRun extends PApplet {
             }
             leftPoints.add(new PVector(x, y));
             
-            x = width * 3 / 4 + walkValue * xStepFactor;
+            x += width / 2;
             if (x < width * 11 / 20) {
                 x = width * 11 / 20;
             }
@@ -236,12 +234,15 @@ public class SnakeRun extends PApplet {
             }
         } else if (key == 'n') {
             // Generate new paths & reset positions
-            leftSnake.reset(width / 4, 0);
-            rightSnake.reset(width * 3 / 4, 0);
             generatePaths();
+            leftSnake.reset(width / 4, 0);
             leftSnake.targets(leftPoints);
-            rightSnake.targets(rightPoints);
+            leftSnake.topSpeed(0.25);
             snakeOnLeftIsRunning = false;
+            
+            rightSnake.reset(width * 3 / 4, 0);
+            rightSnake.targets(rightPoints);
+            rightSnake.topSpeed(0.25);
             snakeOnRightIsRunning = false;
         } else if (key == 's') {
             // Start/stop
@@ -251,12 +252,12 @@ public class SnakeRun extends PApplet {
             // Reset positions
             leftSnake.reset(width / 4, 0);
             leftSnake.targets(leftPoints);
-            leftSnake.topSpeed(0.25f);
+            leftSnake.topSpeed(0.25);
             snakeOnLeftIsRunning = false;
             
             rightSnake.reset(width * 3 / 4, 0);
             rightSnake.targets(rightPoints);
-            rightSnake.topSpeed(0.25f);
+            rightSnake.topSpeed(0.25);
             snakeOnRightIsRunning = false;
         } else if (key == 'l') {
             // Switch laser on/off
