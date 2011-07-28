@@ -85,10 +85,11 @@ public class SnakeRun extends PApplet {
         stroke(SnakeRun.SCREEN_COLOR);
         
         // Draw FPS on screen
+        pushMatrix();
         translate(30, 80);
         font.setAlign(RFont.LEFT);
         font.draw(new Integer(int(frameRate)).toString());
-        translate(-30, -80);
+        popMatrix();
         
         drawPath(leftPoints);
         drawPath(rightPoints);
