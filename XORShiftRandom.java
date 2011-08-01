@@ -10,10 +10,15 @@
  */
 
 public class XORShiftRandom extends java.util.Random {
-    private long seed = System.nanoTime();
+    private long seed;
     
     public XORShiftRandom() {
-        
+        this.setSeed(System.nanoTime());
+    }
+    
+    synchronized public void setSeed(long seed) {
+        super.setSeed(seed);
+        this.seed = seed;
     }
     
     synchronized protected int next(int nbits) {
