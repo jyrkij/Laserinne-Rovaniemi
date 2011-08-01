@@ -84,6 +84,22 @@ public class SnakeRun extends PApplet {
         background(0);
         stroke(SnakeRun.SCREEN_COLOR);
         
+        float cameraZ = ((height/2.0) / tan(PI*60.0/360.0));
+        // perspective(PI / 3.0, width/height, cameraZ/10.0, cameraZ*10.0);
+        
+        float eyeX = width / 2,
+              eyeY = height / 2,
+              eyeZ = (height / 2.0) / tan(PI * 60.0 / 360.0),
+              centerX = width / 2.0,
+              centerY = height / 2.0,
+              centerZ = 0,
+              upX = 0,
+              upY = 1,
+              upZ = 0;
+        camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+        
+        // rotateX(-PI * 1 / 3);
+        
         // Draw FPS on screen
         pushMatrix();
         translate(30, 80);
