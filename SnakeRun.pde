@@ -37,8 +37,9 @@ public class SnakeRun extends PApplet {
     /**
      * main
      * 
-     * This has to be commented out in testing to allow font loading, but
-     * available when exporting to application
+     * This has to be commented out when testing in Processing IDE to allow
+     * font loading, but available when exporting to application or developing
+     * in Eclipse.
      */
     // public static void main(String args[]) {
     //     PApplet.main(new String[] {"--present", "SnakeRun"});
