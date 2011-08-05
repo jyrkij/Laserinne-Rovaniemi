@@ -67,9 +67,9 @@ public class SnakeRun extends PApplet {
         
         // Create the snakes
         leftSnake = new Mover(width / 4, 0, this);
-        leftSnake.addFollowers(10);
+        leftSnake.addFollowers(SnakeRun.NUM_FOLLOWERS);
         rightSnake = new Mover(width * 3 / 4, 0, this);
-        rightSnake.addFollowers(20);
+        rightSnake.addFollowers(SnakeRun.NUM_FOLLOWERS);
         // Create paths
         leftPoints = new ArrayList<PVector>();
         rightPoints = new ArrayList<PVector>();
