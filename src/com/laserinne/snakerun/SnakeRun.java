@@ -54,7 +54,7 @@ public class SnakeRun extends PApplet {
     public static final int LASER_COLOR = 0xFFFF0000;
     public static final int SCREEN_COLOR = 0xFF0000FF;
     
-    public static final int NUM_FOLLOWERS = 5;
+    public static final int NUM_FOLLOWERS = 50;
     
     /**
      * main
@@ -83,9 +83,9 @@ public class SnakeRun extends PApplet {
         
         // Create the snakes
         leftSnake = new Mover(width / 4, 0, this);
-        leftSnake.addFollowers(10);
+        leftSnake.addFollowers(SnakeRun.NUM_FOLLOWERS);
         rightSnake = new Mover(width * 3 / 4, 0, this);
-        rightSnake.addFollowers(20);
+        rightSnake.addFollowers(SnakeRun.NUM_FOLLOWERS);
         // Create paths
         leftPoints = new ArrayList<PVector>();
         rightPoints = new ArrayList<PVector>();
@@ -164,8 +164,8 @@ public class SnakeRun extends PApplet {
             pg.beginDraw();
             pg.background(0);
             pg.loadPixels();
-            stroke(255);
-            fill(255);
+            pg.stroke(255);
+            pg.fill(255);
             leftSnake.draw(pg);
             rightSnake.draw(pg);
             pg.updatePixels();
@@ -179,7 +179,7 @@ public class SnakeRun extends PApplet {
             
             stroke(SnakeRun.LASER_COLOR);
             beginRaw(renderer);
-            drawBlobsAndEdges(false,true);
+            drawBlobsAndEdges(false, true);
             endRaw();
             stroke(SnakeRun.SCREEN_COLOR);
             

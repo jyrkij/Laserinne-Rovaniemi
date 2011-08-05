@@ -24,7 +24,7 @@ class Mover {
     private PVector target;
     private boolean running;
     private ArrayList<PVector> targets;
-    private static final float FOLLOWER_MIN_DISTANCE = 10.0f;
+    private static final float FOLLOWER_MIN_DISTANCE = 1.0f;
     /**
      * @field index current index in head followers. -1 if head.
      * @access private
