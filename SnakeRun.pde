@@ -52,6 +52,7 @@ public class SnakeRun extends PApplet {
         hint(ENABLE_DEPTH_SORT);
         frameRate(-1); // Use maximum frame rate.
         laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
+        laser.output().setScanSpeed(30000);
         renderer = laser.renderer();
         
         smooth();
