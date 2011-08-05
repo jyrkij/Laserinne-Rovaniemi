@@ -9,6 +9,10 @@ package com.laserinne.snakerun;
 
 import java.util.ArrayList;
 
+import blobDetection.Blob;
+import blobDetection.BlobDetection;
+import blobDetection.EdgeVertex;
+
 import com.laserinne.util.RandomWalkOscillator;
 
 import geomerative.RFont;
@@ -16,6 +20,8 @@ import geomerative.RG;
 import laserschein.Laser3D;
 import laserschein.Laserschein;
 import processing.core.PApplet;
+import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.core.PVector;
 import processing.opengl.PGraphicsOpenGL;
 
@@ -35,6 +41,16 @@ public class SnakeRun extends PApplet {
                       rightSkier;
     private RFont font;
     
+    /**
+     * @field pg renders the snakes here
+     */
+    private PGraphics pg;
+    /**
+     * @field img used to detect contours
+     */
+    private PImage img;
+    private BlobDetection bd;
+    
     public static final int LASER_COLOR = 0xFFFF0000;
     public static final int SCREEN_COLOR = 0xFF0000FF;
     
@@ -52,9 +68,9 @@ public class SnakeRun extends PApplet {
     
     public void setup() {
         size(640, 480, PGraphicsOpenGL.OPENGL);
-        hint(ENABLE_OPENGL_4X_SMOOTH);
-        hint(ENABLE_NATIVE_FONTS);
-        hint(ENABLE_DEPTH_SORT);
+//        hint(ENABLE_OPENGL_4X_SMOOTH);
+//        hint(ENABLE_NATIVE_FONTS);
+//        hint(ENABLE_DEPTH_SORT);
         frameRate(-1); // Use maximum frame rate.
         laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
         renderer = laser.renderer();
@@ -84,6 +100,12 @@ public class SnakeRun extends PApplet {
         
         RG.init(this);
         font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
+        
+        pg = createGraphics(width, height, PGraphics.P2D);
+        img = new PImage(60, 60);
+        bd = new BlobDetection(img.width, img.height);
+        bd.setPosDiscrimination(true);
+        bd.setThreshold(0.1f);
     }
     
     public void draw() {
@@ -139,18 +161,76 @@ public class SnakeRun extends PApplet {
                 }
             }
             
-            beginRaw(renderer);
+            pg.beginDraw();
+            pg.background(0);
+            pg.loadPixels();
+            stroke(255);
+            fill(255);
+            leftSnake.draw(pg);
+            rightSnake.draw(pg);
+            pg.updatePixels();
+            pg.endDraw();
+            
+            // Now, we have to threshold the image, and DETECT A CONTOUR:
+            // first, copy on the small image:
+            img.copy(pg, 0, 0, pg.width, pg.height, 0, 0, img.width, img.height);
+            //detect the contours:
+            bd.computeBlobs(img.pixels);
+            
             stroke(SnakeRun.LASER_COLOR);
-            leftSnake.draw();
-            rightSnake.draw();
+            beginRaw(renderer);
+            drawBlobsAndEdges(false,true);
             endRaw();
             stroke(SnakeRun.SCREEN_COLOR);
             
             handleSkier(leftSkier, leftSnake);
             // handleSkier(rightSkier, rightSnake);
+            
+            //image(pg, 0, 0, width, height);
         }
     }
-    
+    private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges)
+    {
+        noFill();
+        Blob b;
+        EdgeVertex eA,eB;
+        for (int n=0 ; n<bd.getBlobNb() ; n++)
+        {
+            b=bd.getBlob(n);
+            if (b!=null)
+            {
+                // Edges
+                if (drawEdges)
+                {
+                    strokeWeight(3);
+                    stroke(0,255,0);
+                    for (int m=0;m<b.getEdgeNb();m++)
+                    {
+                        eA = b.getEdgeVertexA(m);
+                        eB = b.getEdgeVertexB(m);
+                        if (eA !=null && eB !=null)
+                            line(
+                                eA.x*width, eA.y*height, 
+                                eB.x*width, eB.y*height
+                                );
+                    }
+                }
+
+                // Blobs
+                if (drawBlobs)
+                {
+                    strokeWeight(1);
+                    stroke(255,0,0);
+                    rect(
+                        b.xMin*width,b.yMin*height,
+                        b.w*width,b.h*height
+                        );
+                }
+
+            }
+
+          }
+    }
     private void handleSkier(FakeSkier skier, Mover snakeHead) {
         skier.update();
         int followerCount = snakeHead.followerCount(),
