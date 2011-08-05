@@ -45,6 +45,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/geomerative/geomerative.jar"/>
 	<classpathentry kind="lib" path="lib/base/core/jna.jar"/>
+	<classpathentry kind="lib" path="lib/user/blobDetection/blobDetection.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
