@@ -189,47 +189,34 @@ public class SnakeRun extends PApplet {
             //image(pg, 0, 0, width, height);
         }
     }
-    private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges)
-    {
+    private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges) {
         noFill();
         Blob b;
-        EdgeVertex eA,eB;
-        for (int n=0 ; n<bd.getBlobNb() ; n++)
-        {
+        EdgeVertex eA, eB;
+        for (int n = 0; n < bd.getBlobNb(); n++) {
             b=bd.getBlob(n);
-            if (b!=null)
-            {
+            if (b != null) {
+                // Blobs
+                if (drawBlobs) {
+                    rect(
+                        b.xMin * width, b.yMin * height,
+                        b.w * width, b.h * height
+                        );
+                }
                 // Edges
-                if (drawEdges)
-                {
-                    strokeWeight(3);
-                    stroke(0,255,0);
-                    for (int m=0;m<b.getEdgeNb();m++)
-                    {
+                if (drawEdges) {
+                    for (int m = 0; m < b.getEdgeNb(); m++) {
                         eA = b.getEdgeVertexA(m);
                         eB = b.getEdgeVertexB(m);
                         if (eA !=null && eB !=null)
                             line(
-                                eA.x*width, eA.y*height, 
-                                eB.x*width, eB.y*height
+                                eA.x * width, eA.y * height, 
+                                eB.x * width, eB.y * height
                                 );
                     }
                 }
-
-                // Blobs
-                if (drawBlobs)
-                {
-                    strokeWeight(1);
-                    stroke(255,0,0);
-                    rect(
-                        b.xMin*width,b.yMin*height,
-                        b.w*width,b.h*height
-                        );
-                }
-
             }
-
-          }
+        }
     }
     private void handleSkier(FakeSkier skier, Mover snakeHead) {
         skier.update();
