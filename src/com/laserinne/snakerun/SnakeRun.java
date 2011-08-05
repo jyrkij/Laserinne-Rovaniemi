@@ -38,6 +38,8 @@ public class SnakeRun extends PApplet {
     public static final int LASER_COLOR = 0xFFFF0000;
     public static final int SCREEN_COLOR = 0xFF0000FF;
     
+    public static final int NUM_FOLLOWERS = 5;
+    
     /**
      * main
      * 
