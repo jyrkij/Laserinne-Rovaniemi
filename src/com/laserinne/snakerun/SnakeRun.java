@@ -32,9 +32,7 @@ public class SnakeRun extends PApplet {
      */
     private static final long serialVersionUID = -6130751878909898451L;
     
-    private boolean snakeOnLeftIsRunning = false,
-                    snakeOnRightIsRunning = false,
-                    laserOn = false;
+    private boolean laserOn = false;
     
     private Laserschein laser;
     private Laser3D renderer;
@@ -152,21 +150,17 @@ public class SnakeRun extends PApplet {
         line(width * 3 / 4, 0, width * 3 / 4, height);
         
         if (laserOn) {
-            if (snakeOnLeftIsRunning) {
-                leftSnake.run();
+            if (!leftSkier.finished() && leftSnake.running()) {
                 leftSnake.update();
                 if (leftSnake.closeTo(leftPoints.get(leftPoints.size() - 1), 15)) {
                     System.out.println("Left finished.");
-                    snakeOnLeftIsRunning = false;
                 }
             }
             
-            if (snakeOnRightIsRunning) {
-                rightSnake.run();
+            if (!rightSkier.finished() && rightSnake.running()) {
                 rightSnake.update();
                 if (rightSnake.closeTo(rightPoints.get(rightPoints.size() - 1), 15)) {
                     System.out.println("Right finished.");
-                    snakeOnRightIsRunning = false;
                 }
             }
             
@@ -323,23 +317,12 @@ public class SnakeRun extends PApplet {
         leftSnake.reset(width / 4, 0);
         leftSnake.targets(leftPoints);
         leftSnake.topSpeed(0.25f);
-        snakeOnLeftIsRunning = false;
+        leftSnake.stop();
         
         rightSnake.reset(width * 3 / 4, 0);
         rightSnake.targets(rightPoints);
         rightSnake.topSpeed(0.25f);
-        snakeOnRightIsRunning = false;
-    }
-    
-    private void startGame() {
-        
-    }
-    
-    private void skierFinished(SkierContestant skier) {
-        if (skier.getY() >= SnakeRun.FINISH_LINE) {
-            //skier.finished(true);
-            //skier.running(false);
-        }
+        rightSnake.stop();
     }
     
     public void keyPressed() {
@@ -350,9 +333,14 @@ public class SnakeRun extends PApplet {
             
         } else if (key == 's') {
             // Start/stop
-            if (laserOn && snakeOnLeftIsRunning == snakeOnRightIsRunning) {
-                snakeOnLeftIsRunning = !snakeOnLeftIsRunning;
-                snakeOnRightIsRunning = !snakeOnRightIsRunning;
+            if (laserOn) {
+                if (leftSnake.running() || rightSnake.running()) {
+                    leftSnake.stop();
+                    rightSnake.stop();
+                } else {
+                    leftSnake.start();
+                    rightSnake.start();
+                }
             }
         } else if (key == 'r') {
             // Reset positions

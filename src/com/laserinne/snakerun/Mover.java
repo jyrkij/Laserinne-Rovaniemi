@@ -85,14 +85,33 @@ class Mover {
     
     /**
      * run
-     * 
+     * start
      * Sets the first target & starts running the Mover.
      */
-    public void run() {
+    public void start() {
         if (!this.running && this.targets.size() > 0) {
             this.running = true;
-            this.target = this.targets.remove(0);
+            if (this.target == null) {
+                this.target = this.targets.remove(0);
+            }
         }
+    }
+    
+    /**
+     * stops the Mover
+     */
+    public void stop() {
+        this.running = false;
+        if (this.follower != null) {
+            this.follower.stop();
+        }
+    }
+    
+    /**
+     * @return is the mover running?
+     */
+    public boolean running() {
+        return this.running;
     }
     
     /**
@@ -110,7 +129,7 @@ class Mover {
             this.velocity.limit(this.topSpeed);
             if (this.follower != null) {
                 if (this.followerDistance() >= Mover.FOLLOWER_MIN_DISTANCE) {
-                    this.follower.run();
+                    this.follower.start();
                 }
                 this.follower.update();
             }
