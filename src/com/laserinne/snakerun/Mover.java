@@ -11,6 +11,7 @@ package com.laserinne.snakerun;
 
 import java.util.ArrayList;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PVector;
 
 class Mover {
@@ -127,7 +128,7 @@ class Mover {
      * Draws the Mover.
      */
     public void draw() {
-        this.processing.ellipseMode(this.processing.CENTER);
+        this.processing.ellipseMode(PConstants.CENTER);
         this.processing.ellipse(this.location.x, this.location.y, 20, 20);
         if (this.follower != null) {
             this.follower.draw();
