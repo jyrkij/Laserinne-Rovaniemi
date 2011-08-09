@@ -117,7 +117,7 @@ public class SnakeRun extends PApplet {
         background(0);
         stroke(SnakeRun.SCREEN_COLOR);
         
-        float cameraZ = (float) ((height/2.0) / Math.tan(PI * 60.0 / 360.0));
+        // float cameraZ = (float) ((height/2.0) / Math.tan(PI * 60.0 / 360.0));
         // perspective(PI / 3.0, width/height, cameraZ/10.0, cameraZ*10.0);
         
         float eyeX = width / 2.0f,
