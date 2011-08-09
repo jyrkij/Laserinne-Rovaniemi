@@ -56,6 +56,10 @@ public class SnakeRun extends PApplet {
     private PImage img;
     private BlobDetection bd;
     
+    private static final int FINISH_LINE = 400;
+    private static final int WIDTH = 640;
+    private static final int HEIGHT = 480;
+    
     public static final int LASER_COLOR = 0xFFFF0000;
     public static final int SCREEN_COLOR = 0xFF0000FF;
     
@@ -72,10 +76,7 @@ public class SnakeRun extends PApplet {
     }
     
     public void setup() {
-        size(640, 480, PGraphicsOpenGL.OPENGL);
-//        hint(ENABLE_OPENGL_4X_SMOOTH);
-//        hint(ENABLE_NATIVE_FONTS);
-//        hint(ENABLE_DEPTH_SORT);
+        size(SnakeRun.WIDTH, SnakeRun.HEIGHT, PGraphicsOpenGL.OPENGL);
         frameRate(-1); // Use maximum frame rate.
         laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
         renderer = laser.renderer();
@@ -315,45 +316,33 @@ public class SnakeRun extends PApplet {
         }
     }
     
+    private void reset() {
+        leftSnake.reset(width / 4, 0);
+        leftSnake.targets(leftPoints);
+        leftSnake.topSpeed(0.25f);
+        snakeOnLeftIsRunning = false;
+        
+        rightSnake.reset(width * 3 / 4, 0);
+        rightSnake.targets(rightPoints);
+        rightSnake.topSpeed(0.25f);
+        snakeOnRightIsRunning = false;
+    }
+    
     public void keyPressed() {
-        if (key == CODED) {
-            // Snake speed control for test purposes
-            if (keyCode == UP) { // add speed for *Left snake*
-                leftSnake.changeTopSpeed(0.25f);
-            } else if (keyCode == DOWN) { // slow down *Left snake*
-                leftSnake.changeTopSpeed(-0.25f);
-            } else if (keyCode == RIGHT) { // add speed for *Right snake*
-                rightSnake.changeTopSpeed(0.25f);
-            } else if (keyCode == LEFT) { // slow down *Right snake*
-                rightSnake.changeTopSpeed(-0.25f);
-            }
-        } else if (key == 'n') {
+        if (key == 'n') {
             // Generate new paths & reset positions
             generatePaths();
-            leftSnake.reset(width / 4, 0);
-            leftSnake.targets(leftPoints);
-            leftSnake.topSpeed(0.25f);
-            snakeOnLeftIsRunning = false;
+            reset();
             
-            rightSnake.reset(width * 3 / 4, 0);
-            rightSnake.targets(rightPoints);
-            rightSnake.topSpeed(0.25f);
-            snakeOnRightIsRunning = false;
         } else if (key == 's') {
             // Start/stop
-            snakeOnLeftIsRunning = !snakeOnLeftIsRunning;
-            snakeOnRightIsRunning = !snakeOnRightIsRunning;
+            if (laserOn && snakeOnLeftIsRunning == snakeOnRightIsRunning) {
+                snakeOnLeftIsRunning = !snakeOnLeftIsRunning;
+                snakeOnRightIsRunning = !snakeOnRightIsRunning;
+            }
         } else if (key == 'r') {
             // Reset positions
-            leftSnake.reset(width / 4, 0);
-            leftSnake.targets(leftPoints);
-            leftSnake.topSpeed(0.25f);
-            snakeOnLeftIsRunning = false;
-            
-            rightSnake.reset(width * 3 / 4, 0);
-            rightSnake.targets(rightPoints);
-            rightSnake.topSpeed(0.25f);
-            snakeOnRightIsRunning = false;
+            reset();
         } else if (key == 'l') {
             // Switch laser on/off
             laserOn = !laserOn;
