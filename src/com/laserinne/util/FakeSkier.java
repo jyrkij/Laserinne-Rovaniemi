@@ -5,7 +5,7 @@
  * @author Jyrki Lilja
  */
 
-package com.laserinne.snakerun;
+package com.laserinne.util;
 
 import processing.core.PApplet;
 import processing.core.PVector;
