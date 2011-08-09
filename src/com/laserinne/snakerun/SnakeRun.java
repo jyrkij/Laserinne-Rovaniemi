@@ -13,6 +13,7 @@ import blobDetection.Blob;
 import blobDetection.BlobDetection;
 import blobDetection.EdgeVertex;
 
+import com.laserinne.util.SkierContestant;
 import com.laserinne.util.RandomWalkOscillator;
 
 import geomerative.RFont;
@@ -42,8 +43,8 @@ public class SnakeRun extends PApplet {
                   rightSnake;
     private ArrayList<PVector> leftPoints,
                                rightPoints;
-    private FakeSkier leftSkier,
-                      rightSkier;
+    private SkierContestant leftSkier,
+                            rightSkier;
     private RFont font;
     
     /**
@@ -101,8 +102,10 @@ public class SnakeRun extends PApplet {
         rightSnake.targets(rightPoints);
         
         // Initialize fake skiers
-        leftSkier = new FakeSkier(width / 4, 0, this);
-        rightSkier = new FakeSkier(width * 3 / 4, 0, this);
+        leftSkier = new SkierContestant(width / 4, 0, this);
+        leftSkier.finishLine(SnakeRun.FINISH_LINE);
+        rightSkier = new SkierContestant(width * 3 / 4, 0, this);
+        rightSkier.finishLine(SnakeRun.FINISH_LINE);
         
         RG.init(this);
         font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
@@ -224,7 +227,7 @@ public class SnakeRun extends PApplet {
             }
         }
     }
-    private void handleSkier(FakeSkier skier, Mover snakeHead) {
+    private void handleSkier(SkierContestant skier, Mover snakeHead) {
         skier.update();
         int followerCount = snakeHead.followerCount(),
             /**
@@ -326,6 +329,17 @@ public class SnakeRun extends PApplet {
         rightSnake.targets(rightPoints);
         rightSnake.topSpeed(0.25f);
         snakeOnRightIsRunning = false;
+    }
+    
+    private void startGame() {
+        
+    }
+    
+    private void skierFinished(SkierContestant skier) {
+        if (skier.getY() >= SnakeRun.FINISH_LINE) {
+            //skier.finished(true);
+            //skier.running(false);
+        }
     }
     
     public void keyPressed() {
