@@ -1,15 +1,15 @@
 package com.laserinne.util;
 
 import processing.core.PApplet;
-import processing.core.PVector;
-
 
 public class SkierContestant extends FakeSkier {
     protected boolean running;
+    protected boolean finished;
     protected int finishLine;
     
     public SkierContestant(float x, float y, PApplet processing) {
         super(x, y, processing);
+        this.reset();
     }
     
     public void finishLine(int finishLine) {
@@ -17,11 +17,11 @@ public class SkierContestant extends FakeSkier {
     }
     
     public boolean finished() {
-        if (this.getY() >= finishLine) {
-            return true;
-        } else {
-            return false;
+        if (this.getY() >= this.finishLine) {
+            this.running = false;
+            this.finished = true;
         }
+        return this.finished;
     }
     
     public boolean running() {
@@ -34,5 +34,10 @@ public class SkierContestant extends FakeSkier {
     
     public void start() {
         this.running = true;
+    }
+
+    public void reset() {
+        this.running = false;
+        this.finished = false;
     }
 }

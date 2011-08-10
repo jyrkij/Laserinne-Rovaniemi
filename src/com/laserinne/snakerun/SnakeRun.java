@@ -152,16 +152,9 @@ public class SnakeRun extends PApplet {
         if (laserOn) {
             if (!leftSkier.finished() && leftSnake.running()) {
                 leftSnake.update();
-                if (leftSnake.closeTo(leftPoints.get(leftPoints.size() - 1), 15)) {
-                    System.out.println("Left finished.");
-                }
             }
-            
             if (!rightSkier.finished() && rightSnake.running()) {
                 rightSnake.update();
-                if (rightSnake.closeTo(rightPoints.get(rightPoints.size() - 1), 15)) {
-                    System.out.println("Right finished.");
-                }
             }
             
             pg.beginDraw();
@@ -315,9 +308,11 @@ public class SnakeRun extends PApplet {
     private void reset() {
         leftSnake.reset(width / 4, 0, leftPoints);
         leftSnake.stop();
+        leftSkier.reset();
         
         rightSnake.reset(width * 3 / 4, 0, rightPoints);
         rightSnake.stop();
+        rightSkier.reset();
     }
     
     public void keyPressed() {
