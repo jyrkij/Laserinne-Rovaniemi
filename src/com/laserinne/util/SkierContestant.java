@@ -8,10 +8,6 @@ public class SkierContestant extends FakeSkier {
     protected boolean running;
     protected int finishLine;
     
-    public SkierContestant(PVector startPosition, PApplet processing) {
-        super(startPosition, processing);
-    }
-    
     public SkierContestant(float x, float y, PApplet processing) {
         super(x, y, processing);
     }

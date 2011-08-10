@@ -19,11 +19,6 @@ class FakeSkier {
         this.processing = processing;
     }
     
-    public FakeSkier(PVector startPosition, PApplet processing) {
-        this.position = startPosition;
-        this.processing = processing;
-    }
-    
     public void update() {
         this.position = new PVector(this.processing.mouseX, this.processing.mouseY);
     }
