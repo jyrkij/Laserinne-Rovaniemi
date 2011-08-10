@@ -6,6 +6,8 @@ public class SkierContestant extends FakeSkier {
     protected boolean running;
     protected boolean finished;
     protected int finishLine;
+    protected long startTime;
+    protected long finishTime;
     
     public SkierContestant(float x, float y, PApplet processing) {
         super(x, y, processing);
@@ -17,9 +19,11 @@ public class SkierContestant extends FakeSkier {
     }
     
     public boolean finished() {
-        if (this.getY() >= this.finishLine) {
+        if (this.getY() >= this.finishLine && !this.finished) {
             this.running = false;
             this.finished = true;
+            this.finishTime = System.currentTimeMillis();
+            System.out.println(this.timeInSeconds());
         }
         return this.finished;
     }
@@ -34,10 +38,16 @@ public class SkierContestant extends FakeSkier {
     
     public void start() {
         this.running = true;
+        this.startTime = System.currentTimeMillis();
+    }
+    
+    public float timeInSeconds() {
+        return (this.finishTime - this.startTime) / 1000.0f;
     }
 
     public void reset() {
         this.running = false;
         this.finished = false;
+        this.startTime = 0;
     }
 }
