@@ -317,7 +317,18 @@ public class SnakeRun extends PApplet {
     }
     
     public void keyPressed() {
-        if (key == 'n') {
+        if (key == CODED) {
+            // Snake speed control for test purposes
+            if (keyCode == UP) { // add speed for *Left snake*
+                leftSnake.changeTopSpeed(0.25f);
+            } else if (keyCode == DOWN) { // slow down *Left snake*
+                leftSnake.changeTopSpeed(-0.25f);
+            } else if (keyCode == RIGHT) { // add speed for *Right snake*
+                rightSnake.changeTopSpeed(0.25f);
+            } else if (keyCode == LEFT) { // slow down *Right snake*
+                rightSnake.changeTopSpeed(-0.25f);
+            }
+        } else if (key == 'n') {
             // Generate new paths & reset positions
             generatePaths();
             reset();
