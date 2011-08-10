@@ -193,11 +193,10 @@ public class SnakeRun extends PApplet {
         }
     }
     private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges) {
-        noFill();
         Blob b;
         EdgeVertex eA, eB;
         for (int n = 0; n < bd.getBlobNb(); n++) {
-            b=bd.getBlob(n);
+            b = bd.getBlob(n);
             if (b != null) {
                 // Blobs
                 if (drawBlobs) {
@@ -211,7 +210,7 @@ public class SnakeRun extends PApplet {
                     for (int m = 0; m < b.getEdgeNb(); m++) {
                         eA = b.getEdgeVertexA(m);
                         eB = b.getEdgeVertexB(m);
-                        if (eA !=null && eB !=null)
+                        if (eA != null && eB != null)
                             line(
                                 eA.x * width, eA.y * height, 
                                 eB.x * width, eB.y * height
