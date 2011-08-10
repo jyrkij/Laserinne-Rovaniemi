@@ -150,12 +150,13 @@ public class SnakeRun extends PApplet {
         line(width * 3 / 4, 0, width * 3 / 4, height);
         
         if (laserOn) {
-            if (!leftSkier.finished() && leftSnake.running()) {
-                leftSnake.update();
-            }
-            if (!rightSkier.finished() && rightSnake.running()) {
-                rightSnake.update();
-            }
+            if (leftSkier.finished())
+                leftSnake.stop();
+            if (rightSkier.finished())
+                rightSnake.stop();
+            
+            leftSnake.update();
+            rightSnake.update();
             
             pg.beginDraw();
             pg.background(0);
