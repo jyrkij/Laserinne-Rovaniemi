@@ -331,6 +331,8 @@ public class SnakeRun extends PApplet {
                 } else {
                     leftSnake.start();
                     rightSnake.start();
+                    leftSkier.start();
+                    rightSkier.start();
                 }
             }
         } else if (key == 'r') {
