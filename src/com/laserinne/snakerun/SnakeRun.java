@@ -313,14 +313,10 @@ public class SnakeRun extends PApplet {
     }
     
     private void reset() {
-        leftSnake.reset(width / 4, 0);
-        leftSnake.targets(leftPoints);
-        leftSnake.topSpeed(0.25f);
+        leftSnake.reset(width / 4, 0, leftPoints);
         leftSnake.stop();
         
-        rightSnake.reset(width * 3 / 4, 0);
-        rightSnake.targets(rightPoints);
-        rightSnake.topSpeed(0.25f);
+        rightSnake.reset(width * 3 / 4, 0, rightPoints);
         rightSnake.stop();
     }
     

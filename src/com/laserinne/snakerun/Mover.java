@@ -20,7 +20,7 @@ class Mover {
     private PVector location;
     private PVector velocity;
     private PVector acceleration;
-    public float topSpeed;
+    private float topSpeed;
     private Mover follower;
     private PVector target;
     private boolean running;
@@ -158,20 +158,21 @@ class Mover {
     /**
      * reset
      * 
-     * Resets this to (x, y).
+     * Resets this and its followers
      * 
      * @param x Coordinates to reset to.
      * @param y Coordinates to reset to.
      */
-    public void reset(float x, float y) {
+    public void reset(float x, float y, ArrayList<PVector> targets) {
         this.location.set(x, y, 0.0f);
         this.velocity.set(0.0f, 0.0f, 0.0f);
         this.acceleration.set(0.0f, 0.0f, 0.0f);
+        this.topSpeed(0.25f);
         this.target = null;
         this.running = false;
-        this.targets.clear();
+        this.targets(targets);
         if (this.follower != null) {
-            this.follower.reset(x, y);
+            this.follower.reset(x, y, targets);
         }
     }
     
