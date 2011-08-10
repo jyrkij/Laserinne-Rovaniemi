@@ -33,7 +33,7 @@
             <fileset dir="${dir.data}"/>
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
-                <attribute name="Class-Path" value=". ./Laserschein.jar ./ant-launcher.jar ./ant.jar ./core.jar ./geomerative.jar ./gluegen-rt.jar ./jna.jar ./jogl.jar ./opengl.jar ./oscP5.jar"/>
+                <attribute name="Class-Path" value=". ./blobDetection.jar ./core.jar ./geomerative.jar ./gluegen-rt.jar ./jna.jar ./jogl.jar ./Laserschein.jar ./opengl.jar ./oscP5.jar"/>
             </manifest>
         </jar>
     </target>
