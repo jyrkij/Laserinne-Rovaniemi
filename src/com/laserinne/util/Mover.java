@@ -7,16 +7,15 @@
  * @author Jyrki Lilja
  */
 
-package com.laserinne.snakerun;
+package com.laserinne.util;
 
 import java.util.ArrayList;
-import processing.core.PApplet;
-import processing.core.PGraphics;
+
 import processing.core.PConstants;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
-class Mover {
-    private PApplet processing;
+public class Mover {
     private PVector location;
     private PVector velocity;
     private PVector acceleration;
@@ -44,8 +43,7 @@ class Mover {
      * @param y Initial y position
      * @param processing Processing instance
      */
-    public Mover(float x, float y, PApplet processing) {
-        this.processing = processing;
+    public Mover(float x, float y) {
         this.location = new PVector(x, y);
         this.velocity = new PVector(0.0f, 0.0f);
         this.acceleration = new PVector(0.0f, 0.0f);
@@ -147,11 +145,11 @@ class Mover {
      * 
      * Draws the Mover.
      */
-    public void draw(PGraphics renderer) {
-        renderer.ellipseMode(PConstants.CENTER);
-        renderer.ellipse(this.location.x, this.location.y, 20, 20);
+    public void draw(PGraphics g) {
+        g.ellipseMode(PConstants.CENTER);
+        g.ellipse(this.location.x, this.location.y, 20, 20);
         if (this.follower != null) {
-            this.follower.draw(renderer);
+            this.follower.draw(g);
         }
     }
     
@@ -197,7 +195,7 @@ class Mover {
      * @param index index of the follower. First follower has index 0.
      */
     private void addFollowers(int count, int index) {
-        this.follower = new Mover(this.location.x, this.location.y, this.processing);
+        this.follower = new Mover(this.location.x, this.location.y);
         this.index = index;
         index++;
         if (count - index > 0) {

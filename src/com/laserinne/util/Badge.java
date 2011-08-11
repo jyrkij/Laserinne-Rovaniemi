@@ -5,8 +5,8 @@
  * @author Jyrki Lilja
  */
 
-package com.laserinne.snakerun;
+package com.laserinne.util;
 
-class Badge {
+public class Badge {
     
 }

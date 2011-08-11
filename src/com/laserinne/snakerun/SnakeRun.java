@@ -13,6 +13,7 @@ import blobDetection.Blob;
 import blobDetection.BlobDetection;
 import blobDetection.EdgeVertex;
 
+import com.laserinne.util.Mover;
 import com.laserinne.util.SkierContestant;
 import com.laserinne.util.RandomWalkOscillator;
 
