@@ -89,6 +89,22 @@ public abstract class SkierContestant extends FakeSkier {
     public abstract void updateScore();
     
     public float combinedTimeAndScore() {
-        return this.timeInSeconds() + this.scoreToSeconds();
+        return (Math.round((this.timeInSeconds() + this.scoreToSeconds()) * 1000)) / 1000.0f;
+    }
+
+    public static String winner(SkierContestant leftSkier,
+            SkierContestant rightSkier) {
+        String finishNote;
+        if (leftSkier.combinedTimeAndScore() < rightSkier.combinedTimeAndScore()) {
+            // Left skier (Player 1) wins
+            finishNote = "Player 1 wins (" + leftSkier.combinedTimeAndScore() + " s)";
+        } else if (rightSkier.combinedTimeAndScore() < leftSkier.combinedTimeAndScore()) {
+            // Right skier (Player 2) wins
+            finishNote = "Player 2 wins (" + rightSkier.combinedTimeAndScore() + " s)";
+        } else {
+            // Draw
+            finishNote = "Draw";
+        }
+        return finishNote;
     }
 }

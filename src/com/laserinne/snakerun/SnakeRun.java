@@ -13,6 +13,7 @@ import blobDetection.Blob;
 import blobDetection.BlobDetection;
 import blobDetection.EdgeVertex;
 
+import com.laserinne.util.SkierContestant;
 import com.laserinne.util.Snake;
 import com.laserinne.util.RandomWalkOscillator;
 
@@ -99,7 +100,6 @@ public class SnakeRun extends PApplet {
         rightSnake.targets(rightPoints);
         
         // Initialize fake skiers
-        SnakeRunSkierContestant.processing(this);
         SnakeRunSkierContestant.finishLine(SnakeRun.FINISH_LINE);
         leftSkier = new SnakeRunSkierContestant(width / 4, 0);
         rightSkier = new SnakeRunSkierContestant(width * 3 / 4, 0);
@@ -175,14 +175,26 @@ public class SnakeRun extends PApplet {
             
             stroke(SnakeRun.LASER_COLOR);
             beginRaw(renderer);
-            drawBlobsAndEdges(false, true);
+            if (leftSkier.finished() && rightSkier.finished()) {
+                String finishNote = SkierContestant.winner(leftSkier, rightSkier);
+                pushMatrix();
+                translate(width / 2, height / 2);
+                font.setAlign(RFont.CENTER);
+                font.setSize(40);
+                font.draw(finishNote);
+                popMatrix();
+            } else {
+                drawBlobsAndEdges(false, true);
+            }
             endRaw();
             stroke(SnakeRun.SCREEN_COLOR);
             
+            leftSkier.setPosition((int) (mouseX - width * 0.3), mouseY);
             leftSkier.inSnake(leftSnake);
             leftSkier.draw(g);
-//            rightSkier.inSnake(rightSnake);
-//            rightSkier.draw(g);
+            rightSkier.setPosition((int) (mouseX + width * 0.3), mouseY);
+            rightSkier.inSnake(rightSnake);
+            rightSkier.draw(g);
             
             //image(pg, 0, 0, width, height);
         }
