@@ -7,18 +7,11 @@
 
 package com.laserinne.snakerun;
 
-import java.util.ArrayList;
-
-import blobDetection.Blob;
-import blobDetection.BlobDetection;
-import blobDetection.EdgeVertex;
-
-import com.laserinne.util.SkierContestant;
-import com.laserinne.util.Snake;
-import com.laserinne.util.RandomWalkOscillator;
-
 import geomerative.RFont;
 import geomerative.RG;
+
+import java.util.ArrayList;
+
 import laserschein.Laser3D;
 import laserschein.Laserschein;
 import processing.core.PApplet;
@@ -26,6 +19,13 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PVector;
 import processing.opengl.PGraphicsOpenGL;
+import blobDetection.Blob;
+import blobDetection.BlobDetection;
+import blobDetection.EdgeVertex;
+
+import com.laserinne.util.RandomWalkOscillator;
+import com.laserinne.util.SkierContestant;
+import com.laserinne.util.Snake;
 
 public class SnakeRun extends PApplet {
     /**
