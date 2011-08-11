@@ -8,6 +8,9 @@ import com.laserinne.util.Snake;
 
 public class SnakeRunSkierContestant extends SkierContestant {
     private boolean inSnake;
+    private long negativePointsStarted;
+    
+    private static final float POINT_WEIGHT = 0.1f;
     
     public SnakeRunSkierContestant(float x, float y) {
         super(x, y);
@@ -38,6 +41,9 @@ public class SnakeRunSkierContestant extends SkierContestant {
             m = m.follower();
         }
         if (!this.inSnake) {
+            if (this.negativePointsStarted == 0) {
+                this.negativePointsStarted = System.currentTimeMillis();
+            }
             snake.changeTopSpeed(-0.02f);
         }
         return this.inSnake;
@@ -50,5 +56,24 @@ public class SnakeRunSkierContestant extends SkierContestant {
         }
         super.draw(g);
         g.stroke(originalStroke);
+    }
+    
+    public void reset() {
+        super.reset();
+        this.negativePointsStarted = 0;
+    }
+
+    @Override
+    public float pointsToSeconds() {
+        return this.points * -0.25f * SnakeRunSkierContestant.POINT_WEIGHT;
+    }
+
+    @Override
+    public void updatePoints() {
+        if (this.running && this.negativePointsStarted != 0 && System.currentTimeMillis() - this.negativePointsStarted > 50) {
+            this.points--;
+            System.out.println("Added minus point. Points now " + this.points);
+            this.negativePointsStarted = 0;
+        }
     }
 }
