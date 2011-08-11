@@ -1,25 +1,24 @@
 package com.laserinne.util;
 
-import processing.core.PApplet;
-
 public class SkierContestant extends FakeSkier {
     protected boolean running;
     protected boolean finished;
-    protected int finishLine;
     protected long startTime;
     protected long finishTime;
     
-    public SkierContestant(float x, float y, PApplet processing) {
-        super(x, y, processing);
+    protected static int finishLine;
+    
+    public SkierContestant(float x, float y) {
+        super(x, y);
         this.reset();
     }
     
-    public void finishLine(int finishLine) {
-        this.finishLine = finishLine;
+    public static void finishLine(int finishLine) {
+        SkierContestant.finishLine = finishLine;
     }
     
     public boolean finished() {
-        if (this.getY() >= this.finishLine && !this.finished) {
+        if (this.getY() >= SkierContestant.finishLine && !this.finished) {
             this.running = false;
             this.finished = true;
             this.finishTime = System.currentTimeMillis();
@@ -49,5 +48,10 @@ public class SkierContestant extends FakeSkier {
         this.running = false;
         this.finished = false;
         this.startTime = 0;
+    }
+    
+    public void draw(processing.core.PGraphics g) {
+        g.ellipseMode(processing.core.PConstants.CENTER);
+        g.ellipse(this.getX(), this.getY(), 10, 10);
     }
 }

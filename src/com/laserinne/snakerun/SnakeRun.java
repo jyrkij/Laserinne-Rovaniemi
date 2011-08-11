@@ -13,8 +13,7 @@ import blobDetection.Blob;
 import blobDetection.BlobDetection;
 import blobDetection.EdgeVertex;
 
-import com.laserinne.util.Mover;
-import com.laserinne.util.SkierContestant;
+import com.laserinne.util.Snake;
 import com.laserinne.util.RandomWalkOscillator;
 
 import geomerative.RFont;
@@ -38,12 +37,12 @@ public class SnakeRun extends PApplet {
     private Laserschein laser;
     private Laser3D renderer;
     
-    private Mover leftSnake,
+    private Snake leftSnake,
                   rightSnake;
     private ArrayList<PVector> leftPoints,
                                rightPoints;
-    private SkierContestant leftSkier,
-                            rightSkier;
+    private SnakeRunSkierContestant leftSkier,
+                                    rightSkier;
     private RFont font;
     
     /**
@@ -89,10 +88,8 @@ public class SnakeRun extends PApplet {
         noFill();
         
         // Create the snakes
-        leftSnake = new Mover(width / 4, 0, this);
-        leftSnake.addFollowers(SnakeRun.NUM_FOLLOWERS);
-        rightSnake = new Mover(width * 3 / 4, 0, this);
-        rightSnake.addFollowers(SnakeRun.NUM_FOLLOWERS);
+        leftSnake = new Snake(width / 4, 0, SnakeRun.NUM_FOLLOWERS);
+        rightSnake = new Snake(width * 3 / 4, 0, SnakeRun.NUM_FOLLOWERS);
         // Create paths
         leftPoints = new ArrayList<PVector>();
         rightPoints = new ArrayList<PVector>();
@@ -102,10 +99,10 @@ public class SnakeRun extends PApplet {
         rightSnake.targets(rightPoints);
         
         // Initialize fake skiers
-        leftSkier = new SkierContestant(width / 4, 0, this);
-        leftSkier.finishLine(SnakeRun.FINISH_LINE);
-        rightSkier = new SkierContestant(width * 3 / 4, 0, this);
-        rightSkier.finishLine(SnakeRun.FINISH_LINE);
+        SnakeRunSkierContestant.processing(this);
+        SnakeRunSkierContestant.finishLine(SnakeRun.FINISH_LINE);
+        leftSkier = new SnakeRunSkierContestant(width / 4, 0);
+        rightSkier = new SnakeRunSkierContestant(width * 3 / 4, 0);
         
         RG.init(this);
         font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
@@ -182,12 +179,15 @@ public class SnakeRun extends PApplet {
             endRaw();
             stroke(SnakeRun.SCREEN_COLOR);
             
-            handleSkier(leftSkier, leftSnake);
-            // handleSkier(rightSkier, rightSnake);
+            leftSkier.inSnake(leftSnake);
+            leftSkier.draw(g);
+//            rightSkier.inSnake(rightSnake);
+//            rightSkier.draw(g);
             
             //image(pg, 0, 0, width, height);
         }
     }
+    
     private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges) {
         Blob b;
         EdgeVertex eA, eB;
@@ -216,39 +216,6 @@ public class SnakeRun extends PApplet {
             }
         }
     }
-    private void handleSkier(SkierContestant skier, Mover snakeHead) {
-        skier.update();
-        int followerCount = snakeHead.followerCount(),
-            /**
-             * Allow the skier to be between 1 / 2 and 2 / 3 of the snake. If
-             * the skier is faster accelerate the snake and vice versa.
-             */
-            lastAllowedIndex = followerCount * 2 / 3,
-            firstAllowedIndex = followerCount * 1 / 2;
-        Mover m = snakeHead;
-        boolean skierInSnake = false;
-        stroke(SnakeRun.SCREEN_COLOR);
-        while (m.follower() != null) {
-            if (m.closeTo(new PVector(skier.getX(), skier.getY()), 10)) {
-                if (m.index() > lastAllowedIndex) {
-                    snakeHead.changeTopSpeed(-0.02f);
-                }
-                if (m.index() < firstAllowedIndex) {
-                    snakeHead.changeTopSpeed(0.01f);
-                }
-                stroke(0, 255, 0);
-                skierInSnake = true;
-                break;
-            }
-            m = m.follower();
-        }
-        if (!skierInSnake) {
-            snakeHead.changeTopSpeed(-0.02f);
-        }
-        ellipseMode(CENTER);
-        ellipse(skier.getX(), skier.getY(), 10, 10);
-        stroke(SnakeRun.SCREEN_COLOR);
-    }
     
     private void drawPath(ArrayList<PVector> points) {
         beginShape();
@@ -266,12 +233,12 @@ public class SnakeRun extends PApplet {
         endShape();
         
         // Show the points
-        beginShape();
+        pushMatrix();
         for (PVector p : points) {
             ellipseMode(CENTER);
             ellipse(p.x, p.y, 3, 3);
         }
-        endShape();
+        popMatrix();
     }
     
     private void generatePaths() {

@@ -12,15 +12,19 @@ import processing.core.PVector;
 
 class FakeSkier {
     private PVector position;
-    private PApplet processing;
     
-    public FakeSkier(float x, float y, PApplet processing) {
+    private static PApplet processing;
+    
+    public FakeSkier(float x, float y) {
         this.position = new PVector(x, y);
-        this.processing = processing;
+    }
+    
+    public static void processing(PApplet processing) {
+        FakeSkier.processing = processing;
     }
     
     public void update() {
-        this.position = new PVector(this.processing.mouseX, this.processing.mouseY);
+        this.position = new PVector(FakeSkier.processing.mouseX, FakeSkier.processing.mouseY);
     }
     
     public float getX() {
