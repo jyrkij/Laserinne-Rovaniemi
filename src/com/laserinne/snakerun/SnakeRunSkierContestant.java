@@ -64,15 +64,15 @@ public class SnakeRunSkierContestant extends SkierContestant {
     }
 
     @Override
-    public float pointsToSeconds() {
-        return this.points * -0.25f * SnakeRunSkierContestant.POINT_WEIGHT;
+    public float scoreToSeconds() {
+        return this.score * -0.25f * SnakeRunSkierContestant.POINT_WEIGHT;
     }
 
     @Override
-    public void updatePoints() {
-        if (this.running && this.negativePointsStarted != 0 && System.currentTimeMillis() - this.negativePointsStarted > 50) {
-            this.points--;
-            System.out.println("Added minus point. Points now " + this.points);
+    public void updateScore() {
+        if (this.running && this.negativePointsStarted != 0 && System.currentTimeMillis() - this.negativePointsStarted > 100) {
+            this.score--;
+            System.out.println("Added minus point. Score now " + this.score);
             this.negativePointsStarted = 0;
         }
     }

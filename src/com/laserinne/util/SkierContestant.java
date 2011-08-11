@@ -5,7 +5,7 @@ public abstract class SkierContestant extends FakeSkier {
     protected boolean finished;
     protected long startTime;
     protected long finishTime;
-    protected int points;
+    protected int score;
     
     protected static int finishLine;
     
@@ -24,7 +24,7 @@ public abstract class SkierContestant extends FakeSkier {
             this.finished = true;
             this.finishTime = System.currentTimeMillis();
             System.out.println(this.timeInSeconds());
-            System.out.println(this.combinedTimeAndPoints());
+            System.out.println(this.combinedTimeAndScore());
         }
         return this.finished;
     }
@@ -50,7 +50,7 @@ public abstract class SkierContestant extends FakeSkier {
         this.running = false;
         this.finished = false;
         this.startTime = 0;
-        this.points = 0;
+        this.score = 0;
     }
     
     public void draw(processing.core.PGraphics g) {
@@ -60,33 +60,35 @@ public abstract class SkierContestant extends FakeSkier {
     
     public void update() {
         super.update();
-        this.updatePoints();
+        this.updateScore();
     }
     
-    public int points() {
-        return this.points;
+    public int score() {
+        return this.score;
     }
     
     /**
-     * This method returns the skier contestant's points converted to seconds.
-     * Negative points should return positive value (that is they should add
-     * time to the run). ±0.25 seconds/point is recommended, depending of course
-     * on the point calculation method.
+     * This method returns the skier contestant's score converted to seconds.
+     * Negative score should return positive value (that is they should add
+     * time to the run). +/-0.25 seconds/score point is recommended, depending
+     * of course on the score calculation method.
      * 
-     * @return points converted to seconds.
+     * @return score converted to seconds.
      */
-    public abstract float pointsToSeconds();
+    public abstract float scoreToSeconds();
     
     /**
-     * This method updates the points. Use whatever method you wish to
+     * This method updates the score. Use whatever method you wish to
      * determine whether point should be added or not.
      * 
      * NOTE: Please remember that this method gets called on every frame so you
-     * might accidentally add/remove way too many points!
+     * might accidentally add/remove way too many score points! So use some way
+     * to check if the score is being changed by the same event (like running
+     * outside the track etc).
      */
-    public abstract void updatePoints();
+    public abstract void updateScore();
     
-    public float combinedTimeAndPoints() {
-        return this.timeInSeconds() + this.pointsToSeconds();
+    public float combinedTimeAndScore() {
+        return this.timeInSeconds() + this.scoreToSeconds();
     }
 }
