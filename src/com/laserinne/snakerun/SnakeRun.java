@@ -221,7 +221,7 @@ public class SnakeRun extends PApplet {
         int followerCount = snakeHead.followerCount(),
             /**
              * Allow the skier to be between 1 / 2 and 2 / 3 of the snake. If
-             * the skier is faster accelerate the snake and vice verca.
+             * the skier is faster accelerate the snake and vice versa.
              */
             lastAllowedIndex = followerCount * 2 / 3,
             firstAllowedIndex = followerCount * 1 / 2;
