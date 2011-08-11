@@ -67,8 +67,9 @@ public class SnakeRun extends PApplet {
     /**
      * main
      * 
-     * This has to be commented out in testing to allow font loading, but
-     * available when exporting to application
+     * This has to be commented out when running in Processing to allow font
+     * loading, but available when running in Eclipse or building with Ant /
+     * exporting to application from Processing or building with Ant.
      */
     public static void main(String args[]) {
          PApplet.main(new String[] { com.laserinne.snakerun.SnakeRun.class.getName() });
