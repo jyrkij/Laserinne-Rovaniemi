@@ -344,6 +344,7 @@ public class SnakeRun extends PApplet {
                 } else {
                     leftSnake.start();
                     rightSnake.start();
+                    // TODO: Move the skier starts according to 69149cf.
                     leftSkier.start();
                     rightSkier.start();
                 }
