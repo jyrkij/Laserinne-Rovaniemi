@@ -1,3 +1,5 @@
+package com.laserinne.util;
+
 /**
  * XORShiftRandom
  * 
@@ -5,11 +7,9 @@
  * @see http://www.javamex.com/tutorials/random_numbers/xorshift.shtml
  * @see http://www.javamex.com/tutorials/random_numbers/java_util_random_subclassing.shtml
  * @see http://www.jstatsoft.org/v08/i14/paper
- * 
+ * @package com.laserinne.util
  * @author Jyrki Lilja
  */
-
-package com.laserinne.util;
 
 public class XORShiftRandom extends java.util.Random {
     /**

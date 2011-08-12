@@ -1,14 +1,14 @@
+package com.laserinne.util;
+
 /**
  * RandomWalkOscillator
  * 
  * Algorithm from http://arcadiaresearch.com/blog/random-walk-oscillator.html
  * This isn't proper/full implementation.
  * 
- * @package FIS/SnakeRun
+ * @package com.laserinne.util
  * @author Jyrki Lilja
  */
-
-package com.laserinne.util;
 
 public class RandomWalkOscillator {
     private java.util.Random generator;

@@ -1,11 +1,11 @@
+package com.laserinne.util;
+
 /**
  * FakeSkier
  * 
- * @package FIS/SnakeRun
+ * @package com.laserinne.util
  * @author Jyrki Lilja
  */
-
-package com.laserinne.util;
 
 import processing.core.PVector;
 

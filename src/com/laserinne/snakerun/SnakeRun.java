@@ -1,11 +1,11 @@
+package com.laserinne.snakerun;
+
 /**
  * SnakeRun
  * 
- * @package FIS
+ * @package com.laserinne.snakerun
  * @author Jyrki Lilja
  */
-
-package com.laserinne.snakerun;
 
 import geomerative.RFont;
 import geomerative.RG;

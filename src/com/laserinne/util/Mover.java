@@ -1,13 +1,13 @@
+package com.laserinne.util;
+
 /**
  * Mover
  * 
  * Adapted from http://processing.org/learning/pvector/
  * 
- * @package FIS/SnakeRun
+ * @package com.laserinne.util
  * @author Jyrki Lilja
  */
-
-package com.laserinne.util;
 
 import java.util.ArrayList;
 

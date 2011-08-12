@@ -1,5 +1,12 @@
 package com.laserinne.snakerun;
 
+/**
+ * SnakeRunSkierContestant
+ * 
+ * @package com.laserinne.snakerun
+ * @author Jyrki Lilja
+ */
+
 import processing.core.PVector;
 
 import com.laserinne.util.Mover;

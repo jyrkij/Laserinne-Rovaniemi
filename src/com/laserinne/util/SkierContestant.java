@@ -10,6 +10,7 @@ package com.laserinne.util;
  * 
  * Has method stubs for score tracking and weighting.
  * 
+ * @package com.laserinne.util
  * @author Jyrki Lilja
  */
 
