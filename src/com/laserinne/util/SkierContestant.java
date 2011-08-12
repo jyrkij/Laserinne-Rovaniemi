@@ -1,5 +1,18 @@
 package com.laserinne.util;
 
+/**
+ * SkierContestant
+ * 
+ * An abstract class to support skier contestants.
+ * 
+ * Gives basic support to checking if contestant has crossed finish line,
+ * timing the race and determining the winner.
+ * 
+ * Has method stubs for score tracking and weighting.
+ * 
+ * @author Jyrki Lilja
+ */
+
 public abstract class SkierContestant extends FakeSkier {
     protected boolean running;
     protected boolean finished;
