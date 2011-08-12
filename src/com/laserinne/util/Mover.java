@@ -1,13 +1,27 @@
-package com.laserinne.util;
-
 /**
- * Mover
+ *                This file is part of Laserinne.
  * 
- * Adapted from http://processing.org/learning/pvector/
+ *  Laser projections in public space, inspiration and
+ *  information, exploring the aesthetic and interactive possibilities of
+ *  laser-based displays.
  * 
- * @package com.laserinne.util
- * @author Jyrki Lilja
+ *  http://www.laserinne.com/
+ * 
+ * Laserinne is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Laserinne is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Laserinne. If not, see <http://www.gnu.org/licenses/>.
  */
+
+package com.laserinne.util;
 
 import java.util.ArrayList;
 
@@ -15,6 +29,11 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
+/**
+ * Mover is the basis of moving objects and following leaders.
+ * 
+ * @author Jyrki Lilja
+ */
 public class Mover {
     private PVector location;
     private PVector velocity;
