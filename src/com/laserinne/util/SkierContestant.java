@@ -31,6 +31,21 @@ package com.laserinne.util;
  * 
  * Has method stubs for score tracking and weighting.
  * 
+ * Usage:
+ * 
+ *  First, implement all abstract methods.
+ *  
+ *  Then, when skier starts running, call this.start(). This *might* get
+ *  changed so that there is start line as well, and skier starts automatically
+ *  when they have crossed the line. The change will happen when we get to use
+ *  tracking.
+ *  
+ *  Call this.update() in every draw cycle to get updated position info.
+ *  
+ *  Constantly call this.finished() to figure out if the skier has finished.
+ *  When both have finished, call this.winner() to get string telling the
+ *  winner and its time.
+ * 
  * @author Jyrki Lilja
  */
 
