@@ -34,7 +34,7 @@ public class LaserSledding extends PApplet {
 
 	final int COLLECTIBLE_NUMBER = 5;
 	
-	Skier sk1, sk2;
+	LaserSleddingSkierContestant sk1, sk2;
 	ArrayList<Collectible> p1Collectibles, p2Collectibles;
 	int pointsP1, pointsP2;
 	
@@ -49,8 +49,8 @@ public class LaserSledding extends PApplet {
 		frameRate(100);
 		
 		// Allocate memory for skier and collectible
-		sk1 = new Skier(this);
-		sk2 = new Skier(this);
+		sk1 = new LaserSleddingSkierContestant(mouseX, mouseY);
+		sk2 = new LaserSleddingSkierContestant(mouseX+300, mouseY);
 		p1Collectibles = new ArrayList<Collectible>();
 		p2Collectibles = new ArrayList<Collectible>();
 		pointsP1 = 0;
@@ -88,13 +88,13 @@ public class LaserSledding extends PApplet {
 		beginRaw(laser);
 		
 		// Display Skiers
-		sk1.update(mouseX, mouseY);
-		sk1.display();
-		sk2.update(mouseX+width/2, mouseY);
-		sk2.display();
+		sk1.setPosition(mouseX, mouseY);
+		sk1.draw(g);
+		sk2.setPosition(mouseX+width/2, mouseY);
+		sk2.draw(g);
 		
 		// Check location and display collectibles
-		for(int i = 0; i < p1Collectibles.size(); i++) {
+		/*for(int i = 0; i < p1Collectibles.size(); i++) {
 			if(p1Collectibles.get(i).checkLocation(sk1)) {
 				p1Collectibles.remove(i);
 			}
@@ -166,8 +166,8 @@ public class LaserSledding extends PApplet {
 		    popMatrix();
 		    endRaw();
 		}
+	*/
 	}
-	
 	public static void main(String args[]) {
 		PApplet.main(new String[] { LaserSledding.class.getCanonicalName() });
 	}
@@ -187,8 +187,8 @@ public void keyPressed() {
 		
 		if(key == 'n') {
 			// Allocate memory for skier and collectible
-			sk1 = new Skier(this);
-			sk2 = new Skier(this);
+		//	sk1 = new Skier(this);
+		//	sk2 = new Skier(this);
 			p1Collectibles = new ArrayList<Collectible>();
 			p2Collectibles = new ArrayList<Collectible>();
 			pointsP1 = 0;
