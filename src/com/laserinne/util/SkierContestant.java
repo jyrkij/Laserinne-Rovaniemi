@@ -43,15 +43,29 @@ public abstract class SkierContestant extends FakeSkier {
     
     protected static int finishLine;
     
+    /**
+     * Constructor, sets fields and original position.
+     * @param x original position
+     * @param y - '' -
+     */
     public SkierContestant(float x, float y) {
         super(x, y);
         this.reset();
     }
     
+    /**
+     * Use this to set the finish line *before* any use of the class.
+     * @param finishLine
+     */
     public static void finishLine(int finishLine) {
         SkierContestant.finishLine = finishLine;
     }
     
+    /**
+     * Use this to check if the skier has finished. When both are finished
+     * call SkierContestant.winner.
+     * @return has the skier finished
+     */
     public boolean finished() {
         if (this.getY() >= SkierContestant.finishLine && !this.finished) {
             this.running = false;
@@ -63,23 +77,41 @@ public abstract class SkierContestant extends FakeSkier {
         return this.finished;
     }
     
+    /**
+     * Getter for running.
+     * @return is the skier running
+     */
     public boolean running() {
         return this.running;
     }
     
+    /**
+     * Setter for running.
+     * @param running boolean is the skier running?
+     */
     public void running(boolean running) {
         this.running = running;
     }
     
+    /**
+     * Starts running the race. Has to be called when the skier starts the race.
+     */
     public void start() {
         this.running = true;
         this.startTime = System.currentTimeMillis();
     }
     
+    /**
+     * Times the race
+     * @return time it took to run the race
+     */
     public float timeInSeconds() {
         return (this.finishTime - this.startTime) / 1000.0f;
     }
-
+    
+    /**
+     * Reset the skier fully.
+     */
     public void reset() {
         this.running = false;
         this.finished = false;
@@ -87,16 +119,27 @@ public abstract class SkierContestant extends FakeSkier {
         this.score = 0;
     }
     
+    /**
+     * Draws the skier.
+     * @param g PGraphics instance that's used for drawing
+     */
     public void draw(processing.core.PGraphics g) {
         g.ellipseMode(processing.core.PConstants.CENTER);
         g.ellipse(this.getX(), this.getY(), 10, 10);
     }
     
+    /**
+     * Updates the skier location and score.
+     */
     public void update() {
         super.update();
         this.updateScore();
     }
     
+    /**
+     * Score getter.
+     * @return skier score
+     */
     public int score() {
         return this.score;
     }
@@ -122,10 +165,20 @@ public abstract class SkierContestant extends FakeSkier {
      */
     public abstract void updateScore();
     
+    /**
+     * Combines the time it took to run the slope and the score converted to seconds.
+     * @return time & score converted to seconds, precision is 0.001.
+     */
     public float combinedTimeAndScore() {
         return (Math.round((this.timeInSeconds() + this.scoreToSeconds()) * 1000)) / 1000.0f;
     }
-
+    
+    /**
+     * Determines winner and returns String telling winner.
+     * @param leftSkier
+     * @param rightSkier
+     * @return String telling witch skier won (left or right) plus the time. 
+     */
     public static String winner(SkierContestant leftSkier,
             SkierContestant rightSkier) {
         String finishNote;
