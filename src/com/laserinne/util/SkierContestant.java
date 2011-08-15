@@ -23,6 +23,8 @@
 
 package com.laserinne.util;
 
+import processing.core.PVector;
+
 /**
  * SkierContestant is an abstract class to support skier contestants.
  * 
@@ -208,5 +210,36 @@ public abstract class SkierContestant extends FakeSkier {
             finishNote = "Draw";
         }
         return finishNote;
+    }
+    
+    /**
+     * closeTo
+     * 
+     * Determines whether this is inside target radius.
+     * 
+     * @param target PVector telling the target
+     * @param radius in pixels
+     * @return boolean Close to target?
+     */
+    public boolean closeTo(PVector target, float radius) {
+        PVector diff = PVector.sub(target, new PVector(this.getX(), this.getY()));
+        if (diff.mag() < radius) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * closeTo
+     * 
+     * Simplified version of closeTo(PVector target, float radius). Accepts only
+     * target, radius defaults to 10.0f.
+     * 
+     * @param target
+     * @return boolean Within 10.0f to target.
+     */
+    public boolean closeTo(PVector target) {
+        return this.closeTo(target, 10);
     }
 }
