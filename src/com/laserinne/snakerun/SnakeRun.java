@@ -41,7 +41,6 @@ import blobDetection.EdgeVertex;
 
 import com.laserinne.util.RandomWalkOscillator;
 import com.laserinne.util.SkierContestant;
-import com.laserinne.util.Snake;
 
 /**
  * SnakeRun acts as the main class of SnakeRun application.

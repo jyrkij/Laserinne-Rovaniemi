@@ -27,7 +27,6 @@ import processing.core.PVector;
 
 import com.laserinne.util.Mover;
 import com.laserinne.util.SkierContestant;
-import com.laserinne.util.Snake;
 
 /**
  * SnakeRunSkierContestant implements SkierContestant for SnakeRun.

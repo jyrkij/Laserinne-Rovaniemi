@@ -21,7 +21,9 @@
  * along with Laserinne. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.laserinne.util;
+package com.laserinne.snakerun;
+
+import com.laserinne.util.Mover;
 
 /**
  * Snake is just a extension to Mover to name things more nicely. This might
