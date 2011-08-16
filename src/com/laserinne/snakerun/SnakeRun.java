@@ -122,8 +122,8 @@ public class SnakeRun extends PApplet {
         
         // Initialize fake skiers
         SnakeRunSkierContestant.finishLine(SnakeRun.FINISH_LINE);
-        leftSkier = new SnakeRunSkierContestant(width / 4, 0);
-        rightSkier = new SnakeRunSkierContestant(width * 3 / 4, 0);
+        leftSkier = new SnakeRunSkierContestant(width / 4, 0, 10, 10);
+        rightSkier = new SnakeRunSkierContestant(width * 3 / 4, 0, 10, 10);
         
         RG.init(this);
         font = new RFont("Laserfont.ttf", 80, RFont.CENTER);

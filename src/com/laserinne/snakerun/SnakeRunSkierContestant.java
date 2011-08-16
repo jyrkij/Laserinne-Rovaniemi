@@ -40,8 +40,8 @@ public class SnakeRunSkierContestant extends SkierContestant {
     
     private static final float POINT_WEIGHT = 0.1f;
     
-    public SnakeRunSkierContestant(float x, float y) {
-        super(x, y);
+    public SnakeRunSkierContestant(float x, float y, float width, float height) {
+        super(x, y, width, height);
     }
     
     public boolean inSnake(Snake snake) {

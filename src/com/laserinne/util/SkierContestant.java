@@ -65,9 +65,13 @@ public abstract class SkierContestant extends FakeSkier {
      * @param x original position
      * @param y - '' -
      */
-    public SkierContestant(float x, float y) {
-        super(x, y);
+    public SkierContestant(float x, float y, float width, float height) {
+        super(x, y, width, height);
         this.reset();
+    }
+    
+    public PVector getPosition() {
+    	return new PVector(getX(),getY());
     }
     
     /**
@@ -88,8 +92,6 @@ public abstract class SkierContestant extends FakeSkier {
             this.running = false;
             this.finished = true;
             this.finishTime = System.currentTimeMillis();
-            System.out.println(this.timeInSeconds());
-            System.out.println(this.combinedTimeAndScore());
         }
         return this.finished;
     }

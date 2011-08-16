@@ -35,9 +35,13 @@ import processing.core.PVector;
 
 class FakeSkier {
     private PVector position;
+    private float width;
+    private float height;
     
-    public FakeSkier(float x, float y) {
+    public FakeSkier(float x, float y, float width, float height) {
         this.position = new PVector(x, y);
+        this.setWidth(width);
+        this.setHeight(height);
     }
     
     public void update() {
@@ -55,4 +59,20 @@ class FakeSkier {
     public void setPosition(int x, int y) {
         this.position = new PVector(x, y);
     }
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
 }

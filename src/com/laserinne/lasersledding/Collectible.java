@@ -82,8 +82,8 @@ public class Collectible {
 	}
 	
 	// Checks the distance from collectible to skier
-	public boolean checkLocation(Skier s) {
-		if( location.dist(s.location) < (s.size/2 + size/2) ) {
+	public boolean checkLocation(LaserSleddingSkierContestant s) {
+		if( s.closeTo(this.location, size) ) {
 			return true;
 		}
 			return false;

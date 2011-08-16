@@ -24,7 +24,6 @@
 package com.laserinne.lasersledding;
 
 import java.util.ArrayList;
-
 import processing.core.PApplet;
 import geomerative.*;
 import laserschein.*;
@@ -49,8 +48,8 @@ public class LaserSledding extends PApplet {
 		frameRate(100);
 		
 		// Allocate memory for skier and collectible
-		sk1 = new LaserSleddingSkierContestant(mouseX, mouseY);
-		sk2 = new LaserSleddingSkierContestant(mouseX+300, mouseY);
+		sk1 = new LaserSleddingSkierContestant(mouseX, mouseY, 10, 10);
+		sk2 = new LaserSleddingSkierContestant(mouseX+300, mouseY, 10, 10);
 		p1Collectibles = new ArrayList<Collectible>();
 		p2Collectibles = new ArrayList<Collectible>();
 		pointsP1 = 0;
@@ -76,7 +75,10 @@ public class LaserSledding extends PApplet {
 		
 		// Text 
 		RG.init(this);
-		font = new RFont( "Laserfont.ttf", 20, RFont.CENTER);
+		font = new RFont( "Laserfont.ttf", 32, RFont.CENTER);
+		
+		// Finishline
+		LaserSleddingSkierContestant.finishLine(height-50);
 	}
 	
 	public void draw() {
@@ -94,7 +96,7 @@ public class LaserSledding extends PApplet {
 		sk2.draw(g);
 		
 		// Check location and display collectibles
-		/*for(int i = 0; i < p1Collectibles.size(); i++) {
+		for(int i = 0; i < p1Collectibles.size(); i++) {
 			if(p1Collectibles.get(i).checkLocation(sk1)) {
 				p1Collectibles.remove(i);
 			}
@@ -114,59 +116,30 @@ public class LaserSledding extends PApplet {
 			}
 		}
 		
-		// Draw track lines
-		//line(width/2, 0, width/2, height);
-		//line(0,height-50, width, height-50);
-		
 		endRaw();
 		
 		// Checks if skier1 has crossed the finish line and calculates points
 		if(sk1.finished() && pointsP1 == 0) {
-			
-			pointsP1 = COLLECTIBLE_NUMBER - p1Collectibles.size();
-			
-			if(sk1.time == 0) {
-				sk1.calculateTime();
-				System.out.println("P1 time: " + sk1.time);
-				System.out.println("P1 points: " + pointsP1);
-			}
+			sk1.setScore(COLLECTIBLE_NUMBER - p1Collectibles.size());
 		}
 		
 		// Checks if skier2 has crossed the finish line and calculates points
 		if(sk2.finished() && pointsP2 == 0) {
-			
-			pointsP2 = COLLECTIBLE_NUMBER - p2Collectibles.size();
-			
-			sk2.calculateTime();
-			System.out.println("P2 time: " + sk2.time);
-			System.out.println("P2 points: " + pointsP2);
-			
+			sk2.setScore(COLLECTIBLE_NUMBER - p2Collectibles.size());
 		}
 		
 		// End the round if both of the skiers has finished
 		if(sk1.finished() && sk2.finished()) {
-			
+			delay(100);
 		    noLoop();
-
 			background(0);
 			pushMatrix();
-			translate((float)(width/2),(float)(height/2.0+font.size/3.0));
+			translate(width/2, height/2);
 		    beginRaw(laser);
-		    delay(500);
-		    
-		    if(pointsP1 > pointsP2) {
-		    	font.draw("Player 1 WINS!");
-		    }
-		    else if(pointsP2 > pointsP1) {
-		    	font.draw("Player 2 WINS!");
-		    }
-		    else {
-		    	font.draw("Draw!");
-		    }
-		    popMatrix();
+		    	font.draw(LaserSleddingSkierContestant.winner(sk1, sk2));
 		    endRaw();
+		    popMatrix();
 		}
-	*/
 	}
 	public static void main(String args[]) {
 		PApplet.main(new String[] { LaserSledding.class.getCanonicalName() });
@@ -202,6 +175,11 @@ public void keyPressed() {
 				p1Collectibles.add(new Collectible(this, x, y));
 				p2Collectibles.add(new Collectible(this, x+width/2, y));
 			}
+			sk1.reset();
+			sk2.reset();
+			
+			sk1.start();
+			sk2.start();
 			loop();
 		}
 	}
