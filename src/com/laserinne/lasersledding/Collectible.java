@@ -71,7 +71,7 @@ public class Collectible {
 	
 		// Draws the collectible 
 	public void display() {
-		parent.pushMatrix();
+		/*parent.pushMatrix();
 		parent.translate(location.x, location.y);
 		parent.rotate(parent.millis() * (float)0.01);
 			
@@ -79,6 +79,14 @@ public class Collectible {
 		parent.rect(0, 0, size,size);
 			
 		parent.popMatrix();
+		*/
+		parent.beginShape();
+		
+		parent.vertex(location.x, location.y);
+		parent.vertex(location.x+10, location.y*parent.noise(1));
+		parent.vertex(location.x+20, location.y);
+		
+		parent.endShape();
 	}
 	
 	// Checks the distance from collectible to skier

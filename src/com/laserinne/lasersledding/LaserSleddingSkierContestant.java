@@ -36,7 +36,7 @@ public class LaserSleddingSkierContestant extends SkierContestant {
 
 	@Override
 	public float scoreToSeconds() {
-		return score * 0.25f;
+		return score * -0.25f;
 	}
 
 	@Override

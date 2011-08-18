@@ -55,7 +55,6 @@ public class LaserSledding extends PApplet {
 		pointsP1 = 0;
 		pointsP2 = 0;
 		
-		
 		// Create the collectibles
 		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
 			int x = (int)random(width/2);
@@ -79,6 +78,9 @@ public class LaserSledding extends PApplet {
 		
 		// Finishline
 		LaserSleddingSkierContestant.finishLine(height-50);
+		
+		sk1.start();
+		sk2.start();
 	}
 	
 	public void draw() {
@@ -86,7 +88,7 @@ public class LaserSledding extends PApplet {
 		background(0);
 		stroke(255,0,0);
 		noFill();
-	
+		
 		beginRaw(laser);
 		
 		// Display Skiers

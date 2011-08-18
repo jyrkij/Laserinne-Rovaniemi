@@ -43,7 +43,7 @@ public class NameDraw extends PApplet {
 	RFont font;
 
 	String[] nameList = {
-			"TANJA POUTIAINEN", "ANJA PAERSSON", "IHME HIIHTÃ„JÃ„", "HIIHTO PUMMI", "SUKSI SUOHON", "HAVUJA SAATANA"
+			"TANJA POUTIAINEN", "ANJA PAERSSON", "IHME HIIHTÄJÄs", "HIIHTO PUMMI", "SUKSI SUOHON", "HAVUJA SAATANA"
 	};
 
 	public void setup() {
@@ -60,6 +60,8 @@ public class NameDraw extends PApplet {
 		stroke(255);
 		line(0, 500, width, 500);
 
+		
+		// Easing
 		targetX = mouseX;
 		float dx = targetX - x;
 		if(abs(dx) > 1)  {
@@ -77,16 +79,12 @@ public class NameDraw extends PApplet {
 		}  else {
 			stroke(255);
 		}
+		
 		Laser3D renderer = laser.renderer();
 		beginRaw(renderer);
-		//fill(255, 0, 0);
 		noFill();
-		// Display headline at x  location
-		//  textFont(font);        
-		// textAlign(CENTER);
 		translate(x, y);
-		font.draw(nameList[index]); 
-
+		font.draw(nameList[index]);
 		endRaw();
 		
 		if (mouseY > 500 && overLine == false) {  
