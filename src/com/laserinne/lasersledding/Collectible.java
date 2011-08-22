@@ -30,7 +30,7 @@ import processing.core.PVector;
 public class Collectible {
 	PApplet parent;		// Parent Applet
 	PVector location; // Location of collectible
-	int size; // Size of the collectible;
+	int radius; // Size of the collectible;
 	
 	// For calculating the cos wave.
 	int i;
@@ -42,7 +42,7 @@ public class Collectible {
 		parent = p;
 		location = new PVector(xLoc, yLoc);
 		i = (int)parent.random(405);
-		size = 10;
+		radius = 5;
 	}
 	
 	public void update(int id) {
@@ -71,27 +71,19 @@ public class Collectible {
 	
 		// Draws the collectible 
 	public void display() {
-		/*parent.pushMatrix();
+		parent.pushMatrix();
 		parent.translate(location.x, location.y);
 		parent.rotate(parent.millis() * (float)0.01);
 			
 		parent.rectMode(PConstants.CENTER);
-		parent.rect(0, 0, size,size);
+		parent.rect(0, 0, radius*2,radius*2);
 			
 		parent.popMatrix();
-		*/
-		parent.beginShape();
-		
-		parent.vertex(location.x, location.y);
-		parent.vertex(location.x+10, location.y*parent.noise(1));
-		parent.vertex(location.x+20, location.y);
-		
-		parent.endShape();
 	}
 	
 	// Checks the distance from collectible to skier
 	public boolean checkLocation(LaserSleddingSkierContestant s) {
-		if( s.closeTo(this.location, size) ) {
+		if( s.closeTo(this.location, radius*2) ) {
 			return true;
 		}
 			return false;

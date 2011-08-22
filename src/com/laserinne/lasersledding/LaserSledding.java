@@ -44,8 +44,8 @@ public class LaserSledding extends PApplet {
 	RFont font;
 	
 	public void setup() {
-		size(600,600,P3D);
-		frameRate(100);
+		size(640,480,P3D);
+		frameRate(60);
 		
 		// Allocate memory for skier and collectible
 		sk1 = new LaserSleddingSkierContestant(mouseX, mouseY, 10, 10);
@@ -64,11 +64,9 @@ public class LaserSledding extends PApplet {
 			p2Collectibles.add(new Collectible(this, x+width/2, y));
 		}
 		
-		
 		// Initialize laserschein
 		laserschein = new Laserschein(this, Laserschein.EASYLASEUSB2);
-		scanSpeed = 20000;
-		
+		scanSpeed = 30000;
 		laser = laserschein.renderer();
 		laser.noSmooth();
 		
@@ -162,8 +160,6 @@ public void keyPressed() {
 		
 		if(key == 'n') {
 			// Allocate memory for skier and collectible
-		//	sk1 = new Skier(this);
-		//	sk2 = new Skier(this);
 			p1Collectibles = new ArrayList<Collectible>();
 			p2Collectibles = new ArrayList<Collectible>();
 			pointsP1 = 0;
@@ -177,9 +173,12 @@ public void keyPressed() {
 				p1Collectibles.add(new Collectible(this, x, y));
 				p2Collectibles.add(new Collectible(this, x+width/2, y));
 			}
+			
+			// Reset the skiers
 			sk1.reset();
 			sk2.reset();
 			
+			// Start skiers
 			sk1.start();
 			sk2.start();
 			loop();
