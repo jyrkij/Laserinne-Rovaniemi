@@ -66,7 +66,7 @@ public class LaserSledding extends PApplet {
 		
 		// Initialize laserschein
 		laserschein = new Laserschein(this, Laserschein.EASYLASEUSB2);
-		scanSpeed = 30000;
+		scanSpeed = 12000;
 		laser = laserschein.renderer();
 		laser.noSmooth();
 		
@@ -88,7 +88,6 @@ public class LaserSledding extends PApplet {
 		noFill();
 		
 		beginRaw(laser);
-		
 		// Display Skiers
 		sk1.setPosition(mouseX, mouseY);
 		sk1.draw(g);

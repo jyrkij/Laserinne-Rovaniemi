@@ -24,7 +24,6 @@
 package com.laserinne.lasersledding;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PVector;
 
 public class Collectible {
@@ -71,7 +70,7 @@ public class Collectible {
 	
 		// Draws the collectible 
 	public void display() {
-		parent.pushMatrix();
+	/*	parent.pushMatrix();
 		parent.translate(location.x, location.y);
 		parent.rotate(parent.millis() * (float)0.01);
 			
@@ -79,6 +78,12 @@ public class Collectible {
 		parent.rect(0, 0, radius*2,radius*2);
 			
 		parent.popMatrix();
+	*/
+		
+		parent.beginShape();
+			parent.vertex(location.x, location.y);
+			parent.vertex(location.x+10, location.y);
+		parent.endShape();
 	}
 	
 	// Checks the distance from collectible to skier

@@ -23,6 +23,7 @@
 
 package com.laserinne.util;
 
+import processing.core.PConstants;
 import processing.core.PVector;
 
 /**
@@ -143,8 +144,14 @@ public abstract class SkierContestant extends FakeSkier {
      * @param g PGraphics instance that's used for drawing
      */
     public void draw(processing.core.PGraphics g) {
-        g.ellipseMode(processing.core.PConstants.CENTER);
-        g.ellipse(this.getX(), this.getY(), 10, 10);
+        //g.ellipseMode(processing.core.PConstants.CENTER);
+        //g.ellipse(this.getX(), this.getY(), 10, 10);
+    	g.beginShape();
+    		g.vertex(getPosition().x, getPosition().y);
+    		g.vertex(getPosition().x+5, getPosition().y);
+    		g.vertex(getPosition().x+5, getPosition().y+5);
+    		g.vertex(getPosition().x, getPosition().y+5);
+    	g.endShape(PConstants.CLOSE);
     }
     
     /**
