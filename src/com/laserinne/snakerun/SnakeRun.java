@@ -188,12 +188,6 @@ public class SnakeRun extends PApplet {
             pg.updatePixels();
             pg.endDraw();
             
-            // Now, we have to threshold the image, and DETECT A CONTOUR:
-            // first, copy on the small image:
-            img.copy(pg, 0, 0, pg.width, pg.height, 0, 0, img.width, img.height);
-            //detect the contours:
-            bd.computeBlobs(img.pixels);
-            
             stroke(SnakeRun.LASER_COLOR);
             beginRaw(renderer);
             if (leftSkier.finished() && rightSkier.finished()) {
@@ -205,6 +199,18 @@ public class SnakeRun extends PApplet {
                 font.draw(finishNote);
                 popMatrix();
             } else {
+                // First of all, fill the image with black
+                img.copy(pg, 0, 0, 1, 1, 0, 0, img.width, img.height);
+                // Then copy the rendered pg to small image
+                img.copy(pg, 0, 0, pg.width / 2, pg.height, 0, 0, img.width / 2, img.height);
+                // Then detect the contours
+                bd.computeBlobs(img.pixels);
+                // Finally draw the edges
+                drawBlobsAndEdges(false, true);
+                // And repeat for the right side of pg
+                img.copy(pg, 0, 0, 1, 1, 0, 0, img.width, img.height);
+                img.copy(pg, pg.width / 2, 0, pg.width / 2, pg.height, img.width / 2, 0, img.width / 2, img.height);
+                bd.computeBlobs(img.pixels);
                 drawBlobsAndEdges(false, true);
             }
             endRaw();
@@ -217,13 +223,15 @@ public class SnakeRun extends PApplet {
             rightSkier.inSnake(rightSnake);
             rightSkier.draw(g);
             
-            //image(pg, 0, 0, width, height);
+//            image(pg, 0, 0, width, height);
         }
     }
     
     private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges) {
         Blob b;
         EdgeVertex eA, eB;
+        pushMatrix();
+        beginShape();
         for (int n = 0; n < bd.getBlobNb(); n++) {
             b = bd.getBlob(n);
             if (b != null) {
@@ -239,15 +247,15 @@ public class SnakeRun extends PApplet {
                     for (int m = 0; m < b.getEdgeNb(); m++) {
                         eA = b.getEdgeVertexA(m);
                         eB = b.getEdgeVertexB(m);
-                        if (eA != null && eB != null)
-                            line(
-                                eA.x * width, eA.y * height, 
-                                eB.x * width, eB.y * height
-                                );
+                        if (eA != null && eB != null) {
+                            vertex(eA.x * width, eA.y * height);
+                        }
                     }
                 }
             }
         }
+        endShape(CLOSE);
+        popMatrix();
     }
     
     private void drawPath(ArrayList<PVector> points) {
