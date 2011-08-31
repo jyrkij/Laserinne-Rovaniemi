@@ -191,6 +191,7 @@ public class SnakeRun extends PApplet {
             stroke(SnakeRun.LASER_COLOR);
             beginRaw(renderer);
             if (leftSkier.finished() && rightSkier.finished()) {
+                renderer.noSmooth();
                 String finishNote = SkierContestant.winner(leftSkier, rightSkier);
                 pushMatrix();
                 translate(width / 2, height / 2);
@@ -199,6 +200,7 @@ public class SnakeRun extends PApplet {
                 font.draw(finishNote);
                 popMatrix();
             } else {
+                renderer.smooth();
                 // First of all, fill the image with black
                 img.copy(pg, 0, 0, 1, 1, 0, 0, img.width, img.height);
                 // Then copy the rendered pg to small image
