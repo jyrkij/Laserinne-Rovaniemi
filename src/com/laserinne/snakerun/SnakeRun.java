@@ -209,12 +209,12 @@ public class SnakeRun extends PApplet {
                 // Then detect the contours
                 bd.computeBlobs(img.pixels);
                 // Finally draw the edges
-                drawBlobsAndEdges(false, true);
+                drawEdgeShape();
                 // And repeat for the right side of pg
                 img.copy(pg, 0, 0, 1, 1, 0, 0, img.width, img.height);
                 img.copy(pg, pg.width / 2, 0, pg.width / 2, pg.height, img.width / 2, 0, img.width / 2, img.height);
                 bd.computeBlobs(img.pixels);
-                drawBlobsAndEdges(false, true);
+                drawEdgeShape();
             }
             endRaw();
             stroke(SnakeRun.SCREEN_COLOR);
@@ -230,28 +230,23 @@ public class SnakeRun extends PApplet {
         }
     }
     
-    private void drawBlobsAndEdges(boolean drawBlobs, boolean drawEdges) {
+    private void drawEdgeShape() {
         Blob b;
-        EdgeVertex eA, eB;
+        EdgeVertex eA;
         pushMatrix();
         beginShape();
         for (int n = 0; n < bd.getBlobNb(); n++) {
             b = bd.getBlob(n);
             if (b != null) {
-                // Blobs
-                if (drawBlobs) {
-                    rect(
-                        b.xMin * width, b.yMin * height,
-                        b.w * width, b.h * height
-                        );
-                }
-                // Edges
-                if (drawEdges) {
-                    for (int m = 0; m < b.getEdgeNb(); m++) {
-                        eA = b.getEdgeVertexA(m);
-                        eB = b.getEdgeVertexB(m);
-                        if (eA != null && eB != null) {
-                            vertex(eA.x * width, eA.y * height);
+                for (int m = 0; m < b.getEdgeNb(); m++) {
+                    eA = b.getEdgeVertexA(m);
+                    if (eA != null) {
+                        if (m == 0) {
+                            curveVertex(eA.x * width, eA.y * height);
+                        }
+                        curveVertex(eA.x * width, eA.y * height);
+                        if (m == b.getEdgeNb() - 1) {
+                            curveVertex(eA.x * width, eA.y * height);
                         }
                     }
                 }
