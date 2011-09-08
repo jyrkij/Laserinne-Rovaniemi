@@ -40,6 +40,7 @@ import blobDetection.BlobDetection;
 import blobDetection.EdgeVertex;
 
 import com.laserinne.util.RandomWalkOscillator;
+import com.laserinne.util.Skier;
 import com.laserinne.util.SkierContestant;
 
 /**
@@ -103,6 +104,9 @@ public class SnakeRun extends PApplet {
         laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
         laser.output().setScanSpeed(12000);
         renderer = laser.renderer();
+        
+        Skier.width(SnakeRun.WIDTH);
+        Skier.height(SnakeRun.HEIGHT);
         
         smooth();
         
