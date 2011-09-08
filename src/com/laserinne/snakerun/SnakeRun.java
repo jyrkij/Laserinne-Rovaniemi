@@ -84,6 +84,9 @@ public class SnakeRun extends PApplet {
     public static final int LASER_COLOR = 0xFFFF0000;
     public static final int SCREEN_COLOR = 0xFF0000FF;
     
+    public static final int GAME_SCANSPEED = 12000;
+    public static final int TEXT_SCANSPEED = 60000;
+    
     public static final int NUM_FOLLOWERS = 50;
     
     /**
@@ -101,7 +104,7 @@ public class SnakeRun extends PApplet {
         size(SnakeRun.WIDTH, SnakeRun.HEIGHT, PGraphicsOpenGL.OPENGL);
         frameRate(-1); // Use maximum frame rate.
         laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
-        laser.output().setScanSpeed(12000);
+        laser.output().setScanSpeed(SnakeRun.GAME_SCANSPEED);
         renderer = laser.renderer();
         
         smooth();
@@ -192,6 +195,7 @@ public class SnakeRun extends PApplet {
             stroke(SnakeRun.LASER_COLOR);
             beginRaw(renderer);
             if (leftSkier.finished() && rightSkier.finished()) {
+                laser.output().setScanSpeed(SnakeRun.TEXT_SCANSPEED);
                 renderer.noSmooth();
                 String finishNote = SkierContestant.winner(leftSkier, rightSkier);
                 pushMatrix();
@@ -201,6 +205,7 @@ public class SnakeRun extends PApplet {
                 font.draw(finishNote);
                 popMatrix();
             } else {
+                laser.output().setScanSpeed(SnakeRun.GAME_SCANSPEED);
                 renderer.smooth();
                 // First of all, fill the image with black
                 img.copy(pg, 0, 0, 1, 1, 0, 0, img.width, img.height);
@@ -241,13 +246,7 @@ public class SnakeRun extends PApplet {
                 for (int m = 0; m < b.getEdgeNb(); m++) {
                     eA = b.getEdgeVertexA(m);
                     if (eA != null) {
-                        if (m == 0) {
-                            curveVertex(eA.x * width, eA.y * height);
-                        }
-                        curveVertex(eA.x * width, eA.y * height);
-                        if (m == b.getEdgeNb() - 1) {
-                            curveVertex(eA.x * width, eA.y * height);
-                        }
+                        vertex(eA.x * width, eA.y * height);
                     }
                 }
             }
