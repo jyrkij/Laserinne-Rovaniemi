@@ -50,7 +50,7 @@ public class ContestantTracking extends Tracking {
     public Skier firstSkierInRect(int x0, int y0, int x1, int y1) {
         for (Skier s : skiers) {
             if (s.getX() >= x0 && s.getX() <= x1 && s.getY() >= y0 && s.getY() <= y1) {
-                System.out.printf("Skier#%d is inside rect (%d, %d), (%d, %d)\n", s.getId(), x0, y0, x1, y1);
+//                System.out.printf("Skier#%d is inside rect (%d, %d), (%d, %d)\n", s.getId(), x0, y0, x1, y1);
                 return s;
             }
         }
