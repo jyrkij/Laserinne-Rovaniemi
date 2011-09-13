@@ -40,8 +40,8 @@ public class SnakeRunSkierContestant extends SkierContestant {
     
     private static final float POINT_WEIGHT = 0.1f;
     
-    public SnakeRunSkierContestant(float x, float y, float width, float height) {
-        super(x, y, width, height);
+    public SnakeRunSkierContestant() {
+        super();
     }
     
     public boolean inSnake(Snake snake) {
@@ -56,7 +56,7 @@ public class SnakeRunSkierContestant extends SkierContestant {
             firstAllowedIndex = followerCount * 1 / 2;
         Mover m = snake.head();
         while (m.follower() != null) {
-            if (m.closeTo(new PVector(this.getX(), this.getY()), 10)) {
+            if (m.closeTo(new PVector(this.position().x, this.position().y), 10)) {
                 if (m.index() > lastAllowedIndex) {
                     snake.changeTopSpeed(-0.02f);
                 }

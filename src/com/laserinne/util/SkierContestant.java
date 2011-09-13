@@ -43,8 +43,6 @@ import processing.core.PVector;
  *  when they have crossed the line. The change will happen when we get to use
  *  tracking.
  *  
- *  Call this.update() in every draw cycle to get updated position info.
- *  
  *  Constantly call this.finished() to figure out if the skier has finished.
  *  When both have finished, call this.winner() to get string telling the
  *  winner and its time.
@@ -52,12 +50,13 @@ import processing.core.PVector;
  * @author Jyrki Lilja
  */
 
-public abstract class SkierContestant extends FakeSkier {
+public abstract class SkierContestant {
     protected boolean running;
     protected boolean finished;
     protected long startTime;
     protected long finishTime;
     protected int score;
+    protected Skier skier;
     
     protected static int finishLine;
     
@@ -66,13 +65,28 @@ public abstract class SkierContestant extends FakeSkier {
      * @param x original position
      * @param y - '' -
      */
-    public SkierContestant(float x, float y, float width, float height) {
-        super(x, y, width, height);
+    public SkierContestant() {
         this.reset();
     }
     
-    public PVector getPosition() {
-    	return new PVector(getX(),getY());
+    /**
+     * Setter for ``skier''.
+     * Call this in every draw loop and provide the correct skier for the
+     * contestant.
+     * @param skier
+     */
+    public void skier(Skier skier) {
+        this.skier = skier;
+    }
+    
+    /**
+     * @return position of the skier.
+     */
+    public PVector position() {
+        if (skier == null) {
+            return new PVector(-100, -100);
+        }
+    	return new PVector(skier.getX(), skier.getY());
     }
     
     /**
@@ -89,7 +103,7 @@ public abstract class SkierContestant extends FakeSkier {
      * @return has the skier finished
      */
     public boolean finished() {
-        if (this.getY() >= SkierContestant.finishLine && !this.finished) {
+        if (this.position().y >= SkierContestant.finishLine && !this.finished) {
             this.running = false;
             this.finished = true;
             this.finishTime = System.currentTimeMillis();
@@ -147,18 +161,17 @@ public abstract class SkierContestant extends FakeSkier {
         //g.ellipseMode(processing.core.PConstants.CENTER);
         //g.ellipse(this.getX(), this.getY(), 10, 10);
     	g.beginShape();
-    		g.vertex(getPosition().x, getPosition().y);
-    		g.vertex(getPosition().x+5, getPosition().y);
-    		g.vertex(getPosition().x+5, getPosition().y+5);
-    		g.vertex(getPosition().x, getPosition().y+5);
+    		g.vertex(position().x, position().y);
+    		g.vertex(position().x+5, position().y);
+    		g.vertex(position().x+5, position().y+5);
+    		g.vertex(position().x, position().y+5);
     	g.endShape(PConstants.CLOSE);
     }
     
     /**
-     * Updates the skier location and score.
+     * Updates the skier score.
      */
     public void update() {
-        super.update();
         this.updateScore();
     }
     
@@ -192,7 +205,8 @@ public abstract class SkierContestant extends FakeSkier {
     public abstract void updateScore();
     
     /**
-     * Combines the time it took to run the slope and the score converted to seconds.
+     * Combines the time it took to run the slope and the score converted to
+     * seconds.
      * @return time & score converted to seconds, precision is 0.001.
      */
     public float combinedTimeAndScore() {
@@ -205,8 +219,7 @@ public abstract class SkierContestant extends FakeSkier {
      * @param rightSkier
      * @return String telling witch skier won (left or right) plus the time. 
      */
-    public static String winner(SkierContestant leftSkier,
-            SkierContestant rightSkier) {
+    public static String winner(SkierContestant leftSkier, SkierContestant rightSkier) {
         String finishNote;
         if (leftSkier.combinedTimeAndScore() < rightSkier.combinedTimeAndScore()) {
             // Left skier (Player 1) wins
@@ -231,7 +244,7 @@ public abstract class SkierContestant extends FakeSkier {
      * @return boolean Close to target?
      */
     public boolean closeTo(PVector target, float radius) {
-        PVector diff = PVector.sub(target, new PVector(this.getX(), this.getY()));
+        PVector diff = PVector.sub(target, new PVector(this.position().x, this.position().y));
         if (diff.mag() < radius) {
             return true;
         } else {

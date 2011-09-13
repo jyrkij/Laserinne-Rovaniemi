@@ -35,7 +35,7 @@ public class Tracking {
   private OscP5 oscP5;
 
   private HashMap<Integer, Skier> _mySkierTable;
-  private ArrayList<Skier> skiers;
+  protected ArrayList<Skier> skiers;
 
   public Tracking() {   
     this( "239.0.0.1", 9999 );

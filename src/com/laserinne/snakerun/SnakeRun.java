@@ -39,9 +39,11 @@ import blobDetection.Blob;
 import blobDetection.BlobDetection;
 import blobDetection.EdgeVertex;
 
+import com.laserinne.util.ContestantTracking;
 import com.laserinne.util.RandomWalkOscillator;
 import com.laserinne.util.Skier;
 import com.laserinne.util.SkierContestant;
+import com.laserinne.util.Tracking;
 
 /**
  * SnakeRun acts as the main class of SnakeRun application.
@@ -59,6 +61,7 @@ public class SnakeRun extends PApplet {
     
     private Laserschein laser;
     private Laser3D renderer;
+    private ContestantTracking tracking;
     
     private Snake leftSnake,
                   rightSnake;
@@ -108,6 +111,8 @@ public class SnakeRun extends PApplet {
         laser.output().setScanSpeed(SnakeRun.GAME_SCANSPEED);
         renderer = laser.renderer();
         
+        tracking = new ContestantTracking();
+        
         Skier.width(SnakeRun.WIDTH);
         Skier.height(SnakeRun.HEIGHT);
         
@@ -130,8 +135,8 @@ public class SnakeRun extends PApplet {
         
         // Initialize fake skiers
         SnakeRunSkierContestant.finishLine(SnakeRun.FINISH_LINE);
-        leftSkier = new SnakeRunSkierContestant(width / 4, 0, 10, 10);
-        rightSkier = new SnakeRunSkierContestant(width * 3 / 4, 0, 10, 10);
+        leftSkier = new SnakeRunSkierContestant();
+        rightSkier = new SnakeRunSkierContestant();
         
         RG.init(this);
         font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
@@ -228,10 +233,14 @@ public class SnakeRun extends PApplet {
             endRaw();
             stroke(SnakeRun.SCREEN_COLOR);
             
-            leftSkier.setPosition((int) (mouseX - width * 0.3), mouseY);
+            tracking.update();
+            leftSkier.skier(tracking.firstSkierInRect(0, 0, width / 2, height));
+            rightSkier.skier(tracking.firstSkierInRect(width / 2, 0, width, height));
+            
+//            leftSkier.setPosition((int) (mouseX - width * 0.3), mouseY);
             leftSkier.inSnake(leftSnake);
             leftSkier.draw(g);
-            rightSkier.setPosition((int) (mouseX + width * 0.3), mouseY);
+//            rightSkier.setPosition((int) (mouseX + width * 0.3), mouseY);
             rightSkier.inSnake(rightSnake);
             rightSkier.draw(g);
             
