@@ -24,6 +24,9 @@
 package com.laserinne.lasersledding;
 
 import java.util.ArrayList;
+
+import com.laserinne.util.ContestantTracking;
+
 import processing.core.PApplet;
 import geomerative.*;
 import laserschein.*;
@@ -39,6 +42,7 @@ public class LaserSledding extends PApplet {
 	
 	Laserschein laserschein;
 	Laser3D laser;
+	ContestantTracking tracking;
 	int scanSpeed;
 	
 	RFont font;
@@ -48,8 +52,8 @@ public class LaserSledding extends PApplet {
 		frameRate(60);
 		
 		// Allocate memory for skier and collectible
-		sk1 = new LaserSleddingSkierContestant(mouseX, mouseY, 10, 10);
-		sk2 = new LaserSleddingSkierContestant(mouseX+300, mouseY, 10, 10);
+		sk1 = new LaserSleddingSkierContestant();
+		sk2 = new LaserSleddingSkierContestant();
 		p1Collectibles = new ArrayList<Collectible>();
 		p2Collectibles = new ArrayList<Collectible>();
 		pointsP1 = 0;
@@ -70,6 +74,8 @@ public class LaserSledding extends PApplet {
 		laser = laserschein.renderer();
 		laser.noSmooth();
 		
+		tracking = new ContestantTracking();
+		
 		// Text 
 		RG.init(this);
 		font = new RFont( "Laserfont.ttf", 32, RFont.CENTER);
@@ -87,11 +93,13 @@ public class LaserSledding extends PApplet {
 		stroke(255,0,0);
 		noFill();
 		
+		tracking.update();
+		
 		beginRaw(laser);
 		// Display Skiers
-		sk1.setPosition(mouseX, mouseY);
+//		sk1.setPosition(mouseX, mouseY);
 		sk1.draw(g);
-		sk2.setPosition(mouseX+width/2, mouseY);
+//		sk2.setPosition(mouseX+width/2, mouseY);
 		sk2.draw(g);
 		
 		// Check location and display collectibles

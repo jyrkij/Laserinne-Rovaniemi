@@ -29,8 +29,8 @@ public class LaserSleddingSkierContestant extends SkierContestant {
 	
 	private float score;
 	
-	public LaserSleddingSkierContestant(float x, float y, float width, float height) {
-		super(x, y, width, height);
+	public LaserSleddingSkierContestant() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
