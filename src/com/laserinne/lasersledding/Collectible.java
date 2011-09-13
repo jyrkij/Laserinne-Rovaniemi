@@ -69,17 +69,7 @@ public class Collectible {
 	}
 	
 		// Draws the collectible 
-	public void display() {
-	/*	parent.pushMatrix();
-		parent.translate(location.x, location.y);
-		parent.rotate(parent.millis() * (float)0.01);
-			
-		parent.rectMode(PConstants.CENTER);
-		parent.rect(0, 0, radius*2,radius*2);
-			
-		parent.popMatrix();
-	*/
-		
+	public void display() {		
 		parent.beginShape();
 			parent.vertex(location.x, location.y);
 			parent.vertex(location.x+10, location.y);
@@ -93,4 +83,6 @@ public class Collectible {
 		}
 			return false;
 	}
+	
+	
 }
