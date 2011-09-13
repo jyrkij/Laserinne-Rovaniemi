@@ -31,7 +31,6 @@ public class LaserSleddingSkierContestant extends SkierContestant {
 	
 	public LaserSleddingSkierContestant(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -41,7 +40,6 @@ public class LaserSleddingSkierContestant extends SkierContestant {
 
 	@Override
 	public void updateScore() {
-		// TODO Auto-generated method stub
 
 	}
 

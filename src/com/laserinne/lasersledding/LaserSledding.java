@@ -24,6 +24,9 @@
 package com.laserinne.lasersledding;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import processing.core.PApplet;
 import geomerative.*;
 import laserschein.*;
@@ -55,14 +58,46 @@ public class LaserSledding extends PApplet {
 		pointsP1 = 0;
 		pointsP2 = 0;
 		
-		// Create the collectibles
+		// Finishline
+		LaserSleddingSkierContestant.finishLine(height-50);
+		
+		// Create the collectibles and their positions.
 		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
 			int x = (int)random(width/2);
 			int y = (int)random(height-50);
 			
 			p1Collectibles.add(new Collectible(this, x, y));
 			p2Collectibles.add(new Collectible(this, x+width/2, y));
+			
 		}
+		
+		// Sort p1Collectibles
+		Collections.sort(p1Collectibles, new Comparator<Collectible>() {
+
+			@Override
+			public int compare(Collectible c1, Collectible c2) {
+				if(c1.location.y < c2.location.y)
+					return -1;
+				else if(c1.location.y > c2.location.y)
+					return 1;
+				else
+					return 0;
+			}
+		});
+		
+		// Sort p2Collectibles
+		Collections.sort(p2Collectibles, new Comparator<Collectible>() {
+
+			@Override
+			public int compare(Collectible c1, Collectible c2) {
+				if(c1.location.y < c2.location.y)
+					return -1;
+				else if(c1.location.y > c2.location.y)
+					return 1;
+				else
+					return 0;
+			}
+		});
 		
 		// Initialize laserschein
 		laserschein = new Laserschein(this, Laserschein.EASYLASEUSB2);
@@ -73,9 +108,6 @@ public class LaserSledding extends PApplet {
 		// Text 
 		RG.init(this);
 		font = new RFont( "Laserfont.ttf", 32, RFont.CENTER);
-		
-		// Finishline
-		LaserSleddingSkierContestant.finishLine(height-50);
 		
 		sk1.start();
 		sk2.start();
