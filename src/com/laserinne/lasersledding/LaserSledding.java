@@ -71,37 +71,28 @@ public class LaserSledding extends PApplet {
 			
 		}
 		
+		// TODO: Implement interface for sorting
 		// Sort p1Collectibles
 		Collections.sort(p1Collectibles, new Comparator<Collectible>() {
 
 			@Override
 			public int compare(Collectible c1, Collectible c2) {
-				if(c1.location.y < c2.location.y)
-					return -1;
-				else if(c1.location.y > c2.location.y)
-					return 1;
-				else
-					return 0;
+				return (int)(c1.location.y - c2.location.y);
 			}
 		});
 		
 		// Sort p2Collectibles
 		Collections.sort(p2Collectibles, new Comparator<Collectible>() {
-
+			
 			@Override
 			public int compare(Collectible c1, Collectible c2) {
-				if(c1.location.y < c2.location.y)
-					return -1;
-				else if(c1.location.y > c2.location.y)
-					return 1;
-				else
-					return 0;
+				return (int)(c1.location.y - c2.location.y);
 			}
 		});
 		
 		// Initialize laserschein
 		laserschein = new Laserschein(this, Laserschein.EASYLASEUSB2);
-		scanSpeed = 12000;
+		scanSpeed = 17000;
 		laser = laserschein.renderer();
 		laser.noSmooth();
 		
