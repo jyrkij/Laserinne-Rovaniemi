@@ -72,8 +72,7 @@ public class LaserSledding extends PApplet {
 			int y = (int)random(height-50);
 			
 			p1Collectibles.add(new Collectible(this, x, y));
-			p2Collectibles.add(new Collectible(this, x+width/2, y));
-			
+			p2Collectibles.add(p1Collectibles.get(i));
 		}
 		
 		// TODO: Implement interface for sorting
@@ -202,14 +201,33 @@ public void keyPressed() {
 			pointsP1 = 0;
 			pointsP2 = 0;
 			
-			// Create the collectibles
+			// Create the collectibles and their positions.
 			for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
-				int x = (int)random(300);
+				int x = (int)random(width/2);
 				int y = (int)random(height-50);
 				
 				p1Collectibles.add(new Collectible(this, x, y));
-				p2Collectibles.add(new Collectible(this, x+width/2, y));
+				p2Collectibles.add(p1Collectibles.get(i));
 			}
+			
+			// TODO: Implement interface for sorting
+			// Sort p1Collectibles
+			Collections.sort(p1Collectibles, new Comparator<Collectible>() {
+
+				@Override
+				public int compare(Collectible c1, Collectible c2) {
+					return (int)(c1.location.y - c2.location.y);
+				}
+			});
+			
+			// Sort p2Collectibles
+			Collections.sort(p2Collectibles, new Comparator<Collectible>() {
+				
+				@Override
+				public int compare(Collectible c1, Collectible c2) {
+					return (int)(c1.location.y - c2.location.y);
+				}
+			});
 			
 			// Reset the skiers
 			sk1.reset();
