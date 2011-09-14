@@ -38,10 +38,11 @@ import processing.core.PVector;
  * 
  *  First, implement all abstract methods.
  *  
- *  Then, when skier starts running, call this.start(). This *might* get
- *  changed so that there is start line as well, and skier starts automatically
- *  when they have crossed the line. The change will happen when we get to use
- *  tracking.
+ *  Before using anything, call this.startLine(int) and this.finishLine(int)
+ *  to set start and finish lines.
+ *  
+ *  Call constantly this.update() to get updated info on skier status. This
+ *  method also starts the skier automatically.
  *  
  *  Constantly call this.finished() to figure out if the skier has finished.
  *  When both have finished, call this.winner() to get string telling the
