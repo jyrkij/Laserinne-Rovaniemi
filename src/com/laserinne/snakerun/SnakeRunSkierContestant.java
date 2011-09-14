@@ -98,7 +98,7 @@ public class SnakeRunSkierContestant extends SkierContestant {
 
     @Override
     public void updateScore() {
-        if (this.running && this.negativePointsStarted != 0 && System.currentTimeMillis() - this.negativePointsStarted > 100) {
+        if (this.running == true && this.finished == false && this.negativePointsStarted != 0 && System.currentTimeMillis() - this.negativePointsStarted > 100) {
             this.score--;
             System.out.println("Added minus point. Score now " + this.score);
             this.negativePointsStarted = 0;
