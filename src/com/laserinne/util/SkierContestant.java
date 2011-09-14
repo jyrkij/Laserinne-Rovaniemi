@@ -195,7 +195,7 @@ public abstract class SkierContestant {
      */
     public void update() {
         this.updateScore();
-        if (this.running == false && this.position().y >= SkierContestant.startLine) {
+        if (this.running == false && this.finished == false && this.position().y >= SkierContestant.startLine) {
             this.start();
         }
         this.finished();
