@@ -253,6 +253,13 @@ public class Mover {
     }
     
     /**
+     * Getter for this.topSpeed
+     */
+    public float topSpeed() {
+        return this.topSpeed;
+    }
+    
+    /**
      * topSpeed
      *
      * Sets topSpeed to ``speed''.
