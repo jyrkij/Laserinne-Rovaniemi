@@ -24,7 +24,11 @@
 package com.laserinne.lasersledding;
 
 import java.util.ArrayList;
+
+import com.laserinne.snakerun.SnakeRun;
 import com.laserinne.util.ContestantTracking;
+import com.laserinne.util.Skier;
+
 import java.util.Collections;
 import java.util.Comparator;
 import processing.core.PApplet;
@@ -103,6 +107,9 @@ public class LaserSledding extends PApplet {
 		RG.init(this);
 		font = new RFont( "Laserfont.ttf", 32, RFont.CENTER);
 		
+		Skier.width(width);
+	    Skier.height(height);
+		
 		sk1.start();
 		sk2.start();
 	}
@@ -114,6 +121,9 @@ public class LaserSledding extends PApplet {
 		noFill();
 		
 		tracking.update();
+		sk1.skier(tracking.firstSkierInRect(0, 0, width/2, height));
+		sk2.skier(tracking.firstSkierInRect(width/2, 0, width, height));
+		
 		
 		beginRaw(laser);
 		// Display Skiers
