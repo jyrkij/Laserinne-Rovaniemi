@@ -58,6 +58,7 @@ public abstract class SkierContestant {
     protected int score;
     protected Skier skier;
     
+    protected static int startLine;
     protected static int finishLine;
     
     /**
@@ -90,7 +91,24 @@ public abstract class SkierContestant {
     }
     
     /**
+     * @return startLine
+     */
+    public static int startLine() {
+        return SkierContestant.startLine;
+    }
+    
+    /**
+     * Use this to set the start line *before* any use of the class.
+     * Timing starts when the skier has crossed start line.
+     * @param startLine
+     */
+    public static void startLine(int startLine) {
+        SkierContestant.startLine = startLine;
+    }
+    
+    /**
      * Use this to set the finish line *before* any use of the class.
+     * Timing ends when the skier has crossed finish line.
      * @param finishLine
      */
     public static void finishLine(int finishLine) {
@@ -103,7 +121,7 @@ public abstract class SkierContestant {
      * @return has the skier finished
      */
     public boolean finished() {
-        if (this.position().y >= SkierContestant.finishLine && !this.finished) {
+        if (this.finished == false && this.position().y >= SkierContestant.finishLine) {
             this.running = false;
             this.finished = true;
             this.finishTime = System.currentTimeMillis();
@@ -131,6 +149,7 @@ public abstract class SkierContestant {
      * Starts running the race. Has to be called when the skier starts the race.
      */
     public void start() {
+        System.out.printf("Skier %s started.\n", this);
         this.running = true;
         this.startTime = System.currentTimeMillis();
     }
@@ -169,10 +188,16 @@ public abstract class SkierContestant {
     }
     
     /**
-     * Updates the skier score.
+     * Updates the skier:
+     *  - score
+     *  - running status (start & stop)
      */
     public void update() {
         this.updateScore();
+        if (this.running == false && this.position().y >= SkierContestant.startLine) {
+            this.start();
+        }
+        this.finished();
     }
     
     /**

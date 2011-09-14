@@ -138,6 +138,9 @@ public class SnakeRun extends PApplet {
         leftSkier = new SnakeRunSkierContestant();
         rightSkier = new SnakeRunSkierContestant();
         
+        // Reset both snakes and skiers so that we're ready to run.
+        reset();
+        
         RG.init(this);
         font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
         
@@ -328,11 +331,23 @@ public class SnakeRun extends PApplet {
     
     private void reset() {
         leftSnake.reset(width / 4, 0, leftPoints);
-        leftSnake.stop();
+        leftSnake.start();
+        float topSpeed = leftSnake.topSpeed();
+        while (!leftSnake.closeTo(leftPoints.get(2))) {
+            leftSnake.topSpeed(2.0f);
+            leftSnake.update();
+        }
+        leftSnake.topSpeed(topSpeed);
         leftSkier.reset();
         
         rightSnake.reset(width * 3 / 4, 0, rightPoints);
-        rightSnake.stop();
+        rightSnake.start();
+        topSpeed = rightSnake.topSpeed();
+        while (!rightSnake.closeTo(rightPoints.get(2))) {
+            rightSnake.topSpeed(2.0f);
+            rightSnake.update();
+        }
+        rightSnake.topSpeed(topSpeed);
         rightSkier.reset();
     }
     
@@ -352,21 +367,6 @@ public class SnakeRun extends PApplet {
             // Generate new paths & reset positions
             generatePaths();
             reset();
-            
-        } else if (key == 's') {
-            // Start/stop
-            if (laserOn) {
-                if (leftSnake.running() || rightSnake.running()) {
-                    leftSnake.stop();
-                    rightSnake.stop();
-                } else {
-                    leftSnake.start();
-                    rightSnake.start();
-                    // TODO: Move the skier starts according to 69149cf.
-                    leftSkier.start();
-                    rightSkier.start();
-                }
-            }
         } else if (key == 'r') {
             // Reset positions
             reset();
