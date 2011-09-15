@@ -23,17 +23,19 @@
 
 package com.laserinne.lasersledding;
 
+import geomerative.RFont;
+import geomerative.RG;
+
 import java.util.ArrayList;
-
-import com.laserinne.snakerun.SnakeRun;
-import com.laserinne.util.ContestantTracking;
-import com.laserinne.util.Skier;
-
 import java.util.Collections;
 import java.util.Comparator;
+
+import laserschein.Laser3D;
+import laserschein.Laserschein;
 import processing.core.PApplet;
-import geomerative.*;
-import laserschein.*;
+
+import com.laserinne.util.ContestantTracking;
+import com.laserinne.util.Skier;
 
 @SuppressWarnings("serial")
 public class LaserSledding extends PApplet {

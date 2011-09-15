@@ -43,7 +43,6 @@ import com.laserinne.util.ContestantTracking;
 import com.laserinne.util.RandomWalkOscillator;
 import com.laserinne.util.Skier;
 import com.laserinne.util.SkierContestant;
-import com.laserinne.util.Tracking;
 
 /**
  * SnakeRun acts as the main class of SnakeRun application.

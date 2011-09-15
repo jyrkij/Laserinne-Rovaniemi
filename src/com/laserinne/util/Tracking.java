@@ -28,8 +28,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import oscP5.*;
-import netP5.*;
+import oscP5.OscMessage;
+import oscP5.OscP5;
 
 public class Tracking {
   private OscP5 oscP5;
