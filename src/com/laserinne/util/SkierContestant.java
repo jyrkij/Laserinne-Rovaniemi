@@ -1,4 +1,4 @@
-/**
+/*
  *                This file is part of Laserinne.
  * 
  *  Laser projections in public space, inspiration and
