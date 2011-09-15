@@ -141,7 +141,7 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
             
 //            image(pg, 0, 0, width, height);
             
-            super.drawWithLaser();
+            drawWithLaser();
         }
     }
     
