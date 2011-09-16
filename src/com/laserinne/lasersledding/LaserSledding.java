@@ -145,6 +145,9 @@ public void keyPressed() {
 				System.out.println("Scanspeed: " + scanSpeed);
 			}
 		} else if(key == 'n') {
+			
+			// TODO: DRY!! Create method for creating collectibles here and in the setup()
+		
 			// Allocate memory for skier and collectible
 			p1Collectibles = new ArrayList<Collectible>();
 			p2Collectibles = new ArrayList<Collectible>();
