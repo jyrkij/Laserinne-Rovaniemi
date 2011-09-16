@@ -100,9 +100,9 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 		
 		if (laserOn) {
 	        // Display Skiers
-	        leftSkier.setPosition(mouseX, mouseY);
+//	        leftSkier.setPosition(mouseX, mouseY);
 	        leftSkier.draw(g);
-	        rightSkier.setPosition(mouseX+width/2, mouseY);
+//	        rightSkier.setPosition(mouseX+width/2, mouseY);
 	        rightSkier.draw(g);
 	        
 		    drawWithLaser();
