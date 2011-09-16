@@ -60,7 +60,7 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 			int y = (int)random(height-50);
 			
 			p1Collectibles.add(new Collectible(this, x, y));
-			p2Collectibles.add(p1Collectibles.get(i));
+			p2Collectibles.add(new Collectible(this, x + width / 2, y));
 		}
 		
 		// TODO: Implement interface for sorting
