@@ -82,8 +82,8 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
      * Start and finish lines. These determine when to start / finish the race
      * for skier.
      */
-    protected static final int START_LINE = 10;
-    protected static final int FINISH_LINE = 470;
+    protected static final int START_LINE = 20;
+    protected static final int FINISH_LINE = 460;
     /**
      * Sketch width and height.
      */
