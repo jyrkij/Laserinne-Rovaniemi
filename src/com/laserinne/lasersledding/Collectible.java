@@ -63,7 +63,7 @@ public class Collectible {
 		
 		if(id == 2) {
 			location.x = parent.width/2 + (sc * PApplet.cos(ang1));
-			x = PApplet.map(location.x, 0, parent.width, 300, parent.width);
+			x = PApplet.map(location.x, 0, parent.width, parent.width/2, parent.width);
 		}
 		location.x = x;
 	}
