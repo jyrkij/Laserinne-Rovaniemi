@@ -105,9 +105,9 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 	
 	protected void drawGame() {
 	       // Display Skiers
-//      sk1.setPosition(mouseX, mouseY);
+//        leftSkier.setPosition(mouseX, mouseY);
         leftSkier.draw(g);
-//      sk2.setPosition(mouseX+width/2, mouseY);
+//        rightSkier.setPosition(mouseX+width/2, mouseY);
         rightSkier.draw(g);
         
         // Check location and display collectibles
