@@ -205,8 +205,10 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
             pushMatrix();
             translate(width / 2, height / 2);
             font.setAlign(RFont.CENTER);
+            int fontSize = font.size;
             font.setSize(40);
             font.draw(finishNote);
+            font.setSize(fontSize);
             popMatrix();
         } else {
             /*
