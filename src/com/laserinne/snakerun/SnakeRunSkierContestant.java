@@ -45,7 +45,6 @@ public class SnakeRunSkierContestant extends SkierContestant {
     }
     
     public boolean inSnake(Snake snake) {
-        this.update();
         this.inSnake = false;
         int followerCount = snake.followerCount(),
             /**

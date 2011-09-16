@@ -133,9 +133,11 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
             pg.endDraw();
             
 //            leftSkier.setPosition((int) (mouseX - width * 0.3), mouseY);
+            leftSkier.update();
             ((SnakeRunSkierContestant) leftSkier).inSnake(leftSnake);
             leftSkier.draw(g);
 //            rightSkier.setPosition((int) (mouseX + width * 0.3), mouseY);
+            rightSkier.update();
             ((SnakeRunSkierContestant) rightSkier).inSnake(rightSnake);
             rightSkier.draw(g);
             
