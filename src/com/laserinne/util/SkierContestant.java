@@ -64,8 +64,6 @@ public abstract class SkierContestant {
     
     /**
      * Constructor, sets fields and original position.
-     * @param x original position
-     * @param y - '' -
      */
     public SkierContestant() {
         this.reset();
