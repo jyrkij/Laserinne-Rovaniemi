@@ -89,6 +89,11 @@ public abstract class SkierContestant {
     	return new PVector(skier.getX(), skier.getY());
     }
     
+    public void setPosition(int x, int y) {
+        this.skier = new Skier(0, 0, 0, 0, 0, 0, 0, 0, 0);
+        this.skier.setPosition(x, y);
+    }
+    
     /**
      * @return startLine
      */

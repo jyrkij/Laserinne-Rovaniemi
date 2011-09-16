@@ -215,4 +215,8 @@ public class Skier {
     public static final void height(int height) {
         Skier.height = height;
     }
+    
+    public void setPosition(int x, int y) {
+        this.position = new PVector(x, y);
+    }
 }
