@@ -23,11 +23,11 @@
 
 package com.laserinne.util;
 
-import com.laserinne.snakerun.SnakeRun;
-
 import geomerative.RFont;
 import laserschein.Laser3D;
 import laserschein.Laserschein;
+
+import com.laserinne.snakerun.SnakeRun;
 
 /**
  * Abstract superclass for games/competitions for two players.
@@ -178,6 +178,10 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
         font.setAlign(RFont.LEFT);
         font.draw(new Integer(Math.round(frameRate)).toString());
         popMatrix();
+        
+        line(width / 2, 0, width / 2, height);
+        line(0, TwoPlayerCompetition.START_LINE, width, TwoPlayerCompetition.START_LINE);
+        line(0, TwoPlayerCompetition.FINISH_LINE, width, TwoPlayerCompetition.FINISH_LINE);
         
         /*
          * Update tracking and set both skiers according to tracking.

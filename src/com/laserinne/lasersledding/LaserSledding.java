@@ -86,8 +86,6 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 	public void draw() {
 	    super.draw();
 	    
-        line(width / 2, 0, width / 2, height);
-        
 		// Checks if leftSkier has crossed the finish line and calculates points
 		if(leftSkier.finished() && pointsP1 == 0) {
 			((LaserSleddingSkierContestant) leftSkier).setScore(COLLECTIBLE_NUMBER - p1Collectibles.size());

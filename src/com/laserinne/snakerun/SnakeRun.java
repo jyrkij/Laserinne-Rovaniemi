@@ -110,7 +110,6 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
         drawPath(rightPoints);
         
         line(width / 4, 0, width / 4, height);
-        line(width / 2, 0, width / 2, height);
         line(width * 3 / 4, 0, width * 3 / 4, height);
         
         if (laserOn) {
