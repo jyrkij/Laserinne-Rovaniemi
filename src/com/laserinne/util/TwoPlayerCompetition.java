@@ -93,7 +93,7 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     /**
      * Laser color: ARGB(FF, 00, FF, 00) means full intensity green.
      */
-    public static final int LASER_COLOR = 0xFF00FF00;
+    public static final int LASER_COLOR = 0xFFFF0000;
     /**
      * Screen color: ARGB(FF, 00, 00, FF) means full intensity blue.
      */

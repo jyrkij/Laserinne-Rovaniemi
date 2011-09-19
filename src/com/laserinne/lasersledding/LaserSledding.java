@@ -45,23 +45,8 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
     
 	public void setup() {
 		super.setup();
-		
-		// Allocate memory skiers for collectibles
-		leftSkier = new LaserSleddingSkierContestant();
-		rightSkier = new LaserSleddingSkierContestant();
-		p1Collectibles = new ArrayList<Collectible>();
-		p2Collectibles = new ArrayList<Collectible>();
-		pointsP1 = 0;
-		pointsP2 = 0;
-		
-		// Create the collectibles and their positions.
-		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
-			int x = (int)random(width/2);
-			int y = (int)random(height-50);
-			
-			p1Collectibles.add(new Collectible(this, x, y));
-			p2Collectibles.add(new Collectible(this, x + width / 2, y));
-		}
+		// TODO: p1 and p2 collectibles phase is not the same.
+		createCollectibles();
 		
 		// TODO: Implement interface for sorting
 		// Sort p1Collectibles
@@ -133,7 +118,7 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
         }
 	}
 	
-public void keyPressed() {
+	public void keyPressed() {
 		
 		if(key == CODED) {
 			if(keyCode == UP) {
@@ -145,23 +130,8 @@ public void keyPressed() {
 				System.out.println("Scanspeed: " + scanSpeed);
 			}
 		} else if(key == 'n') {
-			
-			// TODO: DRY!! Create method for creating collectibles here and in the setup()
-		
-			// Allocate memory for skier and collectible
-			p1Collectibles = new ArrayList<Collectible>();
-			p2Collectibles = new ArrayList<Collectible>();
-			pointsP1 = 0;
-			pointsP2 = 0;
-			
-			// Create the collectibles and their positions.
-			for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
-				int x = (int)random(width/2);
-				int y = (int)random(height-50);
-				
-				p1Collectibles.add(new Collectible(this, x, y));
-				p2Collectibles.add(new Collectible(this, x + width / 2, y));
-			}
+					
+			createCollectibles();
 			
 			// TODO: Implement interface for sorting
 			// Sort p1Collectibles
@@ -186,6 +156,26 @@ public void keyPressed() {
 			reset();
 		} else {
 		    super.keyPressed();
+		}
+	}
+	
+	public void createCollectibles() {
+		
+		// Allocate memory skiers for collectibles
+		leftSkier = new LaserSleddingSkierContestant();
+		rightSkier = new LaserSleddingSkierContestant();
+		p1Collectibles = new ArrayList<Collectible>();
+		p2Collectibles = new ArrayList<Collectible>();
+		pointsP1 = 0;
+		pointsP2 = 0;
+
+		// Create the collectibles and their positions.
+		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
+			int x = (int)random(width/2);
+			int y = (int)random(height-50);
+
+			p1Collectibles.add(new Collectible(this, x, y));
+			p2Collectibles.add(new Collectible(this, x + width / 2, y));
 		}
 	}
 }

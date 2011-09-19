@@ -31,12 +31,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Laserinne-Rovaniemi/lib/base/core"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/user/Laserschein/Laserschein.jar" sourcepath="/Users/jyrkililja/Documents/Processing/libraries/Laserschein/src">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/Users/jyrkililja/Documents/Processing/libraries/Laserschein/reference/"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Laserinne-Rovaniemi/lib/user/Laserschein"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/oscP5/oscP5.jar" sourcepath="/Users/jyrkililja/Documents/Processing/libraries/oscP5/src">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/Users/jyrkililja/Documents/Processing/libraries/oscP5/reference/"/>
@@ -47,5 +41,6 @@
 	<classpathentry kind="lib" path="lib/base/core/jna.jar"/>
 	<classpathentry kind="lib" path="lib/user/blobDetection/blobDetection.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Mike/Documents/Processing/libraries/Laserschein/library/Laserschein.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
