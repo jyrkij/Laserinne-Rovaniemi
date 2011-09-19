@@ -45,27 +45,13 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
     
 	public void setup() {
 		super.setup();
+		
 		// TODO: p1 and p2 collectibles phase is not the same.
+		
 		createCollectibles();
 		
-		// TODO: Implement interface for sorting
-		// Sort p1Collectibles
-		Collections.sort(p1Collectibles, new Comparator<Collectible>() {
-
-			@Override
-			public int compare(Collectible c1, Collectible c2) {
-				return (int)(c1.location.y - c2.location.y);
-			}
-		});
-		
-		// Sort p2Collectibles
-		Collections.sort(p2Collectibles, new Comparator<Collectible>() {
-			
-			@Override
-			public int compare(Collectible c1, Collectible c2) {
-				return (int)(c1.location.y - c2.location.y);
-			}
-		});
+		sortCollectibles(p1Collectibles);
+		sortCollectibles(p2Collectibles);
 	}
 	
 	public void draw() {
@@ -133,24 +119,8 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 					
 			createCollectibles();
 			
-			// TODO: Implement interface for sorting
-			// Sort p1Collectibles
-			Collections.sort(p1Collectibles, new Comparator<Collectible>() {
-
-				@Override
-				public int compare(Collectible c1, Collectible c2) {
-					return (int)(c1.location.y - c2.location.y);
-				}
-			});
-			
-			// Sort p2Collectibles
-			Collections.sort(p2Collectibles, new Comparator<Collectible>() {
-				
-				@Override
-				public int compare(Collectible c1, Collectible c2) {
-					return (int)(c1.location.y - c2.location.y);
-				}
-			});
+			sortCollectibles(p1Collectibles);
+			sortCollectibles(p2Collectibles);
 			
 			// Reset the skiers
 			reset();
@@ -177,5 +147,16 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 			p1Collectibles.add(new Collectible(this, x, y));
 			p2Collectibles.add(new Collectible(this, x + width / 2, y));
 		}
+	}
+	
+	public void sortCollectibles(ArrayList<Collectible> list) {
+		
+		Collections.sort(list, new Comparator<Collectible>() {
+
+			@Override
+			public int compare(Collectible c1, Collectible c2) {
+				return (int)(c1.location.y - c2.location.y);
+			}
+		});
 	}
 }
