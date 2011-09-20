@@ -32,44 +32,44 @@ import processing.core.PApplet;
 @SuppressWarnings("serial")
 public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 
-	final int COLLECTIBLE_NUMBER = 6;
-	
-	ArrayList<Collectible> p1Collectibles, p2Collectibles;	
-	int scanSpeed;
+    final int COLLECTIBLE_NUMBER = 6;
+    
+    ArrayList<Collectible> p1Collectibles, p2Collectibles;  
+    int scanSpeed;
     
     public static void main(String args[]) {
         PApplet.main(new String[] { LaserSledding.class.getCanonicalName() });
     }
     
-	public void setup() {
-		super.setup();
-		
-		newGame();
-	}
-	
-	public void draw() {
-	    super.draw();
-	    
-		// Checks if leftSkier has crossed the finish line and calculates points
-		if(leftSkier.finished()) {
-			((LaserSleddingSkierContestant) leftSkier).setScore(COLLECTIBLE_NUMBER - p1Collectibles.size());
-		}
-		
-		// Checks if rightSkierhas crossed the finish line and calculates points
-		if(rightSkier.finished()) {
-			((LaserSleddingSkierContestant) rightSkier).setScore(COLLECTIBLE_NUMBER - p2Collectibles.size());
-		}
-		
-		// Display Skiers
-//		leftSkier.setPosition(mouseX, mouseY);
-		leftSkier.draw(g);
-//		rightSkier.setPosition(mouseX+width/2, mouseY);
-		rightSkier.draw(g);
-		
-		drawWithLaser();
-	}
-	
-	protected void drawGame() {
+    public void setup() {
+        super.setup();
+        
+        newGame();
+    }
+    
+    public void draw() {
+        super.draw();
+        
+        // Checks if leftSkier has crossed the finish line and calculates points
+        if(leftSkier.finished()) {
+            ((LaserSleddingSkierContestant) leftSkier).setScore(COLLECTIBLE_NUMBER - p1Collectibles.size());
+        }
+        
+        // Checks if rightSkierhas crossed the finish line and calculates points
+        if(rightSkier.finished()) {
+            ((LaserSleddingSkierContestant) rightSkier).setScore(COLLECTIBLE_NUMBER - p2Collectibles.size());
+        }
+        
+        // Display Skiers
+//      leftSkier.setPosition(mouseX, mouseY);
+        leftSkier.draw(g);
+//      rightSkier.setPosition(mouseX+width/2, mouseY);
+        rightSkier.draw(g);
+        
+        drawWithLaser();
+    }
+    
+    protected void drawGame() {
         leftSkier.update();
         rightSkier.update();
         
@@ -93,58 +93,58 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
                 p2Collectibles.get(i).display();
             }
         }
-	}
-	
-	protected void newGame() {
-	    createCollectibles();
+    }
+    
+    protected void newGame() {
+        createCollectibles();
         
         sortCollectibles(p1Collectibles);
         sortCollectibles(p2Collectibles);
-	}
-	
-	public void keyPressed() {
-		
-		if(key == CODED) {
-			if(keyCode == UP) {
-				scanSpeed += 1000;
-				System.out.println("Scanspeed: " + scanSpeed);
-			}
-			if(keyCode == DOWN) {
-				scanSpeed -= 1000;
-				System.out.println("Scanspeed: " + scanSpeed);
-			}
-		} else {
-		    super.keyPressed();
-		}
-	}
-	
-	public void createCollectibles() {
-		
-		// Allocate memory skiers for collectibles
-		leftSkier = new LaserSleddingSkierContestant();
-		rightSkier = new LaserSleddingSkierContestant();
-		p1Collectibles = new ArrayList<Collectible>();
-		p2Collectibles = new ArrayList<Collectible>();
+    }
+    
+    public void keyPressed() {
+        
+        if(key == CODED) {
+            if(keyCode == UP) {
+                scanSpeed += 1000;
+                System.out.println("Scanspeed: " + scanSpeed);
+            }
+            if(keyCode == DOWN) {
+                scanSpeed -= 1000;
+                System.out.println("Scanspeed: " + scanSpeed);
+            }
+        } else {
+            super.keyPressed();
+        }
+    }
+    
+    public void createCollectibles() {
+        
+        // Allocate memory skiers for collectibles
+        leftSkier = new LaserSleddingSkierContestant();
+        rightSkier = new LaserSleddingSkierContestant();
+        p1Collectibles = new ArrayList<Collectible>();
+        p2Collectibles = new ArrayList<Collectible>();
 
-		// Create the collectibles and their positions.
-		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
-			int x = (int)random(width/2);
-			int y = (int)this.random(LaserSledding.START_LINE*2f, LaserSledding.FINISH_LINE);
-			
-			double angle = Math.random() * Math.PI;
-			p1Collectibles.add(new Collectible(this, x, y, angle));
-			p2Collectibles.add(new Collectible(this, x + width / 2, y, angle));
-		}
-	}
-	
-	public void sortCollectibles(ArrayList<Collectible> list) {
-		
-		Collections.sort(list, new Comparator<Collectible>() {
+        // Create the collectibles and their positions.
+        for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
+            int x = (int)random(width/2);
+            int y = (int)this.random(LaserSledding.START_LINE*2f, LaserSledding.FINISH_LINE);
+            
+            double angle = Math.random() * Math.PI;
+            p1Collectibles.add(new Collectible(this, x, y, angle));
+            p2Collectibles.add(new Collectible(this, x + width / 2, y, angle));
+        }
+    }
+    
+    public void sortCollectibles(ArrayList<Collectible> list) {
+        
+        Collections.sort(list, new Comparator<Collectible>() {
 
-			@Override
-			public int compare(Collectible c1, Collectible c2) {
-				return (int)(c1.location.y - c2.location.y);
-			}
-		});
-	}
+            @Override
+            public int compare(Collectible c1, Collectible c2) {
+                return (int)(c1.location.y - c2.location.y);
+            }
+        });
+    }
 }

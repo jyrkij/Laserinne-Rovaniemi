@@ -26,28 +26,28 @@ package com.laserinne.lasersledding;
 import com.laserinne.util.SkierContestant;
 
 public class LaserSleddingSkierContestant extends SkierContestant {
-	
-	private float score;
-	
-	public LaserSleddingSkierContestant() {
-		super();
-	}
+    
+    private float score;
+    
+    public LaserSleddingSkierContestant() {
+        super();
+    }
 
-	@Override
-	public float scoreToSeconds() {
-		return score * -0.25f;
-	}
+    @Override
+    public float scoreToSeconds() {
+        return score * -0.25f;
+    }
 
-	@Override
-	public void updateScore() {
+    @Override
+    public void updateScore() {
 
-	}
+    }
 
-	public float getScore() {
-		return score;
-	}
+    public float getScore() {
+        return score;
+    }
 
-	public void setScore(float score) {
-		this.score = score;
-	}
+    public void setScore(float score) {
+        this.score = score;
+    }
 }

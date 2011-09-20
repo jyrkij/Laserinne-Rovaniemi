@@ -86,7 +86,7 @@ public abstract class SkierContestant {
         if (skier == null) {
             return new PVector(-100, -100);
         }
-    	return new PVector(skier.getX(), skier.getY());
+        return new PVector(skier.getX(), skier.getY());
     }
     
     public void setPosition(int x, int y) {
@@ -183,12 +183,12 @@ public abstract class SkierContestant {
     public void draw(processing.core.PGraphics g) {
         //g.ellipseMode(processing.core.PConstants.CENTER);
         //g.ellipse(this.getX(), this.getY(), 10, 10);
-    	g.beginShape();
-    		g.vertex(position().x, position().y);
-    		g.vertex(position().x+5, position().y);
-    		g.vertex(position().x+5, position().y+5);
-    		g.vertex(position().x, position().y+5);
-    	g.endShape(PConstants.CLOSE);
+        g.beginShape();
+        g.vertex(position().x, position().y);
+        g.vertex(position().x+5, position().y);
+        g.vertex(position().x+5, position().y+5);
+        g.vertex(position().x, position().y+5);
+        g.endShape(PConstants.CLOSE);
     }
     
     /**
