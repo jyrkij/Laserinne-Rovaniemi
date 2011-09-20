@@ -220,21 +220,11 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
             
             // Calculate points for left and right snakes.
             float x, y = (height / steps) * (step + 1);
-            x = width / 4 + walkValue;
-            if (x < width / 20) {
-                x = width / 20;
-            } else if (x > width * 9 / 20) {
-                x = width * 9 / 20;
-            }
+            
+            x = constrain(width / 4 + walkValue, width / 20, width * 9 / 20);
             leftPoints.add(new PVector(x, y));
             
-            x += width / 2;
-            if (x < width * 11 / 20) {
-                x = width * 11 / 20;
-            }
-            if (x > width * 19 / 20) {
-                x = width * 19 / 20;
-            }
+            x = constrain(width * 3 / 4 + walkValue, width * 11 / 20, width * 19 / 20);
             rightPoints.add(new PVector(x, y));
         }
     }
