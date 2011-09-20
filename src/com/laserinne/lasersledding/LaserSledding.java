@@ -47,11 +47,7 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 		super.setup();
 		
 		// TODO: p1 and p2 collectibles phase is not the same.
-		
-		createCollectibles();
-		
-		sortCollectibles(p1Collectibles);
-		sortCollectibles(p2Collectibles);
+		newGame();
 	}
 	
 	public void draw() {
@@ -104,6 +100,13 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
         }
 	}
 	
+	protected void newGame() {
+	    createCollectibles();
+        
+        sortCollectibles(p1Collectibles);
+        sortCollectibles(p2Collectibles);
+	}
+	
 	public void keyPressed() {
 		
 		if(key == CODED) {
@@ -115,15 +118,6 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 				scanSpeed -= 1000;
 				System.out.println("Scanspeed: " + scanSpeed);
 			}
-		} else if(key == 'n') {
-					
-			createCollectibles();
-			
-			sortCollectibles(p1Collectibles);
-			sortCollectibles(p2Collectibles);
-			
-			// Reset the skiers
-			reset();
 		} else {
 		    super.keyPressed();
 		}
