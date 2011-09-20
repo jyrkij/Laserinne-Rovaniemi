@@ -32,11 +32,9 @@ import processing.core.PApplet;
 @SuppressWarnings("serial")
 public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 
-	final int COLLECTIBLE_NUMBER = 5;
+	final int COLLECTIBLE_NUMBER = 6;
 	
-	ArrayList<Collectible> p1Collectibles, p2Collectibles;
-	int pointsP1, pointsP2;
-	
+	ArrayList<Collectible> p1Collectibles, p2Collectibles;	
 	int scanSpeed;
     
     public static void main(String args[]) {
@@ -54,12 +52,12 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 	    super.draw();
 	    
 		// Checks if leftSkier has crossed the finish line and calculates points
-		if(leftSkier.finished() && pointsP1 == 0) {
+		if(leftSkier.finished()) {
 			((LaserSleddingSkierContestant) leftSkier).setScore(COLLECTIBLE_NUMBER - p1Collectibles.size());
 		}
 		
 		// Checks if rightSkierhas crossed the finish line and calculates points
-		if(rightSkier.finished() && pointsP2 == 0) {
+		if(rightSkier.finished()) {
 			((LaserSleddingSkierContestant) rightSkier).setScore(COLLECTIBLE_NUMBER - p2Collectibles.size());
 		}
 		
@@ -130,13 +128,11 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 		rightSkier = new LaserSleddingSkierContestant();
 		p1Collectibles = new ArrayList<Collectible>();
 		p2Collectibles = new ArrayList<Collectible>();
-		pointsP1 = 0;
-		pointsP2 = 0;
 
 		// Create the collectibles and their positions.
 		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
 			int x = (int)random(width/2);
-			int y = (int)random(height-50);
+			int y = (int)this.random(LaserSledding.START_LINE*2f, LaserSledding.FINISH_LINE);
 
 			p1Collectibles.add(new Collectible(this, x, y));
 			p2Collectibles.add(new Collectible(this, x + width / 2, y));
