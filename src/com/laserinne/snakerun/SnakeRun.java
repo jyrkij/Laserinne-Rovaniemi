@@ -78,6 +78,16 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
     public void setup() {
         super.setup();
         
+        /*
+         * Create canvas for drawing snakes and blob detection for finding the
+         * outlines.
+         */
+        pg = createGraphics(width, height, PGraphics.P2D);
+        img = new PImage(60, 60);
+        bd = new BlobDetection(img.width, img.height);
+        bd.setPosDiscrimination(true);
+        bd.setThreshold(0.1f);
+        
         // Create the snakes
         leftSnake = new Snake(width / 4, 0, SnakeRun.NUM_FOLLOWERS);
         rightSnake = new Snake(width * 3 / 4, 0, SnakeRun.NUM_FOLLOWERS);
@@ -93,12 +103,6 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
         // Reset both snakes and skiers so that we're ready to run.
         newGame();
         reset();
-        
-        pg = createGraphics(width, height, PGraphics.P2D);
-        img = new PImage(60, 60);
-        bd = new BlobDetection(img.width, img.height);
-        bd.setPosDiscrimination(true);
-        bd.setThreshold(0.1f);
     }
     
     public void draw() {
@@ -111,11 +115,6 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
         line(width * 3 / 4, 0, width * 3 / 4, height);
         
         if (laserOn) {
-            if (leftSkier.finished())
-                leftSnake.stop();
-            if (rightSkier.finished())
-                rightSnake.stop();
-            
             leftSnake.update();
             rightSnake.update();
             
