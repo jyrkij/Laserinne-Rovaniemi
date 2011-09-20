@@ -234,6 +234,13 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     protected abstract void drawGame();
     
     /**
+     * Abstract method to generate new game. Override this to generate paths.
+     * Reset is called automatically after this on ``n'' key press. You *have*
+     * to call both ``newGame()'' and ``reset()'' in the end of ``setup()''.
+     */
+    abstract protected void newGame();
+    
+    /**
      * Reset skiers. Override this to reset other stuff in your game.
      */
     protected void reset() {
@@ -253,7 +260,10 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
      * Handle keypresses
      */
     public void keyPressed() {
-        if (key == 'r') {
+        if (key == 'n') {
+            newGame();
+            reset();
+        } else if (key == 'r') {
             // Reset positions
             reset();
         } else if (key == 'l') {
