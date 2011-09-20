@@ -32,35 +32,28 @@ public class Collectible {
 	int radius; 		// Size of the collectible;
 	
 	// For calculating the cos wave.
-	int i;
 	int sc = 150; // amplitude
-	float ang1;   // angle
+	double angle;
 	
-	Collectible(PApplet p, int xLoc, int yLoc) {
+	Collectible(PApplet p, int xLoc, int yLoc, double angle) {
 		parent = p;
 		location = new PVector(xLoc, yLoc);
-		i = (int)parent.random(405);
 		radius = 5;
+		this.angle = angle;
 	}
 	
 	public void update(int id) {
-		
 		float x = 0;
-		i += 1;
-
-		if(i > 360) {
-		    i = 0;
-		}
 		
-		ang1 = PApplet.radians(i);
+		angle += .05;
 		
 		if(id == 1) {
-			location.x = parent.width/2 + (sc * PApplet.cos(ang1));
+			location.x = parent.width/2 + (sc * (float) Math.cos(angle));
 			x = PApplet.map(location.x, 0, parent.width, 0, parent.width/2);
 		}
 		
 		if(id == 2) {
-			location.x = parent.width/2 + (sc * PApplet.cos(ang1));
+			location.x = parent.width/2 + (sc * (float) Math.cos(angle));
 			x = PApplet.map(location.x, 0, parent.width, parent.width/2, parent.width);
 		}
 		location.x = x;

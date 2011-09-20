@@ -44,7 +44,6 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 	public void setup() {
 		super.setup();
 		
-		// TODO: p1 and p2 collectibles phase is not the same.
 		newGame();
 	}
 	
@@ -133,9 +132,10 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 		for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
 			int x = (int)random(width/2);
 			int y = (int)this.random(LaserSledding.START_LINE*2f, LaserSledding.FINISH_LINE);
-
-			p1Collectibles.add(new Collectible(this, x, y));
-			p2Collectibles.add(new Collectible(this, x + width / 2, y));
+			
+			double angle = Math.random() * Math.PI;
+			p1Collectibles.add(new Collectible(this, x, y, angle));
+			p2Collectibles.add(new Collectible(this, x + width / 2, y, angle));
 		}
 	}
 	
