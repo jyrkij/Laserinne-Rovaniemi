@@ -28,14 +28,13 @@ import processing.core.PVector;
 
 public class Collectible {
 	PApplet parent;		// Parent Applet
-	PVector location; // Location of collectible
-	int radius; // Size of the collectible;
+	PVector location; 	// Location of collectible
+	int radius; 		// Size of the collectible;
 	
 	// For calculating the cos wave.
 	int i;
-	int j = 225;
-	int sc = 100;
-	float ang1;
+	int sc = 150; // amplitude
+	float ang1;   // angle
 	
 	Collectible(PApplet p, int xLoc, int yLoc) {
 		parent = p;
@@ -51,10 +50,9 @@ public class Collectible {
 
 		if(i > 360) {
 		    i = 0;
-		    j = 225;
 		}
 		
-		ang1 = PApplet.radians(i); // convert degrees to radians
+		ang1 = PApplet.radians(i);
 		
 		if(id == 1) {
 			location.x = parent.width/2 + (sc * PApplet.cos(ang1));
