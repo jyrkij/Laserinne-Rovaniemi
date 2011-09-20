@@ -45,7 +45,6 @@ public class RandomWalkOscillator {
     public RandomWalkOscillator(double g) {
         this.g = g;
         this.generator = new XORShiftRandom();
-        this.generator.setSeed(3000); // This line is here to provide controlled randomness.
     }
     
     public double nextStep() {
