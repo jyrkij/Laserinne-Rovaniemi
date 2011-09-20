@@ -113,12 +113,6 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
         frameRate(-1); // Use maximum frame rate.
         
         /*
-         * Initialize laserschein for use with EasyLaseUSB2.
-         */
-        laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
-        laserRenderer = laser.renderer();
-        
-        /*
          * Tracking with default settings.
          */
         tracking = new ContestantTracking();
@@ -249,10 +243,25 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     }
     
     /**
-     * TODO: Method to toggle laser output. Might need to destroy laser when no
-     * output is wished.
+     * Method to toggle laser output. Destroys the laser when no output is
+     * wished.
      */
     protected void toggleLaser() {
+        if (laserOn) {
+            /*
+             * Dispose the laser.
+             */
+            laserRenderer.dispose();
+            laserRenderer = null;
+            laser.dispose();
+            laser = null;
+        } else {
+            /*
+             * Initialize laserschein for use with EasyLaseUSB2.
+             */
+            laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
+            laserRenderer = laser.renderer();
+        }
         laserOn = !laserOn;
     }
     
