@@ -51,8 +51,9 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     
     /**
      * A member to make it easy to programmatically switch laser on and off.
+     * @deprecated Has no effect on laser - it's always on.
      */
-    protected boolean laserOn = false;
+    protected boolean laserOn = true;
     /**
      * Holds an instance of Laserschein.
      */
@@ -111,6 +112,12 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     public void setup() {
         size(TwoPlayerCompetition.WIDTH, TwoPlayerCompetition.HEIGHT, processing.opengl.PGraphicsOpenGL.OPENGL);
         frameRate(-1); // Use maximum frame rate.
+        
+        /*
+         * Initialize laserschein for use with EasyLaseUSB2.
+         */
+        laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
+        laserRenderer = laser.renderer();
         
         /*
          * Tracking with default settings.
@@ -243,29 +250,6 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     }
     
     /**
-     * Method to toggle laser output. Destroys the laser when no output is
-     * wished.
-     */
-    protected void toggleLaser() {
-        if (laserOn) {
-            /*
-             * Dispose the laser.
-             */
-            laserRenderer.dispose();
-            laserRenderer = null;
-            laser.dispose();
-            laser = null;
-        } else {
-            /*
-             * Initialize laserschein for use with EasyLaseUSB2.
-             */
-            laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
-            laserRenderer = laser.renderer();
-        }
-        laserOn = !laserOn;
-    }
-    
-    /**
      * Handle keypresses
      */
     public void keyPressed() {
@@ -275,10 +259,6 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
         } else if (key == 'r') {
             // Reset positions
             reset();
-        } else if (key == 'l') {
-            // Switch laser on/off
-            toggleLaser();
         }
-
     }
 }
