@@ -81,19 +81,17 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
         // Create the snakes
         leftSnake = new Snake(width / 4, 0, SnakeRun.NUM_FOLLOWERS);
         rightSnake = new Snake(width * 3 / 4, 0, SnakeRun.NUM_FOLLOWERS);
+        
         // Create paths
         leftPoints = new ArrayList<PVector>();
         rightPoints = new ArrayList<PVector>();
-        generatePaths();
-        // Assign paths to snakes
-        leftSnake.targets(leftPoints);
-        rightSnake.targets(rightPoints);
         
         // Initialize skiers
         leftSkier = new SnakeRunSkierContestant();
         rightSkier = new SnakeRunSkierContestant();
         
         // Reset both snakes and skiers so that we're ready to run.
+        newGame();
         reset();
         
         pg = createGraphics(width, height, PGraphics.P2D);
@@ -241,6 +239,10 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
         }
     }
     
+    protected void newGame() {
+        generatePaths();
+    }
+    
     protected void reset() {
         super.reset();
         leftSnake.reset(width / 4, 0, leftPoints);
@@ -274,10 +276,6 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
             } else if (keyCode == LEFT) { // slow down *Right snake*
                 rightSnake.changeTopSpeed(-0.25f);
             }
-        } else if (key == 'n') {
-            // Generate new paths & reset positions
-            generatePaths();
-            reset();
         } else {
             super.keyPressed();
         }
