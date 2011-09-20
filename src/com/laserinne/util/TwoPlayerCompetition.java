@@ -50,11 +50,6 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     private static final long serialVersionUID = 3126395842985338753L;
     
     /**
-     * A member to make it easy to programmatically switch laser on and off.
-     * @deprecated Has no effect on laser - it's always on.
-     */
-    protected boolean laserOn = true;
-    /**
      * Holds an instance of Laserschein.
      */
     protected Laserschein laser;

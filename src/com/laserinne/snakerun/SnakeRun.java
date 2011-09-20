@@ -114,33 +114,31 @@ public class SnakeRun extends com.laserinne.util.TwoPlayerCompetition {
         line(width / 4, 0, width / 4, height);
         line(width * 3 / 4, 0, width * 3 / 4, height);
         
-        if (laserOn) {
-            leftSnake.update();
-            rightSnake.update();
-            
-            pg.beginDraw();
-            pg.background(0);
-            pg.loadPixels();
-            pg.stroke(255);
-            pg.fill(255);
-            leftSnake.draw(pg);
-            rightSnake.draw(pg);
-            pg.updatePixels();
-            pg.endDraw();
-            
-//            leftSkier.setPosition((int) (mouseX - width * 0.3), mouseY);
-            leftSkier.update();
-            ((SnakeRunSkierContestant) leftSkier).inSnake(leftSnake);
-            leftSkier.draw(g);
-//            rightSkier.setPosition((int) (mouseX + width * 0.3), mouseY);
-            rightSkier.update();
-            ((SnakeRunSkierContestant) rightSkier).inSnake(rightSnake);
-            rightSkier.draw(g);
-            
-//            image(pg, 0, 0, width, height);
-            
-            drawWithLaser();
-        }
+        leftSnake.update();
+        rightSnake.update();
+        
+        pg.beginDraw();
+        pg.background(0);
+        pg.loadPixels();
+        pg.stroke(255);
+        pg.fill(255);
+        leftSnake.draw(pg);
+        rightSnake.draw(pg);
+        pg.updatePixels();
+        pg.endDraw();
+        
+//        leftSkier.setPosition((int) (mouseX - width * 0.3), mouseY);
+        leftSkier.update();
+        ((SnakeRunSkierContestant) leftSkier).inSnake(leftSnake);
+        leftSkier.draw(g);
+//        rightSkier.setPosition((int) (mouseX + width * 0.3), mouseY);
+        rightSkier.update();
+        ((SnakeRunSkierContestant) rightSkier).inSnake(rightSnake);
+        rightSkier.draw(g);
+        
+//          image(pg, 0, 0, width, height);
+        
+        drawWithLaser();
     }
     
     protected void drawGame() {

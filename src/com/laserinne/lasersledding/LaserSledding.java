@@ -60,15 +60,13 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
 			((LaserSleddingSkierContestant) rightSkier).setScore(COLLECTIBLE_NUMBER - p2Collectibles.size());
 		}
 		
-		if (laserOn) {
-	        // Display Skiers
-//	        leftSkier.setPosition(mouseX, mouseY);
-	        leftSkier.draw(g);
-//	        rightSkier.setPosition(mouseX+width/2, mouseY);
-	        rightSkier.draw(g);
-	        
-		    drawWithLaser();
-		}
+		// Display Skiers
+//		leftSkier.setPosition(mouseX, mouseY);
+		leftSkier.draw(g);
+//		rightSkier.setPosition(mouseX+width/2, mouseY);
+		rightSkier.draw(g);
+		
+		drawWithLaser();
 	}
 	
 	protected void drawGame() {
