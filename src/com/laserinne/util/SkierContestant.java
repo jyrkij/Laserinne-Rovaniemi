@@ -252,10 +252,10 @@ public abstract class SkierContestant {
         String finishNote;
         if (leftSkier.combinedTimeAndScore() < rightSkier.combinedTimeAndScore()) {
             // Left skier (Player 1) wins
-            finishNote = "Player 1 wins (" + leftSkier.combinedTimeAndScore() + " s)";
+            finishNote = "Player 1 wins";
         } else if (rightSkier.combinedTimeAndScore() < leftSkier.combinedTimeAndScore()) {
             // Right skier (Player 2) wins
-            finishNote = "Player 2 wins (" + rightSkier.combinedTimeAndScore() + " s)";
+            finishNote = "Player 2 wins";
         } else {
             // Draw
             finishNote = "Draw";
