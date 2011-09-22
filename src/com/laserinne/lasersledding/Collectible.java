@@ -42,6 +42,7 @@ public class Collectible {
         this.angle = angle;
     }
     
+    // Updates the collectible position 
     public void update(int id) {
         float x = 0;
         
@@ -59,7 +60,7 @@ public class Collectible {
         location.x = x;
     }
     
-        // Draws the collectible 
+    // Draws the collectible 
     public void display() {     
         parent.beginShape();
             parent.vertex(location.x, location.y);
@@ -74,6 +75,4 @@ public class Collectible {
         }
             return false;
     }
-    
-    
 }

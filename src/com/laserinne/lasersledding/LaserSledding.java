@@ -31,19 +31,30 @@ import processing.core.PApplet;
 
 @SuppressWarnings("serial")
 public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
-
+    
+    /**
+     * Number of collectibles per track basis
+     */
     final int COLLECTIBLE_NUMBER = 6;
     
+    /**
+     * List of collectibles for both players
+     */
     ArrayList<Collectible> p1Collectibles, p2Collectibles;  
-    int scanSpeed;
     
+    /**
+     * main
+     * 
+     * This has to be commented out when running in Processing to allow font
+     * loading, but available when running in Eclipse or building with Ant /
+     * exporting to application from Processing or building with Ant.
+     */
     public static void main(String args[]) {
         PApplet.main(new String[] { LaserSledding.class.getCanonicalName() });
     }
     
     public void setup() {
         super.setup();
-        
         newGame();
     }
     
@@ -95,29 +106,14 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
         }
     }
     
+    // Initializes a new game
     protected void newGame() {
         createCollectibles();
-        
         sortCollectibles(p1Collectibles);
         sortCollectibles(p2Collectibles);
     }
     
-    public void keyPressed() {
-        
-        if(key == CODED) {
-            if(keyCode == UP) {
-                scanSpeed += 1000;
-                System.out.println("Scanspeed: " + scanSpeed);
-            }
-            if(keyCode == DOWN) {
-                scanSpeed -= 1000;
-                System.out.println("Scanspeed: " + scanSpeed);
-            }
-        } else {
-            super.keyPressed();
-        }
-    }
-    
+    // Creates the collectibles
     public void createCollectibles() {
         
         // Allocate memory skiers for collectibles
@@ -137,6 +133,7 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
         }
     }
     
+    // Sorts the collectibles based on Y position.
     public void sortCollectibles(ArrayList<Collectible> list) {
         
         Collections.sort(list, new Comparator<Collectible>() {
