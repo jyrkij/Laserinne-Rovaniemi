@@ -27,8 +27,6 @@ import geomerative.RFont;
 import laserschein.Laser3D;
 import laserschein.Laserschein;
 
-import com.laserinne.snakerun.SnakeRun;
-
 /**
  * Abstract superclass for games/competitions for two players.
  * 
@@ -145,7 +143,7 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
     
     public void draw() {
         background(0);
-        stroke(SnakeRun.SCREEN_COLOR);
+        stroke(TwoPlayerCompetition.SCREEN_COLOR);
         
         /*
          * Rotate/skew code in place for adapting to the slope.
@@ -192,14 +190,14 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
      * method(s) that draw stuff.
      */
     protected void drawWithLaser() {
-        stroke(SnakeRun.LASER_COLOR);
+        stroke(TwoPlayerCompetition.LASER_COLOR);
         beginRaw(laserRenderer);
         if (leftSkier.finished() && rightSkier.finished()) {
             /*
              * Display winner.
              * Using high scan speed in hopes to provide non-flickering text.
              */
-            laser.output().setScanSpeed(SnakeRun.TEXT_SCANSPEED);
+            laser.output().setScanSpeed(TwoPlayerCompetition.TEXT_SCANSPEED);
             laserRenderer.noSmooth();
             String finishNote = SkierContestant.winner(leftSkier, rightSkier);
             pushMatrix();
@@ -215,11 +213,11 @@ public abstract class TwoPlayerCompetition extends processing.core.PApplet {
              * Display game.
              * Use slower scan speed since shapes are quite easy to draw.
              */
-            laser.output().setScanSpeed(SnakeRun.GAME_SCANSPEED);
+            laser.output().setScanSpeed(TwoPlayerCompetition.GAME_SCANSPEED);
             this.drawGame();
         }
         endRaw();
-        stroke(SnakeRun.SCREEN_COLOR);
+        stroke(TwoPlayerCompetition.SCREEN_COLOR);
     }
     
     /**
