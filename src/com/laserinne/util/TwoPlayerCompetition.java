@@ -72,13 +72,7 @@ public abstract class TwoPlayerCompetition extends LaserinneSketch {
         tracking = new ContestantTracking();
         
         /*
-         * Set Skier class ready for use.
-         */
-        Skier.width(TwoPlayerCompetition.WIDTH);
-        Skier.height(TwoPlayerCompetition.HEIGHT);
-        
-        /*
-         * Set SkieContestant ready for use.
+         * Set SkierContestant ready for use.
          */
         SkierContestant.startLine(TwoPlayerCompetition.START_LINE);
         SkierContestant.finishLine(TwoPlayerCompetition.FINISH_LINE);

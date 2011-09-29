@@ -97,7 +97,13 @@ public abstract class LaserinneSketch extends PApplet {
          */
         laser = new Laserschein(this, Laserschein.EASYLASEUSB2);
         laserRenderer = laser.renderer();
-
+        
+        /*
+         * Set Skier class ready for use.
+         */
+        Skier.width(LaserinneSketch.WIDTH);
+        Skier.height(LaserinneSketch.HEIGHT);
+        
         /*
          * Initialize RG and font.
          */
