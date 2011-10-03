@@ -77,6 +77,7 @@ public class NameDraw extends LaserinneSketch {
         }
         
         if (skier.getY() > NameDraw.FINISH_LINE && overLine == false) {
+            spring.reset();
             index += 1;
             overLine = true;
             if (index >= nameList.length) {
@@ -157,6 +158,13 @@ public class NameDraw extends LaserinneSketch {
         void follow() {
             translate(tempxpos, tempypos);
             move = true;
+        }
+        
+        void reset() {
+            tempxpos = xpos;
+            tempypos = ypos;
+            rest_posx = xpos;
+            rest_posy = ypos;
         }
     }
 }
