@@ -63,7 +63,7 @@ public class NameDraw extends LaserinneSketch {
         super.setup();
         tracking = new ContestantTracking();
         overLine = false;
-        spring = new Spring(0.0f, 0.0f, 20, 0.98f, 8.0f, 0.1f);
+        spring = new Spring(0.0f, 0.0f, 20, 0.98f, 16.0f, 0.01f);
     }
     
     public void draw() {
