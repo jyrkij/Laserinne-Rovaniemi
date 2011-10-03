@@ -74,8 +74,6 @@ public class NameDraw extends LaserinneSketch {
         skier = ((ContestantTracking) tracking).firstSkierInRect(0, 0, width, height);
         if (skier == null) {
             skier = new Skier(0, (float) mouseX / width - .5f, (float) mouseY / height - .5f, 10.0f / width - .5f, 10.f / (float) height - .5f, 0, 0, 0, 0);
-            System.out.println("Mouse (" + mouseX + ", " + mouseY + ")");
-            System.out.println("Skier (" + skier.getX() + ", " + skier.getY() + ")");
         }
         
         if (skier.getY() > NameDraw.FINISH_LINE && overLine == false) {
