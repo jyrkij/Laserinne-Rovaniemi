@@ -25,8 +25,9 @@ package com.laserinne.namedraw;
 
 import processing.core.PApplet;
 
+import com.laserinne.util.ContestantTracking;
 import com.laserinne.util.LaserinneSketch;
-import com.laserinne.util.Tracking;
+import com.laserinne.util.Skier;
 
 /**
  * 
@@ -35,7 +36,7 @@ import com.laserinne.util.Tracking;
 
 @SuppressWarnings("serial")
 public class NameDraw extends LaserinneSketch {
-    protected Spring[] spring = new Spring[1]; //I've deleted int num = 1; above so the number of the springs is assigned here without a separate command.
+    protected Spring spring;
     protected float x;
     protected float y;
     protected boolean overLine;
@@ -43,6 +44,9 @@ public class NameDraw extends LaserinneSketch {
     protected String[] nameList = {
             "TANJA POUTIAINEN", "ANJA PAERSSON", "IHME HIIHT€J€", "HIIHTO PUMMI", "SUKSI SUOHON", "HAVUJA SAATANA"
     };
+    protected Skier skier;
+    
+    protected static int FINISH_LINE = NameDraw.HEIGHT - 20;
     
     /**
      * main
@@ -57,46 +61,51 @@ public class NameDraw extends LaserinneSketch {
     
     public void setup() {
         super.setup();
-        tracking = new Tracking();
+        tracking = new ContestantTracking();
         overLine = false;
-        spring[0] = new Spring(70.0f, 160.0f, 20, 0.98f, 8.0f, 0.1f);
+        spring = new Spring(0.0f, 0.0f, 20, 0.98f, 8.0f, 0.1f);
     }
     
     public void draw() {
         super.draw();
         
-        line(0, 500, width, 500);
-    }
-    
-    protected void drawWithLaser() {
-        for(int i = 0; i < 1; i++)  {
-            spring[i].update();
-            spring[i].follow();
+        line(0, NameDraw.FINISH_LINE, width, NameDraw.FINISH_LINE);
+        
+        skier = ((ContestantTracking) tracking).firstSkierInRect(0, 0, width, height);
+        if (skier == null) {
+            skier = new Skier(0, (float) mouseX / width - .5f, (float) mouseY / height - .5f, 10.0f / width - .5f, 10.f / (float) height - .5f, 0, 0, 0, 0);
+            System.out.println("Mouse (" + mouseX + ", " + mouseY + ")");
+            System.out.println("Skier (" + skier.getX() + ", " + skier.getY() + ")");
         }
         
-        if (mouseY > 500 && overLine == false) {
+        if (skier.getY() > NameDraw.FINISH_LINE && overLine == false) {
             index += 1;
             overLine = true;
-            if (index >= 6) {
+            if (index >= nameList.length) {
                 index = 0;
             }
         }
         
-        if (mouseY <= 500 && overLine == true) {
+        if (skier.getY() <= NameDraw.FINISH_LINE && overLine == true) {
             overLine = false;
         }
         
-        if (mouseY > 500) {
-            noStroke();
-        } else {
-            stroke(NameDraw.LASER_COLOR);
+        if (skier.getY() < NameDraw.FINISH_LINE) {
+            drawWithLaser();
         }
-        
+    }
+    
+    protected void drawWithLaser() {
+        spring.update(skier.getX(), skier.getY());
+        spring.follow();
+        int fontSize = font.size;
+        font.setSize(20);
         beginRaw(laserRenderer);
         stroke(NameDraw.LASER_COLOR);
         noFill();
         font.draw(nameList[index]);
         endRaw();
+        font.setSize(fontSize);
     }
     
     class Spring {
@@ -130,10 +139,10 @@ public class NameDraw extends LaserinneSketch {
             k = k_in;
         }
         
-        void update() {
+        void update(float x, float y) {
             if (move) {
-                rest_posy = mouseY;
-                rest_posx = mouseX;
+                rest_posy = y;
+                rest_posx = x;
             }
             
             force = -k * (tempypos - rest_posy);  // f=-ky
