@@ -151,7 +151,7 @@ public abstract class LaserinneSketch extends PApplet {
         /*
          * Update tracking
          */
-        tracking.update();
+        if (tracking != null) tracking.update();
     }
     
     /**
