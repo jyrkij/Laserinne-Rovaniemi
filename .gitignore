@@ -1,0 +1,17 @@
+# OS X
+.DS_Store
+
+# Eclipse
+.settings
+.metadata
+Servers
+bin
+target
+
+# SpringSource Tool Suite
+.springBeans
+
+# Netbeans
+build
+dist
+private
