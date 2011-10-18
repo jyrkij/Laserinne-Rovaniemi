@@ -31,9 +31,8 @@ import processing.core.PApplet;
 
 /**
  * TODO: Slow down the collectibles at least 1/2
- * TODO: Make points evenly spaced (y axis), approx 5-6 points
- * @author jyrkililja
- *
+ * 
+ * @author Mikko Pallas and Jyrki Lilja
  */
 @SuppressWarnings("serial")
 public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
@@ -41,7 +40,7 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
     /**
      * Number of collectibles per track basis
      */
-    final int COLLECTIBLE_NUMBER = 6;
+    final int COLLECTIBLE_NUMBER = 5;
     
     /**
      * List of collectibles for both players
@@ -115,39 +114,22 @@ public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
     // Initializes a new game
     protected void newGame() {
         createCollectibles();
-        sortCollectibles(p1Collectibles);
-        sortCollectibles(p2Collectibles);
     }
     
-    // Creates the collectibles
-    public void createCollectibles() {
-        
+    protected void createCollectibles() {
         // Allocate memory skiers for collectibles
         leftSkier = new LaserSleddingSkierContestant();
         rightSkier = new LaserSleddingSkierContestant();
         p1Collectibles = new ArrayList<Collectible>();
         p2Collectibles = new ArrayList<Collectible>();
-
+        
         // Create the collectibles and their positions.
-        for(int i = 0; i < COLLECTIBLE_NUMBER; i++) {
+        for (int i = 0; i < COLLECTIBLE_NUMBER; i++) {
             int x = (int)random(width/2);
-            int y = (int)this.random(LaserSledding.START_LINE*2f, LaserSledding.FINISH_LINE);
-            
+            int y = height / COLLECTIBLE_NUMBER * i + START_LINE * 2;
             double angle = Math.random() * Math.PI;
             p1Collectibles.add(new Collectible(this, x, y, angle));
             p2Collectibles.add(new Collectible(this, x + width / 2, y, angle));
         }
-    }
-    
-    // Sorts the collectibles based on Y position.
-    public void sortCollectibles(ArrayList<Collectible> list) {
-        
-        Collections.sort(list, new Comparator<Collectible>() {
-
-            @Override
-            public int compare(Collectible c1, Collectible c2) {
-                return (int)(c1.location.y - c2.location.y);
-            }
-        });
     }
 }
