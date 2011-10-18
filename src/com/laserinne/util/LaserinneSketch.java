@@ -75,7 +75,7 @@ public abstract class LaserinneSketch extends PApplet {
     /**
      * Sketch width and height.
      */
-    protected static final int WIDTH = 640;
+    protected static final int WIDTH = 480;
     protected static final int HEIGHT = 480;
     
     /**
@@ -147,8 +147,11 @@ public abstract class LaserinneSketch extends PApplet {
          * Draw FPS on screen
          */
         pushMatrix();
-        translate(40, 80);
+        translate(30, 80);
+        int fontAlign = font.align;
+        font.setAlign(RFont.LEFT);
         drawText(new Integer(Math.round(frameRate)).toString());
+        font.setAlign(fontAlign);
         popMatrix();
         
         /*
