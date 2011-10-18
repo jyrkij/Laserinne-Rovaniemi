@@ -41,8 +41,6 @@ import com.laserinne.util.LaserinneSketch;
  * Audio recording and level calculation is from
  * http://stackoverflow.com/q/5800649
  * 
- * TODO: Scale the scale down to 1/4 of size
- * 
  * @author Jyrki Lilja
  */
 public class SlopeDecibel extends LaserinneSketch {
@@ -57,7 +55,8 @@ public class SlopeDecibel extends LaserinneSketch {
     private long maxIndicatorUpdateTime;
     private long maxIndicatorPreviousUpdateTime;
     
-    private final static int LEVEL_INDICATOR_SIZE = WIDTH / 3;
+    private final static int LEVEL_INDICATOR_SIZE = WIDTH / 4;
+    private final static int LEVEL_INDICATOR_SCALE_FACTOR = HEIGHT / 4;
     private final static float LEVEL_INDICATOR_LEFT = WIDTH / 2 - LEVEL_INDICATOR_SIZE / 2;
     private final static float LEVEL_INDICATOR_RIGHT = WIDTH / 2 + LEVEL_INDICATOR_SIZE / 2;
     private final static long MAX_INDICATOR_TIME = 5000; // 5 seconds
@@ -123,12 +122,12 @@ public class SlopeDecibel extends LaserinneSketch {
     public void draw() {
         super.draw();
         
-        float dLevelIndicatorPosition = level * height - currentLevelIndicatorPosition;
+        float dLevelIndicatorPosition = level * LEVEL_INDICATOR_SCALE_FACTOR - currentLevelIndicatorPosition;
         if (abs(dLevelIndicatorPosition) > 1) {
             currentLevelIndicatorPosition += dLevelIndicatorPosition * easing;
         }
         
-        float dMaxIndicatorPosition = level * height - maxLevelIndicatorPosition;
+        float dMaxIndicatorPosition = level * LEVEL_INDICATOR_SCALE_FACTOR - maxLevelIndicatorPosition;
         if (MAX_VALUE_DROPS && System.currentTimeMillis() - maxIndicatorPreviousUpdateTime > MAX_INDICATOR_TIME && abs(dMaxIndicatorPosition) > 1) {
             maxIndicatorPreviousUpdateTime = System.currentTimeMillis();
             maxLevelIndicatorPosition = Math.min(currentLevelIndicatorPosition, maxLevelIndicatorPosition);
