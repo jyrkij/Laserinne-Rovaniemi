@@ -41,6 +41,8 @@ import com.laserinne.util.LaserinneSketch;
  * Audio recording and level calculation is from
  * http://stackoverflow.com/q/5800649
  * 
+ * TODO: Leave high score always to the highest value
+ * 
  * @author jyrkililja
  */
 public class SlopeDecibel extends LaserinneSketch {

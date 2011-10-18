@@ -38,6 +38,8 @@ import com.laserinne.util.RandomWalkOscillator;
 /**
  * SnakeRun acts as the main class of SnakeRun application.
  * 
+ * TODO: Concept of showing winner in LED vest. Automatically send/show it.
+ * 
  * @author Jyrki Lilja
  */
 
