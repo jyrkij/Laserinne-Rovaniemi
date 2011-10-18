@@ -41,6 +41,8 @@ import com.laserinne.util.LaserinneSketch;
  * Audio recording and level calculation is from
  * http://stackoverflow.com/q/5800649
  * 
+ * TODO: Scale the scale down to 1/4 of size
+ * 
  * @author Jyrki Lilja
  */
 public class SlopeDecibel extends LaserinneSketch {

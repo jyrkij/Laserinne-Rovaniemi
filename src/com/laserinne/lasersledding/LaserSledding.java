@@ -29,6 +29,12 @@ import java.util.Comparator;
 
 import processing.core.PApplet;
 
+/**
+ * TODO: Slow down the collectibles at least 1/2
+ * TODO: Make points evenly spaced (y axis), approx 5-6 points
+ * @author jyrkililja
+ *
+ */
 @SuppressWarnings("serial")
 public class LaserSledding extends com.laserinne.util.TwoPlayerCompetition {
     
