@@ -147,6 +147,12 @@ public class SlopeDecibel extends LaserinneSketch {
         endRaw();
     }
     
+    protected void reset() {
+        super.reset();
+        max = 0.0f;
+        maxLevelIndicatorPosition = HEIGHT;
+    }
+    
     private void calculateLevel(byte[] buffer, int readPoint, int leftOver) {
         float max = 0;
         boolean use16Bit = (format.getSampleSizeInBits() == 16);
