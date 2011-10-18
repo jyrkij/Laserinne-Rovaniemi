@@ -172,17 +172,19 @@ public abstract class LaserinneSketch extends PApplet {
      */
     public void drawText(String text) {
         RGroup myFontGroup = font.toGroup(text);
-        for (int t = 0; t < myFontGroup.elements.length; t++) {
-            RShape myFontShape = myFontGroup.elements[t].toShape();
-            RPath[] myFontPath = myFontShape.paths;
-            
-            for (int f = 0; f < myFontPath.length; f++) {
-                RPoint[] myFontPoints = myFontPath[f].getHandles();
-                beginShape();
-                for (int p = 1; p < myFontPoints.length - 1; p++) {
-                    vertex(myFontPoints[p].x, myFontPoints[p].y);
+        if (myFontGroup.elements != null) {
+            for (int t = 0; t < myFontGroup.elements.length; t++) {
+                RShape myFontShape = myFontGroup.elements[t].toShape();
+                RPath[] myFontPath = myFontShape.paths;
+                
+                for (int f = 0; f < myFontPath.length; f++) {
+                    RPoint[] myFontPoints = myFontPath[f].getHandles();
+                    beginShape();
+                    for (int p = 1; p < myFontPoints.length - 1; p++) {
+                        vertex(myFontPoints[p].x, myFontPoints[p].y);
+                    }
+                    endShape();
                 }
-                endShape();
             }
         }
     }
