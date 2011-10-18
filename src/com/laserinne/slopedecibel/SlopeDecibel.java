@@ -41,8 +41,6 @@ import com.laserinne.util.LaserinneSketch;
  * Audio recording and level calculation is from
  * http://stackoverflow.com/q/5800649
  * 
- * TODO: Leave high score always to the highest value
- * 
  * @author jyrkililja
  */
 public class SlopeDecibel extends LaserinneSketch {
@@ -66,6 +64,8 @@ public class SlopeDecibel extends LaserinneSketch {
     private final static float MAX_8_BITS_UNSIGNED = 0xff;
     private final static float MAX_16_BITS_SIGNED = Short.MAX_VALUE;
     private final static float MAX_16_BITS_UNSIGNED = 0xffff;
+    
+    private static boolean MAX_VALUE_DROPS = false;
     
     /**
      * main
@@ -128,7 +128,7 @@ public class SlopeDecibel extends LaserinneSketch {
         }
         
         float dMaxIndicatorPosition = height - level * height - maxLevelIndicatorPosition;
-        if (System.currentTimeMillis() - maxIndicatorPreviousUpdateTime > MAX_INDICATOR_TIME && abs(dMaxIndicatorPosition) > 1) {
+        if (MAX_VALUE_DROPS && System.currentTimeMillis() - maxIndicatorPreviousUpdateTime > MAX_INDICATOR_TIME && abs(dMaxIndicatorPosition) > 1) {
             maxIndicatorPreviousUpdateTime = System.currentTimeMillis();
             maxLevelIndicatorPosition = Math.max(currentLevelIndicatorPosition, maxLevelIndicatorPosition);
         } else {
