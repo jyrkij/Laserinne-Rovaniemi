@@ -55,7 +55,7 @@ public class SlopeDecibel extends LaserinneSketch {
     private long maxIndicatorUpdateTime;
     private long maxIndicatorPreviousUpdateTime;
     
-    private final static int LEVEL_INDICATOR_SIZE = 30;
+    private final static int LEVEL_INDICATOR_SIZE = WIDTH / 3;
     private final static float LEVEL_INDICATOR_LEFT = WIDTH / 2 - LEVEL_INDICATOR_SIZE / 2;
     private final static float LEVEL_INDICATOR_RIGHT = WIDTH / 2 + LEVEL_INDICATOR_SIZE / 2;
     private final static long MAX_INDICATOR_TIME = 5000; // 5 seconds
