@@ -41,7 +41,7 @@ import com.laserinne.util.LaserinneSketch;
  * Audio recording and level calculation is from
  * http://stackoverflow.com/q/5800649
  * 
- * @author jyrkililja
+ * @author Jyrki Lilja
  */
 public class SlopeDecibel extends LaserinneSketch {
     protected boolean running;
