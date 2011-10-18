@@ -102,7 +102,7 @@ public class NameDraw extends LaserinneSketch {
         beginRaw(laserRenderer);
         stroke(NameDraw.LASER_COLOR);
         noFill();
-        font.draw(nameList[index]);
+        drawText(nameList[index]);
         endRaw();
         font.setSize(fontSize);
     }

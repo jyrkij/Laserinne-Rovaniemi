@@ -111,11 +111,7 @@ public abstract class TwoPlayerCompetition extends LaserinneSketch {
             String finishNote = SkierContestant.winner(leftSkier, rightSkier);
             pushMatrix();
             translate(width / 2, height / 2);
-            font.setAlign(RFont.CENTER);
-            int fontSize = font.size;
-            font.setSize(40);
-            font.draw(finishNote);
-            font.setSize(fontSize);
+            drawText(finishNote);
             popMatrix();
         } else {
             /*

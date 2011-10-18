@@ -24,6 +24,10 @@
 package com.laserinne.util;
 
 import geomerative.RFont;
+import geomerative.RGroup;
+import geomerative.RPath;
+import geomerative.RPoint;
+import geomerative.RShape;
 import laserschein.Laser3D;
 import laserschein.Laserschein;
 import processing.core.PApplet;
@@ -143,9 +147,8 @@ public abstract class LaserinneSketch extends PApplet {
          * Draw FPS on screen
          */
         pushMatrix();
-        translate(30, 80);
-        font.setAlign(RFont.LEFT);
-        font.draw(new Integer(Math.round(frameRate)).toString());
+        translate(40, 80);
+        drawText(new Integer(Math.round(frameRate)).toString());
         popMatrix();
         
         /*
@@ -159,4 +162,25 @@ public abstract class LaserinneSketch extends PApplet {
      * an example on how to use this.
      */
     protected abstract void drawWithLaser();
+    
+    /**
+     * Draw text with laser using correct font (FeltPen-Regular.ttf)
+     * @param text to be drawn
+     */
+    public void drawText(String text) {
+        RGroup myFontGroup = font.toGroup(text);
+        for (int t = 0; t < myFontGroup.elements.length; t++) {
+            RShape myFontShape = myFontGroup.elements[t].toShape();
+            RPath[] myFontPath = myFontShape.paths;
+            
+            for (int f = 0; f < myFontPath.length; f++) {
+                RPoint[] myFontPoints = myFontPath[f].getHandles();
+                beginShape();
+                for (int p = 1; p < myFontPoints.length - 1; p++) {
+                    vertex(myFontPoints[p].x, myFontPoints[p].y);
+                }
+                endShape();
+            }
+        }
+    }
 }
