@@ -48,9 +48,10 @@ public class NameDraw extends LaserinneSketch {
     protected float x;
     protected float y;
     protected boolean overLine;
-    protected int index = 0;
+    protected int index = -1;
     protected ArrayList<String> nameList;
     protected Skier skier;
+    protected String currentName;
     
     protected static int FINISH_LINE = NameDraw.HEIGHT - 20;
     
@@ -87,6 +88,7 @@ public class NameDraw extends LaserinneSketch {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        currentName = " ";
     }
     
     public void draw() {
@@ -94,6 +96,9 @@ public class NameDraw extends LaserinneSketch {
         
         line(0, NameDraw.FINISH_LINE, width, NameDraw.FINISH_LINE);
         
+        /*
+         * GUI for selecting name
+         */
         pushMatrix();
         translate(10, 100);
         int fontAlign = font.align;
@@ -113,25 +118,17 @@ public class NameDraw extends LaserinneSketch {
         font.setSize(fontSize);
         popMatrix();
         
+        /*
+         * Skier
+         */
         skier = ((ContestantTracking) tracking).firstSkierInRect(0, 0, width, height);
         if (skier == null) {
             skier = new Skier(0, (float) mouseX / width - .5f, (float) mouseY / height - .5f, 10.0f / width - .5f, 10.f / (float) height - .5f, 0, 0, 0, 0);
         }
         
-        if (skier.getY() > NameDraw.FINISH_LINE && overLine == false) {
+        if (skier.getY() > NameDraw.FINISH_LINE) {
             spring.reset();
-            index += 1;
-            overLine = true;
-            if (index >= nameList.size()) {
-                index = 0;
-            }
-        }
-        
-        if (skier.getY() <= NameDraw.FINISH_LINE && overLine == true) {
-            overLine = false;
-        }
-        
-        if (skier.getY() < NameDraw.FINISH_LINE) {
+        } else {
             drawWithLaser();
         }
     }
@@ -144,9 +141,29 @@ public class NameDraw extends LaserinneSketch {
         beginRaw(laserRenderer);
         stroke(NameDraw.LASER_COLOR);
         noFill();
-        drawText(nameList.get(index));
+        drawText(currentName);
         endRaw();
         font.setSize(fontSize);
+    }
+    
+    public void keyPressed() {
+        super.keyPressed();
+        if (key == CODED) {
+            if (keyCode == UP) {
+                if (index <= 0) {
+                    index = nameList.size();
+                }
+                index--;
+            } else if (keyCode == DOWN) {
+                index++;
+                if (index == nameList.size()) {
+                    index = 0;
+                }
+            }
+        } else if (key == RETURN || key == ENTER) {
+            System.out.println("New name: " + nameList.get(index) + ".");
+            currentName = nameList.get(index);
+        }
     }
     
     class Spring {
