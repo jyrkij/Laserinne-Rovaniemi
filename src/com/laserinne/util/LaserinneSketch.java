@@ -188,4 +188,15 @@ public abstract class LaserinneSketch extends PApplet {
             }
         }
     }
+    
+    protected void reset() {
+        
+    }
+    
+    public void keyPressed() {
+        if (key == 'r') {
+            // Reset positions
+            reset();
+        }
+    }
 }

@@ -149,6 +149,7 @@ public abstract class TwoPlayerCompetition extends LaserinneSketch {
      * Reset skiers. Override this to reset other stuff in your game.
      */
     protected void reset() {
+        super.reset();
         leftSkier.reset();
         rightSkier.reset();
     }
@@ -157,11 +158,9 @@ public abstract class TwoPlayerCompetition extends LaserinneSketch {
      * Handle keypresses
      */
     public void keyPressed() {
+        super.keyPressed();
         if (key == 'n') {
             newGame();
-            reset();
-        } else if (key == 'r') {
-            // Reset positions
             reset();
         }
     }
