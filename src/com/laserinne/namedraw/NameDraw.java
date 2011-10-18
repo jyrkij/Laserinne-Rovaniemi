@@ -23,6 +23,11 @@
 
 package com.laserinne.namedraw;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 
 import com.laserinne.util.ContestantTracking;
@@ -30,8 +35,9 @@ import com.laserinne.util.LaserinneSketch;
 import com.laserinne.util.Skier;
 
 /**
- * 
- * @author Eero Ervast and Jyrki Lilja
+ * TODO: Store names in a xml file
+ * TODO: GUI for choosing the names
+ * @author Eero Ervast and Jyrki Lilja and Andreas Schmelas
  */
 
 @SuppressWarnings("serial")
@@ -41,9 +47,7 @@ public class NameDraw extends LaserinneSketch {
     protected float y;
     protected boolean overLine;
     protected int index = 0;
-    protected String[] nameList = {
-            "TANJA POUTIAINEN", "ANJA PAERSSON", "IHME HIIHT€J€", "HIIHTO PUMMI", "SUKSI SUOHON", "HAVUJA SAATANA"
-    };
+    protected ArrayList<String> nameList;
     protected Skier skier;
     
     protected static int FINISH_LINE = NameDraw.HEIGHT - 20;
@@ -64,6 +68,23 @@ public class NameDraw extends LaserinneSketch {
         tracking = new ContestantTracking();
         overLine = false;
         spring = new Spring(0.0f, 0.0f, 20, 0.98f, 16.0f, 0.01f);
+        
+        /*
+         * Load names
+         */
+        try {
+            FileReader fileReader = new FileReader("bin/data/names.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            this.nameList = new ArrayList<String>();
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                this.nameList.add(line);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     public void draw() {
@@ -80,7 +101,7 @@ public class NameDraw extends LaserinneSketch {
             spring.reset();
             index += 1;
             overLine = true;
-            if (index >= nameList.length) {
+            if (index >= nameList.size()) {
                 index = 0;
             }
         }
@@ -102,7 +123,7 @@ public class NameDraw extends LaserinneSketch {
         beginRaw(laserRenderer);
         stroke(NameDraw.LASER_COLOR);
         noFill();
-        drawText(nameList[index]);
+        drawText(nameList.get(index));
         endRaw();
         font.setSize(fontSize);
     }
