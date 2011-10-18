@@ -23,6 +23,8 @@
 
 package com.laserinne.namedraw;
 
+import geomerative.RFont;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -91,6 +93,25 @@ public class NameDraw extends LaserinneSketch {
         super.draw();
         
         line(0, NameDraw.FINISH_LINE, width, NameDraw.FINISH_LINE);
+        
+        pushMatrix();
+        translate(10, 100);
+        int fontAlign = font.align;
+        int fontSize = font.size;
+        int guiTextSize = 16;
+        font.setAlign(RFont.LEFT);
+        font.setSize(guiTextSize);
+        for (int i = 0; i < this.nameList.size(); i++) {
+            translate(0, guiTextSize * 1.25f);
+            if (index == i) {
+                drawText(String.format("- %d -: %s", i, nameList.get(i)));
+            } else {
+                drawText(String.format("%d: %s", i, nameList.get(i)));
+            }
+        }
+        font.setAlign(fontAlign);
+        font.setSize(fontSize);
+        popMatrix();
         
         skier = ((ContestantTracking) tracking).firstSkierInRect(0, 0, width, height);
         if (skier == null) {
