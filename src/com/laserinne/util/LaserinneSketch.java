@@ -108,7 +108,7 @@ public abstract class LaserinneSketch extends PApplet {
          * Initialize RG and font.
          */
         geomerative.RG.init(this);
-        font = new RFont("Laserfont.ttf", 80, RFont.CENTER);
+        font = new RFont("FeltPen-Regular.ttf", 80, RFont.CENTER);
         
         smooth();
         colorMode(RGB);
