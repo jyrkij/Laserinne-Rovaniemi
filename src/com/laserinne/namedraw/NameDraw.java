@@ -37,8 +37,6 @@ import com.laserinne.util.LaserinneSketch;
 import com.laserinne.util.Skier;
 
 /**
- * TODO: Store names in a xml file
- * TODO: GUI for choosing the names
  * @author Eero Ervast and Jyrki Lilja and Andreas Schmelas
  */
 
