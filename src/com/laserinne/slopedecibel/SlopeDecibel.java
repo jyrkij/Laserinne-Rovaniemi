@@ -51,8 +51,8 @@ public class SlopeDecibel extends LaserinneSketch {
     private float level;
     private float max;
     
-    private float currentLevelIndicatorPosition = HEIGHT;
-    private float maxLevelIndicatorPosition = HEIGHT;
+    private float currentLevelIndicatorPosition = 0.0f;
+    private float maxLevelIndicatorPosition = 0.0f;
     private float easing = 0.05f;
     private long maxIndicatorUpdateTime;
     private long maxIndicatorPreviousUpdateTime;
@@ -61,13 +61,12 @@ public class SlopeDecibel extends LaserinneSketch {
     private final static float LEVEL_INDICATOR_LEFT = WIDTH / 2 - LEVEL_INDICATOR_SIZE / 2;
     private final static float LEVEL_INDICATOR_RIGHT = WIDTH / 2 + LEVEL_INDICATOR_SIZE / 2;
     private final static long MAX_INDICATOR_TIME = 5000; // 5 seconds
+    private static boolean MAX_VALUE_DROPS = false;
     
     private final static float MAX_8_BITS_SIGNED = Byte.MAX_VALUE;
     private final static float MAX_8_BITS_UNSIGNED = 0xff;
     private final static float MAX_16_BITS_SIGNED = Short.MAX_VALUE;
     private final static float MAX_16_BITS_UNSIGNED = 0xffff;
-    
-    private static boolean MAX_VALUE_DROPS = false;
     
     /**
      * main
@@ -124,17 +123,17 @@ public class SlopeDecibel extends LaserinneSketch {
     public void draw() {
         super.draw();
         
-        float dLevelIndicatorPosition = height - level * height - currentLevelIndicatorPosition;
+        float dLevelIndicatorPosition = level * height - currentLevelIndicatorPosition;
         if (abs(dLevelIndicatorPosition) > 1) {
             currentLevelIndicatorPosition += dLevelIndicatorPosition * easing;
         }
         
-        float dMaxIndicatorPosition = height - level * height - maxLevelIndicatorPosition;
+        float dMaxIndicatorPosition = level * height - maxLevelIndicatorPosition;
         if (MAX_VALUE_DROPS && System.currentTimeMillis() - maxIndicatorPreviousUpdateTime > MAX_INDICATOR_TIME && abs(dMaxIndicatorPosition) > 1) {
             maxIndicatorPreviousUpdateTime = System.currentTimeMillis();
-            maxLevelIndicatorPosition = Math.max(currentLevelIndicatorPosition, maxLevelIndicatorPosition);
-        } else {
             maxLevelIndicatorPosition = Math.min(currentLevelIndicatorPosition, maxLevelIndicatorPosition);
+        } else {
+            maxLevelIndicatorPosition = Math.max(currentLevelIndicatorPosition, maxLevelIndicatorPosition);
         }
         
         drawWithLaser();
@@ -144,6 +143,8 @@ public class SlopeDecibel extends LaserinneSketch {
         beginRaw(laserRenderer);
         stroke(LASER_COLOR);
         noFill();
+        rotate((float) Math.PI);
+        translate(-WIDTH, -HEIGHT);
         line(LEVEL_INDICATOR_LEFT, currentLevelIndicatorPosition, LEVEL_INDICATOR_RIGHT, currentLevelIndicatorPosition);
         line(LEVEL_INDICATOR_LEFT, maxLevelIndicatorPosition, LEVEL_INDICATOR_RIGHT, maxLevelIndicatorPosition);
         endRaw();
@@ -152,7 +153,7 @@ public class SlopeDecibel extends LaserinneSketch {
     protected void reset() {
         super.reset();
         max = 0.0f;
-        maxLevelIndicatorPosition = HEIGHT;
+        maxLevelIndicatorPosition = 0.0f;
     }
     
     private void calculateLevel(byte[] buffer, int readPoint, int leftOver) {
