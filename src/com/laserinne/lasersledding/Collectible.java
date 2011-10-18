@@ -35,6 +35,8 @@ public class Collectible {
     int amplitude = 150;
     double angle;
     
+    protected static final float ANGLE_STEP = .025f;
+    
     Collectible(PApplet p, int xLoc, int yLoc, double angle) {
         parent = p;
         location = new PVector(xLoc, yLoc);
@@ -46,7 +48,7 @@ public class Collectible {
     public void update(int id) {
         float x = 0;
         
-        angle += .05;
+        angle += ANGLE_STEP;
         
         if(id == 1) {
             location.x = parent.width/2 + (amplitude * (float) Math.cos(angle));

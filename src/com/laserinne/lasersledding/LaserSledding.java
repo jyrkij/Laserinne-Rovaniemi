@@ -30,8 +30,6 @@ import java.util.Comparator;
 import processing.core.PApplet;
 
 /**
- * TODO: Slow down the collectibles at least 1/2
- * 
  * @author Mikko Pallas and Jyrki Lilja
  */
 @SuppressWarnings("serial")
