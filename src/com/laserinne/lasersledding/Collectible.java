@@ -35,7 +35,7 @@ public class Collectible {
     int amplitude = 150;
     double angle;
     
-    protected static final float ANGLE_STEP = .025f;
+    protected static final float ANGLE_STEP = .005f;
     
     Collectible(PApplet p, int xLoc, int yLoc, double angle) {
         parent = p;
