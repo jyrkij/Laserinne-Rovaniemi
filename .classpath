@@ -2,22 +2,18 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/core/core.jar"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/core/jna.jar"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/opengl/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/opengl/jogl.jar">
+	<classpathentry kind="lib" path="lib/base/core/core.jar"/>
+	<classpathentry kind="lib" path="lib/base/core/jna.jar"/>
+	<classpathentry kind="lib" path="lib/base/opengl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/base/opengl/jogl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/opengl"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="de.m9dfukc.laserinne/lib/base/opengl"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/opengl/opengl.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/base/opengl"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/user/blobDetection/blobDetection.jar"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/user/geomerative/geomerative.jar"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/user/Laserschein/Laserschein.jar"/>
-	<classpathentry kind="lib" path="/Users/m9dfukc/Documents/Workspace/de.m9dfukc.laserinne/lib/user/oscP5/oscP5.jar"/>
+	<classpathentry kind="lib" path="lib/base/opengl/opengl.jar"/>
+	<classpathentry kind="lib" path="lib/user/blobDetection/blobDetection.jar"/>
+	<classpathentry kind="lib" path="lib/user/geomerative/geomerative.jar"/>
+	<classpathentry kind="lib" path="lib/user/Laserschein/Laserschein.jar"/>
+	<classpathentry kind="lib" path="lib/user/oscP5/oscP5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
