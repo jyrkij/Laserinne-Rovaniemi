@@ -125,25 +125,6 @@ public abstract class LaserinneSketch extends PApplet {
         stroke(TwoPlayerCompetition.SCREEN_COLOR);
         
         /*
-         * Rotate/skew code in place for adapting to the slope.
-         */
-        // float cameraZ = (float) ((height/2.0) / Math.tan(PI * 60.0 / 360.0));
-        // perspective(PI / 3.0, width/height, cameraZ/10.0, cameraZ*10.0);
-        
-        float eyeX = width / 2.0f,
-              eyeY = height / 2.0f,
-              eyeZ = (float) ((height / 2.0) / Math.tan(PI * 60.0 / 360.0)),
-              centerX = width / 2.0f,
-              centerY = height / 2.0f,
-              centerZ = 0,
-              upX = 0,
-              upY = 1,
-              upZ = 0;
-        camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-        
-        // rotateX(-PI * 1 / 3);
-        
-        /*
          * Draw FPS on screen
          */
         pushMatrix();
