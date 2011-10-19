@@ -199,7 +199,7 @@ public class NameDraw extends LaserinneSketch {
             this.length = this.name.length();
             this.springs = new Motion[this.length];
             for (int i = 0; i < this.length; i++) {
-                this.springs[i] = new Motion(width / 2f, 0);
+                this.springs[i] = new Motion(width / 2f, height / 2f);
                 this.springs[i].setDamping(this.generateDamping((float) i / this.length));
             }
         }
@@ -217,9 +217,7 @@ public class NameDraw extends LaserinneSketch {
         }
         
         private float generateDamping(float position) {
-            float damping = .25f * (position * position) - .249f * position + this.initialDamping;;
-            System.out.println(damping);
-            return damping;
+            return - .25f * (position * position) + .249f * position + this.initialDamping;
         }
     }
 }
