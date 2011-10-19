@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="lib/user/geomerative/geomerative.jar"/>
 	<classpathentry kind="lib" path="lib/user/Laserschein/Laserschein.jar"/>
 	<classpathentry kind="lib" path="lib/user/oscP5/oscP5.jar"/>
+	<classpathentry kind="lib" path="lib/user/motion/motion.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

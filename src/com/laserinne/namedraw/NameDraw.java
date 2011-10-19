@@ -24,6 +24,10 @@
 package com.laserinne.namedraw;
 
 import geomerative.RFont;
+import geomerative.RGroup;
+import geomerative.RPath;
+import geomerative.RPoint;
+import geomerative.RShape;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -31,6 +35,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import seltar.motion.Motion;
 
 import com.laserinne.util.ContestantTracking;
 import com.laserinne.util.LaserinneSketch;
@@ -42,7 +47,6 @@ import com.laserinne.util.Skier;
 
 @SuppressWarnings("serial")
 public class NameDraw extends LaserinneSketch {
-    protected Spring spring;
     protected float x;
     protected float y;
     protected boolean overLine;
@@ -70,7 +74,6 @@ public class NameDraw extends LaserinneSketch {
         super.setup();
         tracking = new ContestantTracking();
         overLine = false;
-        spring = new Spring(0.0f, 0.0f, 20, 0.98f, 16.0f, 0.01f);
         
         /*
          * Load names
@@ -126,9 +129,7 @@ public class NameDraw extends LaserinneSketch {
             skier = new Skier(0, (float) mouseX / width - .5f, (float) mouseY / height - .5f, 10.0f / width - .5f, 10.f / (float) height - .5f, 0, 0, 0, 0);
         }
         
-        if (skier.getY() > NameDraw.FINISH_LINE) {
-            spring.reset();
-        } else {
+        if (skier.getY() <= NameDraw.FINISH_LINE) {
             drawWithLaser();
         }
     }
@@ -166,106 +167,59 @@ public class NameDraw extends LaserinneSketch {
         }
     }
     
-    public void drawChar(char c) {
-        this.drawText(String.format("%c", c));
+    public void drawChar(char c, float x, float y) {
+        RGroup myFontGroup = font.toGroup(String.format("%c", c));
+        if (myFontGroup.elements != null) {
+            for (int t = 0; t < myFontGroup.elements.length; t++) {
+                RShape myFontShape = myFontGroup.elements[t].toShape();
+                RPath[] myFontPath = myFontShape.paths;
+                
+                for (int f = 0; f < myFontPath.length; f++) {
+                    RPoint[] myFontPoints = myFontPath[f].getHandles();
+                    beginShape();
+                    for (int p = 1; p < myFontPoints.length - 1; p++) {
+                        vertex(myFontPoints[p].x + x, myFontPoints[p].y + y);
+                    }
+                    endShape();
+                }
+            }
+        }
     }
     
     class DisplayableName {
         protected String name;
         protected char[] chars;
         protected int length;
-        protected Spring[] springs;
-        protected final static float initialMass = 16.0f;
+        protected Motion[] springs;
+        protected final static float initialDamping = .9f;
         
         public DisplayableName(String name) {
             this.name = name;
             this.chars = this.name.toCharArray();
             this.length = this.name.length();
-            this.springs = new Spring[this.length];
+            this.springs = new Motion[this.length];
             for (int i = 0; i < this.length; i++) {
-                this.springs[i] = new Spring(
-                        width / 2f, 0, 20, 0.98f,
-                        this.generateMass((float) i / this.length), 0.01f);
+                this.springs[i] = new Motion(width / 2f, 0);
+                this.springs[i].setDamping(this.generateDamping((float) i / this.length));
             }
         }
         
         public void updateAndDraw(float x, float y) {
-            Spring s = null;
+            Motion s = null;
             int k = - this.length / 2;
             for (int i = 0; i < this.length; i++) {
                 s = this.springs[i];
                 k++;
-                s.update(x + k * font.size / 3 + 1, y);
-                pushMatrix();
-                s.follow();
-                drawChar(this.chars[i]);
-                popMatrix();
+                s.springTo(x + k * font.size / 3 + 1, y);
+                s.move();
+                drawChar(this.chars[i], s.getX(), s.getY());
             }
         }
         
-        private float generateMass(float position) {
-            return this.length * (position * position) - this.length / 2 * position + this.initialMass;
-        }
-    }
-    
-    class Spring {
-        // Screen values
-        float xpos, ypos;
-        float tempxpos, tempypos;
-        boolean move = true;
-        
-        // Spring simulation constants
-        float mass;       // Mass
-        float k = 0.2f;   // Spring constant
-        float damp;       // Damping
-        float rest_posx;  // Rest position X
-        float rest_posy;  // Rest position Y
-        
-        // Spring simulation variables
-        //float pos = 20.0; // Position
-        float velx = 0.0f;  // X Velocity
-        float vely = 0.0f;  // Y Velocity
-        float accel = 0;    // Acceleration
-        float force = 0;    // Force
-        
-        // Constructor
-        Spring (float x, float y, int s, float d, float m, float k_in) {
-            xpos = tempxpos = x;
-            ypos = tempypos = y;
-            rest_posx = x;
-            rest_posy = y;
-            damp = d;
-            mass = m;
-            k = k_in;
-        }
-        
-        void update(float x, float y) {
-            if (move) {
-                rest_posy = y;
-                rest_posx = x;
-            }
-            
-            force = -k * (tempypos - rest_posy);  // f=-ky
-            accel = force / mass;                 // Set the acceleration, f=ma == a=f/m
-            vely = damp * (vely + accel);         // Set the velocity
-            tempypos = tempypos + vely;           // Updated position
-            
-            force = -k * (tempxpos - rest_posx);  // f=-ky
-            accel = force / mass;                 // Set the acceleration, f=ma == a=f/m
-            velx = damp * (velx + accel);         // Set the velocity
-            tempxpos = tempxpos + velx;           // Updated position
-        }
-        
-        void follow() {
-            translate(tempxpos, tempypos);
-            move = true;
-        }
-        
-        void reset() {
-            tempxpos = xpos;
-            tempypos = ypos;
-            rest_posx = xpos;
-            rest_posy = ypos;
+        private float generateDamping(float position) {
+            float damping = .25f * (position * position) - .249f * position + this.initialDamping;;
+            System.out.println(damping);
+            return damping;
         }
     }
 }
