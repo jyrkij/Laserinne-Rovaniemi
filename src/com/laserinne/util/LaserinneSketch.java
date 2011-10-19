@@ -73,6 +73,11 @@ public abstract class LaserinneSketch extends PApplet {
     protected RFont font;
     
     /**
+     * Used to toggle control window.
+     */
+    protected boolean controlWindowShown = false;
+    
+    /**
      * Sketch width and height.
      */
     protected static final int WIDTH = 480;
@@ -178,6 +183,14 @@ public abstract class LaserinneSketch extends PApplet {
         if (key == 'r') {
             // Reset positions
             reset();
+        } else if (key == 's') {
+            if (this.controlWindowShown) {
+                this.laser.hideControlWindow();
+                this.controlWindowShown = true;
+            } else {
+                this.laser.showControlWindow();
+                this.controlWindowShown = false;
+            }
         }
     }
 }
