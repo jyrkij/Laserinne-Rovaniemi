@@ -201,10 +201,10 @@ public abstract class LaserinneSketch extends PApplet {
             // Toggle control window
             if (this.controlWindowShown) {
                 this.laser.hideControlWindow();
-                this.controlWindowShown = true;
+                this.controlWindowShown = false;
             } else {
                 this.laser.showControlWindow();
-                this.controlWindowShown = false;
+                this.controlWindowShown = true;
             }
         }
     }
