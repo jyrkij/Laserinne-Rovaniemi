@@ -161,9 +161,11 @@ public class NameDraw extends LaserinneSketch {
                 }
             }
         } else if (key == RETURN || key == ENTER) {
-            System.out.println("New name: " + nameList.get(index) + ".");
-            currentName = nameList.get(index);
-            displayableName = new DisplayableName(nameList.get(index));
+            if (index >= 0) {
+                System.out.println("New name: " + nameList.get(index) + ".");
+                currentName = nameList.get(index);
+                displayableName = new DisplayableName(nameList.get(index));
+            }
         }
     }
     
