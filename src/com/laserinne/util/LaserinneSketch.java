@@ -184,6 +184,7 @@ public abstract class LaserinneSketch extends PApplet {
             // Reset positions
             reset();
         } else if (key == 's') {
+            // Toggle control window
             if (this.controlWindowShown) {
                 this.laser.hideControlWindow();
                 this.controlWindowShown = true;
