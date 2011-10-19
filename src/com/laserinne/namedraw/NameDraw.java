@@ -51,6 +51,8 @@ public class NameDraw extends LaserinneSketch {
     protected Skier skier;
     protected String currentName;
     
+    protected DisplayableName displayableName;
+    
     protected static int FINISH_LINE = NameDraw.HEIGHT - 20;
     
     /**
@@ -132,14 +134,13 @@ public class NameDraw extends LaserinneSketch {
     }
     
     protected void drawWithLaser() {
-        spring.update(skier.getX(), skier.getY());
-        spring.follow();
         int fontSize = font.size;
         font.setSize(20);
         beginRaw(laserRenderer);
         stroke(NameDraw.LASER_COLOR);
         noFill();
-        drawText(currentName);
+        if (displayableName != null)
+            displayableName.updateAndDraw(skier.getX(), skier.getY());
         endRaw();
         font.setSize(fontSize);
     }
@@ -161,6 +162,49 @@ public class NameDraw extends LaserinneSketch {
         } else if (key == RETURN || key == ENTER) {
             System.out.println("New name: " + nameList.get(index) + ".");
             currentName = nameList.get(index);
+            displayableName = new DisplayableName(nameList.get(index));
+        }
+    }
+    
+    public void drawChar(char c) {
+        this.drawText(String.format("%c", c));
+    }
+    
+    class DisplayableName {
+        protected String name;
+        protected char[] chars;
+        protected int length;
+        protected Spring[] springs;
+        protected final static float initialMass = 16.0f;
+        
+        public DisplayableName(String name) {
+            this.name = name;
+            this.chars = this.name.toCharArray();
+            this.length = this.name.length();
+            this.springs = new Spring[this.length];
+            for (int i = 0; i < this.length; i++) {
+                this.springs[i] = new Spring(
+                        width / 2f, 0, 20, 0.98f,
+                        this.generateMass((float) i / this.length), 0.01f);
+            }
+        }
+        
+        public void updateAndDraw(float x, float y) {
+            Spring s = null;
+            int k = - this.length / 2;
+            for (int i = 0; i < this.length; i++) {
+                s = this.springs[i];
+                k++;
+                s.update(x + k * font.size / 3 + 1, y);
+                pushMatrix();
+                s.follow();
+                drawChar(this.chars[i]);
+                popMatrix();
+            }
+        }
+        
+        private float generateMass(float position) {
+            return this.length * (position * position) - this.length / 2 * position + this.initialMass;
         }
     }
     
