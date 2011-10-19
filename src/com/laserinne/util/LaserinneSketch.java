@@ -97,6 +97,11 @@ public abstract class LaserinneSketch extends PApplet {
      */
     public static final int TEXT_SCANSPEED = 60000;
     
+    /**
+     * Shake amount. Higher number will mean less exposure to the eye.
+     */
+    public static final float SHAKE_AMOUNT = 1.5f;
+    
     public void setup() {
         size(TwoPlayerCompetition.WIDTH, TwoPlayerCompetition.HEIGHT, processing.opengl.PGraphicsOpenGL.OPENGL);
         frameRate(-1); // Use maximum frame rate.
@@ -139,6 +144,15 @@ public abstract class LaserinneSketch extends PApplet {
         drawText(new Integer(Math.round(frameRate)).toString());
         font.setAlign(fontAlign);
         popMatrix();
+        
+        /*
+         * Shake the sketch so that it won't be projected on the same
+         * coordinates all the time. This helps us reduce the amount of
+         * intensity the eye receives.
+         */
+        translate(
+                ((float) Math.random() - .5f) * LaserinneSketch.SHAKE_AMOUNT,
+                ((float) Math.random() - .5f) * LaserinneSketch.SHAKE_AMOUNT);
         
         /*
          * Update tracking
