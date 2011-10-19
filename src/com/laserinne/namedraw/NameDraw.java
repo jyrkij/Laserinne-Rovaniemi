@@ -88,8 +88,10 @@ public class NameDraw extends LaserinneSketch {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            System.err.println("No names.txt found. It has to exist and has " +
+                    "to be in src/data folder.");
             e.printStackTrace();
+            System.exit(ERROR);
         }
         currentName = " ";
     }
